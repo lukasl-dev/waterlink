@@ -132,3 +132,11 @@ discord.AddHandler(session *discordgo.Session, event *discordgo.VoiceServerUpdat
 ```
 
 **After [`discordgo`](https://github.com/bwmarrin/discordgo) has been integrated, music can be [played](#play-a-track).**
+
+Use the code below to join a guild's voice channel. After that music can be [played](#play-a-track).
+
+```go
+err := dg.ChannelVoiceJoinManual("guildID", "voiceChannelID", false, false)
+
+// handle error
+```
