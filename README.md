@@ -38,7 +38,7 @@
 
 ## What is `waterlink`?
 
-`Waterlink` is a [Lavalink](https://github.com/Frederikam/Lavalink) client written in Go. The client is based on [Lavalink](https://github.com/Frederikam/Lavalink) version **3.0** or higher.
+`Waterlink` is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. The client is based on [Lavalink](https://github.com/freyacodes/Lavalink) version **3.0** or higher.
 
 ---
 
@@ -81,7 +81,7 @@ client, err := waterlink.New(
 
 ### Load one or more [Tracks](https://pkg.go.dev/github.com/lukasl-dev/waterlink#Track)
 
-See the [Track Loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api).
+See the [Track Loading API](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api).
 
 ```go
 typ, playlist, tracks, err := client.LoadTracks("source")
@@ -117,7 +117,7 @@ discord.AddHandler(func(session *discordgo.Session, event *discordgo.Ready) {
 })
 ```
 
-To be able to stream audio, the [VoiceServerUpdate](#https://github.com/bwmarrin/discordgo#VoiceServerUpdate) must be provided. See [this](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#provide-a-voice-server-update).
+To be able to stream audio, the [VoiceServerUpdate](#https://github.com/bwmarrin/discordgo#VoiceServerUpdate) must be provided. See [this](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md#provide-a-voice-server-update).
 
 ```go
 discord.AddHandler(session *discordgo.Session, event *discordgo.VoiceServerUpdate) {
