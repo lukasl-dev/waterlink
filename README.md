@@ -3,7 +3,7 @@
 <div align="center">
   <a href="https://golang.org/">
     <img
-      src="https://img.shields.io/badge/Made%20in-Go-%23EF4041?style=for-the-badge"
+      src="https://img.shields.io/badge/Written%20in-Go-%23EF4041?style=for-the-badge"
       height="30"
     />
   </a>
