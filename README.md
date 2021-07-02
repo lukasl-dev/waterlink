@@ -15,8 +15,6 @@
   </a>
 </div>
 
-<br>
-
 ## :books: Introduction
 
 Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. **The library is based on the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md).**
