@@ -19,7 +19,9 @@
 
 Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. **The library is based on the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md).**
 
-### :mag_right: Tested versions
+---
+
+## :mag_right: Compatibility
 
 - [x] [v3.3.2.5](https://github.com/freyacodes/Lavalink/releases/tag/3.3.2.5)
 
@@ -41,7 +43,7 @@ go get -u github.com/lukasl-dev/waterlink
 
 ### :house: Architecture
 
-I have tried to implement my interpretation of [**Clean Architecture by Robert C. Martin**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). If you have any corrections or suggestions, please create an issue.
+I have tried to implement my interpretation of [**Clean Architecture by Robert C. Martin (Uncle Bob)**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). If you have any corrections or suggestions, please create an issue.
 
 ### :mosquito: Mocking
 
