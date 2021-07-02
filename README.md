@@ -26,3 +26,13 @@ Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written
 - [x] [v3.3.2.5](https://github.com/freyacodes/Lavalink/releases/tag/3.3.2.5)
 
 ---
+
+## :ballot_box: Installation
+
+To use a waterlink as a Go package, you must of course have Go installed on your system.
+
+It is assumed that you have already worked with the Go environment. If this is not the case, see [this page first](https://golang.org/doc/install).
+
+```shell
+go get -u github.com/lukasl-dev/waterlink
+```
