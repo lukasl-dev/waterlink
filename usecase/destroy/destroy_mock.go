@@ -26,14 +26,18 @@ package destroy
 
 import "github.com/stretchr/testify/mock"
 
+// MockedDestroyer is the mock implementation for Destroyer.
 type MockedDestroyer struct {
 	mock.Mock
 }
 
+// NewMockedDestroyer returns a new MockedDestroyer.
 func NewMockedDestroyer() *MockedDestroyer {
 	return new(MockedDestroyer)
 }
 
+// Destroy is used to destroy an audio player of a
+// guild.
 func (d *MockedDestroyer) Destroy(guildID string) error {
 	return d.Called(guildID).Error(0)
 }
