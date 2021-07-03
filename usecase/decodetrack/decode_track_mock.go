@@ -29,14 +29,18 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// MockedTrackDecoder is the mock implementation of TrackDecoder.
 type MockedTrackDecoder struct {
 	mock.Mock
 }
 
+// NewMockedTrackDecoder returns a new MockedTrackDecoder.
 func NewMockedTrackDecoder() *MockedTrackDecoder {
 	return new(MockedTrackDecoder)
 }
 
+// DecodeTracks is used to decode the passed trackIDs
+// to track infos.
 func (d *MockedTrackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.TrackInfo, error) {
 	args := d.Called(trackIDs)
 	return args.Get(0).([]*loadtrack.TrackInfo), args.Error(1)
