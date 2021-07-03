@@ -31,8 +31,8 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/lukasl-dev/waterlink/entity/track"
 	"github.com/lukasl-dev/waterlink/usecase/decodetrack"
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
 )
 
 const decodeTracksPath = "/decodetracks"
@@ -52,7 +52,7 @@ func NewTrackDecoder(client *http.Client, host url.URL, passphrase string) decod
 	}
 }
 
-func (d *trackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.Track, error) {
+func (d *trackDecoder) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
 	resp, err := d.request(trackIDs)
 	if err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func (d *trackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.Track, err
 	return d.unmarshal(resp)
 }
 
-func (d *trackDecoder) unmarshal(resp *http.Response) (tracks []*loadtrack.Track, err error) {
+func (d *trackDecoder) unmarshal(resp *http.Response) (tracks []*track.Info, err error) {
 	defer resp.Body.Close()
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {

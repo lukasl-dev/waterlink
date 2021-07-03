@@ -24,9 +24,11 @@
 
 package loadtrack
 
+import "github.com/lukasl-dev/waterlink/entity/track"
+
 type Response struct {
-	LoadType     LoadType     `json:"loadType,omitempty"`
-	PlaylistInfo PlaylistInfo `json:"playlistInfo,omitempty"`
-	Tracks       []Track      `json:"tracks,omitempty"`
-	Exception    Exception    `json:"exception,omitempty"`
+	LoadType     LoadType           `json:"loadType,omitempty"`
+	PlaylistInfo track.PlaylistInfo `json:"playlistInfo,omitempty"`
+	Tracks       []track.Track      `json:"tracks,omitempty"`
+	Exception    Exception          `json:"exception,omitempty"`
 }

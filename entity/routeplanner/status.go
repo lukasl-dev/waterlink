@@ -22,10 +22,9 @@
  * SOFTWARE.
  */
 
-package getstatus
+package routeplanner
 
-type FailedAddress struct {
-	Address          string `json:"address,omitempty"`
-	FailingTimestamp uint   `json:"failingTimestamp,omitempty"`
-	FailingTime      string `json:"failingTime,omitempty"`
+type Status struct {
+	Class   string  `json:"class,omitempty"`
+	Details Details `json:"details,omitempty"`
 }

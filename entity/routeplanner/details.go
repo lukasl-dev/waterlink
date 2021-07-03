@@ -22,9 +22,11 @@
  * SOFTWARE.
  */
 
-package getstatus
+package routeplanner
 
-type IPBlock struct {
-	Type string `json:"type,omitempty"`
-	Size uint   `json:"size,omitempty"`
+type Details struct {
+	IPBlock             IPBlock         `json:"ipBlock,omitempty"`
+	FailingAddresses    []FailedAddress `json:"failingAddresses,omitempty"`
+	BlockIndex          uint            `json:"blockIndex,omitempty"`
+	CurrentAddressIndex string          `json:"currentAddressIndex,omitempty"`
 }

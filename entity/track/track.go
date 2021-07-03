@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-package getstatus
+package track
 
-type Status struct {
-	Class   string  `json:"class,omitempty"`
-	Details Details `json:"details,omitempty"`
+type Track struct {
+	ID   string `json:"track,omitempty"`
+	Info Info   `json:"info,omitempty"`
 }

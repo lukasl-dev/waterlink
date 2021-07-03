@@ -25,7 +25,7 @@
 package decodetrack
 
 import (
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
+	"github.com/lukasl-dev/waterlink/entity/track"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -41,7 +41,7 @@ func NewMockedTrackDecoder() *MockedTrackDecoder {
 
 // DecodeTracks is used to decode the passed trackIDs
 // to track infos.
-func (d *MockedTrackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.TrackInfo, error) {
+func (d *MockedTrackDecoder) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
 	args := d.Called(trackIDs)
-	return args.Get(0).([]*loadtrack.TrackInfo), args.Error(1)
+	return args.Get(0).([]*track.Info), args.Error(1)
 }

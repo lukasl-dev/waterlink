@@ -25,8 +25,9 @@
 package waterlink
 
 import (
+	"github.com/lukasl-dev/waterlink/entity/routeplanner"
+	"github.com/lukasl-dev/waterlink/entity/track"
 	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
-	"github.com/lukasl-dev/waterlink/usecase/routeplanner/getstatus"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -38,9 +39,9 @@ func NewMockedClient() *MockedClient {
 	return new(MockedClient)
 }
 
-func (c *MockedClient) DecodeTracks(trackIDs ...string) ([]*loadtrack.Track, error) {
+func (c *MockedClient) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
 	args := c.Called(trackIDs)
-	return args.Get(0).([]*loadtrack.Track), args.Error(1)
+	return args.Get(0).([]*track.Info), args.Error(1)
 }
 
 func (c *MockedClient) LoadTrack(identifier string) (*loadtrack.Response, error) {
@@ -48,9 +49,9 @@ func (c *MockedClient) LoadTrack(identifier string) (*loadtrack.Response, error)
 	return args.Get(0).(*loadtrack.Response), args.Error(1)
 }
 
-func (c *MockedClient) Status() (*getstatus.Status, error) {
+func (c *MockedClient) Status() (*routeplanner.Status, error) {
 	args := c.Called()
-	return args.Get(0).(*getstatus.Status), args.Error(1)
+	return args.Get(0).(*routeplanner.Status), args.Error(1)
 }
 
 func (c *MockedClient) UnmarkAddress(address string) error {

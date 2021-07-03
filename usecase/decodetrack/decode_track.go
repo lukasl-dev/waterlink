@@ -25,12 +25,12 @@
 package decodetrack
 
 import (
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
+	"github.com/lukasl-dev/waterlink/entity/track"
 )
 
 // TrackDecoder wraps the DecodeTracks method.
 type TrackDecoder interface {
 	// DecodeTracks is used to decode the passed trackIDs
 	// to track infos.
-	DecodeTracks(trackIDs ...string) ([]*loadtrack.TrackInfo, error)
+	DecodeTracks(trackIDs ...string) ([]*track.Info, error)
 }

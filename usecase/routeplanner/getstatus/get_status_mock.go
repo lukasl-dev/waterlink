@@ -24,7 +24,10 @@
 
 package getstatus
 
-import "github.com/stretchr/testify/mock"
+import (
+	"github.com/lukasl-dev/waterlink/entity/routeplanner"
+	"github.com/stretchr/testify/mock"
+)
 
 type MockedStatusGetter struct {
 	mock.Mock
@@ -34,7 +37,7 @@ func NewMockedStatusGetter() *MockedStatusGetter {
 	return new(MockedStatusGetter)
 }
 
-func (g *MockedStatusGetter) Status() (*Status, error) {
+func (g *MockedStatusGetter) Status() (*routeplanner.Status, error) {
 	args := g.Called()
-	return args.Get(0).(*Status), args.Error(1)
+	return args.Get(0).(*routeplanner.Status), args.Error(1)
 }

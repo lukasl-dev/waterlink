@@ -22,11 +22,9 @@
  * SOFTWARE.
  */
 
-package getstatus
+package track
 
-type Details struct {
-	IPBlock             IPBlock         `json:"ipBlock,omitempty"`
-	FailingAddresses    []FailedAddress `json:"failingAddresses,omitempty"`
-	BlockIndex          uint            `json:"blockIndex,omitempty"`
-	CurrentAddressIndex string          `json:"currentAddressIndex,omitempty"`
+type PlaylistInfo struct {
+	Name          string `json:"name,omitempty"`
+	SelectedTrack int    `json:"selectedTrack,omitempty"`
 }
