@@ -38,7 +38,7 @@ func NewMockedConnector() *MockedConnector {
 	return new(MockedConnector)
 }
 
-func (c *MockedConnector) Open(ctx context.Context) (Connection, error) {
+func (c *MockedConnector) Open(ctx context.Context) (conn Connection, resumed bool, err error) {
 	args := c.Called(ctx)
-	return args.Get(0).(Connection), args.Error(1)
+	return args.Get(0).(Connection), args.Bool(1), args.Error(2)
 }
