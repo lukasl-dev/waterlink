@@ -24,8 +24,10 @@
 
 package decodetrack
 
-import "github.com/lukasl-dev/waterlink/usecase/loadtrack"
+import (
+	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
+)
 
 type TrackDecoder interface {
-	DecodeTracks(trackIDs ...string) ([]*loadtrack.Track, error)
+	DecodeTracks(trackIDs ...string) ([]*loadtrack.TrackInfo, error)
 }

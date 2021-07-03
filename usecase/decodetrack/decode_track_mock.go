@@ -37,7 +37,7 @@ func NewMockedTrackDecoder() *MockedTrackDecoder {
 	return new(MockedTrackDecoder)
 }
 
-func (d *MockedTrackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.Track, error) {
+func (d *MockedTrackDecoder) DecodeTracks(trackIDs ...string) ([]*loadtrack.TrackInfo, error) {
 	args := d.Called(trackIDs)
-	return args.Get(0).([]*loadtrack.Track), args.Error(1)
+	return args.Get(0).([]*loadtrack.TrackInfo), args.Error(1)
 }
