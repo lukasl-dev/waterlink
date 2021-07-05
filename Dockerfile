@@ -10,4 +10,4 @@ COPY . .
 RUN go mod download
 
 # Run Go tests (includes sub directories)
-CMD [ "go", "test", "./...", "-v" ]
+CMD [ "go", "test", "./..." ]
