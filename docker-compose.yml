@@ -1,0 +1,7 @@
+services:
+  tests:
+    build: .
+  lavalink:
+    image: fredboat/lavalink:master
+    volumes:
+      - ./lavalink.yml:/opt/Lavalink/application.yml
