@@ -25,26 +25,17 @@
 package websocketdriver
 
 import (
+	"strconv"
+
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/updatevoice"
 )
 
-type voiceUpdatePayload struct {
-	OP        op               `json:"op,omitempty"`
-	GuildID   string           `json:"guildId,omitempty"`
-	SessionID string           `json:"sessionId,omitempty"`
-	Event     voiceUpdateEvent `json:"event,omitempty"`
-}
-
-type voiceUpdateEvent struct {
-	GuildID  string `json:"guild_id"`
-	Token    string `json:"token"`
-	Endpoint string `json:"endpoint"`
-}
-
 type voiceUpdater struct {
 	conn *websocket.Conn
 }
+
+var _ updatevoice.VoiceUpdater = (*voiceUpdater)(nil)
 
 func NewVoiceUpdater(conn *websocket.Conn) updatevoice.VoiceUpdater {
 	return &voiceUpdater{
@@ -52,13 +43,28 @@ func NewVoiceUpdater(conn *websocket.Conn) updatevoice.VoiceUpdater {
 	}
 }
 
-func (u *voiceUpdater) UpdateVoice(guildID, sessionID, token, endpoint string) error {
+type (
+	voiceUpdatePayload struct {
+		OP        op               `json:"op,omitempty"`
+		GuildID   string           `json:"guildId,omitempty"`
+		SessionID string           `json:"sessionId,omitempty"`
+		Event     voiceUpdateEvent `json:"event,omitempty"`
+	}
+	voiceUpdateEvent struct {
+		GuildID  string `json:"guild_id"`
+		Token    string `json:"token"`
+		Endpoint string `json:"endpoint"`
+	}
+)
+
+func (u *voiceUpdater) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
+	s := strconv.Itoa(int(guildID))
 	return u.conn.WriteJSON(voiceUpdatePayload{
 		OP:        opVoiceUpdate,
-		GuildID:   guildID,
+		GuildID:   s,
 		SessionID: sessionID,
 		Event: voiceUpdateEvent{
-			GuildID:  guildID,
+			GuildID:  s,
 			Token:    token,
 			Endpoint: endpoint,
 		},
