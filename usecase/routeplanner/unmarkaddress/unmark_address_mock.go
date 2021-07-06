@@ -30,6 +30,8 @@ type MockedAddressUnmarker struct {
 	mock.Mock
 }
 
+var _ AddressUnmarker = (*MockedAddressUnmarker)(nil)
+
 func NewMockedAddressUnmarker() *MockedAddressUnmarker {
 	return new(MockedAddressUnmarker)
 }
