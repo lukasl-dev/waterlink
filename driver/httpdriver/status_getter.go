@@ -66,7 +66,7 @@ func (g *statusGetter) Status() (*routeplanner.Status, error) {
 }
 
 func (g *statusGetter) request() (*http.Request, error) {
-	return http.NewRequest(http.MethodPost, g.host.String(), nil)
+	return http.NewRequest(http.MethodGet, g.host.String(), nil)
 }
 
 func (g *statusGetter) unmarshal(resp *http.Response) (dest *routeplanner.Status, err error) {
