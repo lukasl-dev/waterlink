@@ -25,5 +25,5 @@
 package play
 
 type Player interface {
-	Play(guildID, trackID string, opts *Options) error
+	Play(guildID uint, trackID string, opts ...*Options) error
 }

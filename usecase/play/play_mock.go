@@ -34,6 +34,6 @@ func NewMockedPlayer() *MockedPlayer {
 	return new(MockedPlayer)
 }
 
-func (p *MockedPlayer) Play(guildID string, trackID string, opts *Options) error {
+func (p *MockedPlayer) Play(guildID uint, trackID string, opts ...*Options) error {
 	return p.Called(guildID, trackID, opts).Error(0)
 }
