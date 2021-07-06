@@ -33,6 +33,8 @@ type MockedStatusGetter struct {
 	mock.Mock
 }
 
+var _ StatusGetter = (*MockedStatusGetter)(nil)
+
 func NewMockedStatusGetter() *MockedStatusGetter {
 	return new(MockedStatusGetter)
 }
