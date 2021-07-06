@@ -34,6 +34,6 @@ func NewMockedSeeker() *MockedSeeker {
 	return new(MockedSeeker)
 }
 
-func (s *MockedSeeker) Seek(guildID string, position uint) error {
+func (s *MockedSeeker) Seek(guildID, position uint) error {
 	return s.Called(guildID, position).Error(0)
 }

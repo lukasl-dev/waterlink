@@ -25,5 +25,5 @@
 package seek
 
 type Seeker interface {
-	Seek(guildID string, position uint) error
+	Seek(guildID, position uint) error
 }
