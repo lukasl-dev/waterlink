@@ -29,5 +29,30 @@ type Options struct {
 	EndTime   uint `json:"endTime,omitempty"`
 	Volume    int  `json:"volume,omitempty"`
 	NoReplace bool `json:"noReplace,omitempty"`
-	Pause     bool `json:"pause,omitempty"`
+	Paused    bool `json:"paused,omitempty"`
+}
+
+func (opts *Options) WithStartTime(startTime uint) *Options {
+	opts.StartTime = startTime
+	return opts
+}
+
+func (opts *Options) WithEndTime(endTime uint) *Options {
+	opts.EndTime = endTime
+	return opts
+}
+
+func (opts *Options) WithVolume(volume int) *Options {
+	opts.Volume = volume
+	return opts
+}
+
+func (opts *Options) WithNoReplace(noReplace bool) *Options {
+	opts.NoReplace = noReplace
+	return opts
+}
+
+func (opts *Options) WithPaused(paused bool) *Options {
+	opts.Paused = paused
+	return opts
 }
