@@ -25,11 +25,11 @@
 package waterlink
 
 import (
+	"github.com/lukasl-dev/waterlink/usecase/configureresuming"
 	"github.com/lukasl-dev/waterlink/usecase/destroy"
 	"github.com/lukasl-dev/waterlink/usecase/equalize"
 	"github.com/lukasl-dev/waterlink/usecase/pause"
 	"github.com/lukasl-dev/waterlink/usecase/play"
-	"github.com/lukasl-dev/waterlink/usecase/resumesession"
 	"github.com/lukasl-dev/waterlink/usecase/seek"
 	"github.com/lukasl-dev/waterlink/usecase/stop"
 	"github.com/lukasl-dev/waterlink/usecase/updatevoice"
@@ -37,13 +37,14 @@ import (
 )
 
 type Connection interface {
+	configureresuming.ResumingConfigurer
 	destroy.Destroyer
 	equalize.Equalizer
 	pause.Pauser
 	play.Player
-	resumesession.SessionResumer
 	seek.Seeker
 	stop.Stopper
 	updatevoice.VoiceUpdater
 	updatevolume.VolumeUpdater
+	Resumed() bool
 }
