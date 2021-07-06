@@ -25,5 +25,5 @@
 package updatevolume
 
 type VolumeUpdater interface {
-	UpdateVolume(guildID string, volume uint) error
+	UpdateVolume(guildID, volume uint) error
 }

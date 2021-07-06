@@ -34,6 +34,6 @@ func NewMockedVolumeUpdater() *MockedVolumeUpdater {
 	return new(MockedVolumeUpdater)
 }
 
-func (u *MockedVolumeUpdater) UpdateVolume(guildID string, volume uint) error {
+func (u *MockedVolumeUpdater) UpdateVolume(guildID, volume uint) error {
 	return u.Called(guildID, volume).Error(0)
 }
