@@ -24,40 +24,50 @@
 
 package waterlink
 
-import (
-	"github.com/lukasl-dev/waterlink/entity/routeplanner"
-	"github.com/lukasl-dev/waterlink/entity/track"
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
-	"github.com/stretchr/testify/mock"
-)
+import "github.com/gorilla/websocket"
 
-type MockedClient struct {
-	mock.Mock
+type ConnectOptions struct {
+	dialer     *websocket.Dialer
+	passphrase string
+	numShards  uint
+	userID     uint
+	resumeKey  string
 }
 
-func NewMockedClient() *MockedClient {
-	return new(MockedClient)
+func NewConnectOptions() *ConnectOptions {
+	return &ConnectOptions{
+		dialer: websocket.DefaultDialer,
+	}
 }
 
-func (c *MockedClient) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
-	args := c.Called(trackIDs)
-	return args.Get(0).([]*track.Info), args.Error(1)
+func minimizeConnectOptions(opts []*ConnectOptions) *ConnectOptions {
+	if len(opts) > 0 {
+		return opts[0]
+	}
+	return NewConnectOptions()
 }
 
-func (c *MockedClient) LoadTrack(identifier string) (*loadtrack.Response, error) {
-	args := c.Called(identifier)
-	return args.Get(0).(*loadtrack.Response), args.Error(1)
+func (opts *ConnectOptions) WithDialer(dialer *websocket.Dialer) *ConnectOptions {
+	opts.dialer = dialer
+	return opts
 }
 
-func (c *MockedClient) Status() (*routeplanner.Status, error) {
-	args := c.Called()
-	return args.Get(0).(*routeplanner.Status), args.Error(1)
+func (opts *ConnectOptions) WithPassphrase(passphrase string) *ConnectOptions {
+	opts.passphrase = passphrase
+	return opts
 }
 
-func (c *MockedClient) UnmarkAddress(address string) error {
-	return c.Called(address).Error(0)
+func (opts *ConnectOptions) WithNumShards(numShards uint) *ConnectOptions {
+	opts.numShards = numShards
+	return opts
 }
 
-func (c *MockedClient) UnmarkAddresses() error {
-	return c.Called().Error(0)
+func (opts *ConnectOptions) WithUserID(userID uint) *ConnectOptions {
+	opts.userID = userID
+	return opts
+}
+
+func (opts *ConnectOptions) WithResumeKey(resumeKey string) *ConnectOptions {
+	opts.resumeKey = resumeKey
+	return opts
 }
