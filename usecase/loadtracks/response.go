@@ -22,14 +22,13 @@
  * SOFTWARE.
  */
 
-package loadtrack
+package loadtracks
 
-type LoadType string
+import "github.com/lukasl-dev/waterlink/entity/track"
 
-const (
-	LoadTypeTrackLoaded    LoadType = "TRACK_LOADED"
-	LoadTypePlaylistLoaded LoadType = "PLAYLIST_LOADED"
-	LoadTypeSearchResult   LoadType = "SEARCH_RESULT"
-	LoadTypeNoMatches      LoadType = "NO_MATCHES "
-	LoadTypeFailed         LoadType = "LOAD_FAILED "
-)
+type Response struct {
+	LoadType     LoadType           `json:"loadType,omitempty"`
+	PlaylistInfo track.PlaylistInfo `json:"playlistInfo,omitempty"`
+	Tracks       []track.Track      `json:"tracks,omitempty"`
+	Exception    Exception          `json:"exception,omitempty"`
+}

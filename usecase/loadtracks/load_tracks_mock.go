@@ -22,9 +22,21 @@
  * SOFTWARE.
  */
 
-package loadtrack
+package loadtracks
 
-type Exception struct {
-	Message  string `json:"message,omitempty"`
-	Severity string `json:"severity,omitempty"`
+import "github.com/stretchr/testify/mock"
+
+type MockedTracksLoader struct {
+	mock.Mock
+}
+
+var _ TracksLoader = (*MockedTracksLoader)(nil)
+
+func NewMockedTrackLoader() *MockedTracksLoader {
+	return new(MockedTracksLoader)
+}
+
+func (l *MockedTracksLoader) LoadTracks(identifier string) (*Response, error) {
+	args := l.Called(identifier)
+	return args.Get(0).(*Response), args.Error(1)
 }

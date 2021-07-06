@@ -22,8 +22,8 @@
  * SOFTWARE.
  */
 
-package loadtrack
+package loadtracks
 
-type TrackLoader interface {
-	LoadTrack(identifier string) (*Response, error)
+type TracksLoader interface {
+	LoadTracks(identifier string) (*Response, error)
 }

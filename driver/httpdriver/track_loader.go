@@ -44,9 +44,9 @@ type tracksLoader struct {
 	passphrase string
 }
 
-var _ loadtracks.TrackLoaders = (*tracksLoader)(nil)
+var _ loadtracks.TracksLoader = (*tracksLoader)(nil)
 
-func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtracks.TrackLoaders {
+func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtracks.TracksLoader {
 	host.Path += pathLoadTracks
 	return &tracksLoader{
 		client: client,
