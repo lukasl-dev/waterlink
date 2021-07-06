@@ -30,6 +30,8 @@ type MockedVoiceUpdater struct {
 	mock.Mock
 }
 
+var _ VoiceUpdater = (*MockedVoiceUpdater)(nil)
+
 func NewMockedVoiceUpdater() *MockedVoiceUpdater {
 	return new(MockedVoiceUpdater)
 }
