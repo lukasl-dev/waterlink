@@ -48,3 +48,22 @@ type Connection interface {
 	updatevolume.VolumeUpdater
 	Resumed() bool
 }
+
+type connection struct {
+	configureresuming.ResumingConfigurer
+	destroy.Destroyer
+	equalize.Equalizer
+	pause.Pauser
+	play.Player
+	seek.Seeker
+	stop.Stopper
+	updatevoice.VoiceUpdater
+	updatevolume.VolumeUpdater
+	resumed bool
+}
+
+var _ Connection = (*connection)(nil)
+
+func (conn *connection) Resumed() bool {
+	return conn.resumed
+}
