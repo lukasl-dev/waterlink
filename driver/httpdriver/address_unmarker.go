@@ -53,24 +53,24 @@ func NewAddressUnmarker(client *http.Client, host url.URL, passphrase string) un
 	}
 }
 
-func (d *addressUnmarker) UnmarkAddress(address string) error {
-	req, err := d.request(address)
+func (u *addressUnmarker) UnmarkAddress(address string) error {
+	req, err := u.request(address)
 	if err != nil {
 		return err
 	}
-	_, err = d.client.Do(req)
+	_, err = u.client.Do(req)
 	return err
 }
 
-func (d *addressUnmarker) request(address string) (*http.Request, error) {
-	body, err := d.body(address)
+func (u *addressUnmarker) request(address string) (*http.Request, error) {
+	body, err := u.body(address)
 	if err != nil {
 		return nil, err
 	}
-	return http.NewRequest(http.MethodPost, d.host.String(), body)
+	return http.NewRequest(http.MethodPost, u.host.String(), body)
 }
 
-func (d *addressUnmarker) body(address string) (io.Reader, error) {
+func (u *addressUnmarker) body(address string) (io.Reader, error) {
 	type body struct {
 		Address string `json:"address,omitempty"`
 	}
