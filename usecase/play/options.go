@@ -36,6 +36,13 @@ func NewOptions() *Options {
 	return new(Options)
 }
 
+func MinimizeOptions(opts ...*Options) *Options {
+	if len(opts) > 0 {
+		return opts[0]
+	}
+	return NewOptions()
+}
+
 func (opts *Options) WithStartTime(startTime uint) *Options {
 	opts.StartTime = startTime
 	return opts
