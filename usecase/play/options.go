@@ -32,6 +32,10 @@ type Options struct {
 	Paused    bool `json:"paused,omitempty"`
 }
 
+func NewOptions() *Options {
+	return new(Options)
+}
+
 func (opts *Options) WithStartTime(startTime uint) *Options {
 	opts.StartTime = startTime
 	return opts
