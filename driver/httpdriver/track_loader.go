@@ -25,6 +25,7 @@
 package httpdriver
 
 import (
+	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -34,8 +35,8 @@ import (
 )
 
 const (
-	loadTrackPath       = "/loadtracks"
-	identifierParameter = "identifier"
+	pathLoadTrack   = "/loadtracks"
+	paramIdentifier = "identifier"
 )
 
 type trackLoader struct {
@@ -44,58 +45,40 @@ type trackLoader struct {
 	passphrase string
 }
 
+var _ loadtrack.TrackLoader = (*trackLoader)(nil)
+
 func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtrack.TrackLoader {
-	host.Path += loadTrackPath
 	return &trackLoader{
-		client:     client,
-		host:       host,
-		passphrase: passphrase,
+		client: client,
+		host:   host, passphrase: passphrase,
 	}
 }
 
 func (l *trackLoader) LoadTrack(identifier string) (*loadtrack.Response, error) {
-	resp, err := l.request(identifier)
+	panic("implement me")
+}
+
+func (l *trackLoader) request(trackIDs []string) (*http.Request, error) {
+	body, err := l.body(trackIDs)
 	if err != nil {
 		return nil, err
 	}
-	return l.unmarshal(resp)
+	return http.NewRequest(http.MethodGet, l.host.String(), body)
 }
 
-func (l *trackLoader) unmarshal(resp *http.Response) (res *loadtrack.Response, err error) {
-	defer resp.Body.Close()
+func (l *trackLoader) body(trackIDs []string) (io.Reader, error) {
+	b, err := json.Marshal(trackIDs)
+	if err != nil {
+		return nil, err
+	}
+	return bytes.NewReader(b), nil
+}
+
+func (l *trackLoader) unmarshal(resp *http.Response) (dest *loadtrack.Response, err error) {
 	b, err := io.ReadAll(resp.Body)
+	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
-	return res, json.Unmarshal(b, &res)
-}
-
-func (l *trackLoader) request(identifier string) (*http.Response, error) {
-	req, err := l.createRequest(identifier)
-	if err != nil {
-		return nil, err
-	}
-	return l.client.Do(req)
-}
-
-func (l *trackLoader) createRequest(identifier string) (*http.Request, error) {
-	host := l.createURL(identifier)
-	req, err := http.NewRequest(http.MethodGet, host.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header = createHeader(l.passphrase)
-	return req, nil
-}
-
-func (l *trackLoader) createURL(identifier string) url.URL {
-	host := l.host
-	host.RawQuery = l.createQuery(identifier).Encode()
-	return host
-}
-
-func (l *trackLoader) createQuery(identifier string) url.Values {
-	query := make(url.Values)
-	query.Set(identifierParameter, identifier)
-	return query
+	return dest, json.Unmarshal(b, &dest)
 }
