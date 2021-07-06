@@ -25,5 +25,5 @@
 package updatevoice
 
 type VoiceUpdater interface {
-	UpdateVoice(guildID, sessionID, token, endpoint string) error
+	UpdateVoice(guildID uint, sessionID, token, endpoint string) error
 }

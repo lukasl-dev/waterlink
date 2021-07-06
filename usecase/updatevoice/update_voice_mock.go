@@ -34,6 +34,6 @@ func NewMockedVoiceUpdater() *MockedVoiceUpdater {
 	return new(MockedVoiceUpdater)
 }
 
-func (u *MockedVoiceUpdater) UpdateVoice(guildID, sessionID, token, endpoint string) error {
+func (u *MockedVoiceUpdater) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
 	return u.Called(guildID, sessionID, token, endpoint).Error(0)
 }
