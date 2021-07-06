@@ -22,22 +22,8 @@
  * SOFTWARE.
  */
 
-package resumesession
+package configureresuming
 
-import (
-	"context"
-
-	"github.com/stretchr/testify/mock"
-)
-
-type MockedSessionResumer struct {
-	mock.Mock
-}
-
-func NewMockedSessionResumer() *MockedSessionResumer {
-	return new(MockedSessionResumer)
-}
-
-func (r *MockedSessionResumer) ResetSession(ctx context.Context) error {
-	return r.Called(ctx).Error(0)
+type ResumingConfigurer interface {
+	ConfigureResuming(resumeKey string, timeout uint) error
 }

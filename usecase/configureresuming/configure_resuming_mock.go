@@ -22,8 +22,22 @@
  * SOFTWARE.
  */
 
-package resumesession
+package configureresuming
 
-type SessionResumer interface {
-	ResumeSession(resumeKey string, timeout uint) error
+import (
+	"github.com/stretchr/testify/mock"
+)
+
+type MockedResumingConfigurer struct {
+	mock.Mock
+}
+
+var _ ResumingConfigurer = (*MockedResumingConfigurer)(nil)
+
+func NewMockedSessionResumer() *MockedResumingConfigurer {
+	return new(MockedResumingConfigurer)
+}
+
+func (c *MockedResumingConfigurer) ConfigureResuming(resumeKey string, timeout uint) error {
+	return c.Called(resumeKey, timeout).Error(0)
 }
