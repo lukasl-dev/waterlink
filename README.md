@@ -17,7 +17,8 @@
 
 ## :books: Introduction
 
-Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. **The library is based on the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md).**
+Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. **The library is based on
+the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md).**
 
 ---
 
@@ -29,9 +30,8 @@ Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written
 
 ## :ballot_box: Installation
 
-To use a waterlink as a Go package, you must of course have Go installed on your system.
-
-It is assumed that you have already worked with the Go environment. If this is not the case, see [this page first](https://golang.org/doc/install).
+It is assumed that you have already worked with the Go environment. If this is not the case,
+see [this page first](https://golang.org/doc/install).
 
 ```shell
 go get -u github.com/lukasl-dev/waterlink
@@ -43,8 +43,11 @@ go get -u github.com/lukasl-dev/waterlink
 
 ### :house: Architecture
 
-I have tried to implement my interpretation of [**Clean Architecture by Robert C. Martin (Uncle Bob)**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). If you have any corrections or suggestions, please create an issue.
+I have tried to implement my interpretation of [**Clean Architecture by Robert C. Martin (Uncle
+Bob)**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). If you have any corrections or
+suggestions, please create an issue.
 
 ### :mosquito: Mocking
 
-To simplify testing for the handling of the library, waterlink offers the possibility of mock implementations. The mocking library used for this is [stretchr/testify](https://github.com/stretchr/testify).
+To simplify testing for the handling of the library, waterlink offers the possibility of mock implementations. The
+mocking library used for this is [stretchr/testify](https://github.com/stretchr/testify).
