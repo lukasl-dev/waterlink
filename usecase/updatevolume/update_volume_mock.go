@@ -30,6 +30,8 @@ type MockedVolumeUpdater struct {
 	mock.Mock
 }
 
+var _ VolumeUpdater = (*MockedVolumeUpdater)(nil)
+
 func NewMockedVolumeUpdater() *MockedVolumeUpdater {
 	return new(MockedVolumeUpdater)
 }
