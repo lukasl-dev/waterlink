@@ -30,6 +30,8 @@ type MockedTrackLoader struct {
 	mock.Mock
 }
 
+var _ TrackLoader = (*MockedTrackLoader)(nil)
+
 func NewMockedTrackLoader() *MockedTrackLoader {
 	return new(MockedTrackLoader)
 }
