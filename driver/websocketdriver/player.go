@@ -25,24 +25,17 @@
 package websocketdriver
 
 import (
+	"strconv"
+
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/play"
 )
 
-type playPayload struct {
-	OP        op     `json:"op,omitempty"`
-	GuildID   string `json:"guildId,omitempty"`
-	Track     string `json:"track,omitempty"`
-	StartTime uint   `json:"startTime,omitempty"`
-	EndTime   uint   `json:"endTime,omitempty"`
-	Volume    int    `json:"volume,omitempty"`
-	NoReplace bool   `json:"noReplace,omitempty"`
-	Pause     bool   `json:"pause,omitempty"`
-}
-
 type player struct {
 	conn *websocket.Conn
 }
+
+var _ play.Player = (*player)(nil)
 
 func NewPlayer(conn *websocket.Conn) play.Player {
 	return &player{
@@ -50,26 +43,35 @@ func NewPlayer(conn *websocket.Conn) play.Player {
 	}
 }
 
-func (p *player) Play(guildID string, trackID string, opts *play.Options) error {
-	return p.conn.WriteJSON(p.createPayload(guildID, trackID, opts))
+type playPayload struct {
+	OP        op     `json:"op,omitempty"`
+	GuildID   string `json:"guildId,omitempty"`
+	Track     string `json:"track,omitempty"`
+	StartTime string `json:"startTime,omitempty"`
+	EndTime   string `json:"endTime,omitempty"`
+	Volume    string `json:"volume,omitempty"`
+	NoReplace bool   `json:"noReplace,omitempty"`
+	Pause     bool   `json:"pause,omitempty"`
 }
 
-func (p *player) createPayload(guildID string, trackID string, opts *play.Options) playPayload {
+func (p *player) Play(guildID uint, trackID string, opts ...*play.Options) error {
+	return p.conn.WriteJSON(p.payload(guildID, trackID, opts))
+}
+
+func (p *player) payload(guildID uint, trackID string, opts []*play.Options) playPayload {
 	payload := playPayload{
 		OP:      opPlay,
-		GuildID: guildID,
+		GuildID: strconv.Itoa(int(guildID)),
 		Track:   trackID,
 	}
-	p.insertOptions(&payload, opts)
+	p.insert(&payload, play.MinimizeOptions(opts...))
 	return payload
 }
 
-func (p *player) insertOptions(payload *playPayload, opts *play.Options) {
-	if opts != nil {
-		payload.StartTime = opts.StartTime
-		payload.EndTime = opts.EndTime
-		payload.Volume = opts.Volume
-		payload.NoReplace = opts.NoReplace
-		payload.Pause = opts.Pause
-	}
+func (p *player) insert(payload *playPayload, opts *play.Options) {
+	payload.StartTime = strconv.Itoa(int(opts.StartTime))
+	payload.EndTime = strconv.Itoa(int(opts.EndTime))
+	payload.Volume = strconv.Itoa(opts.Volume)
+	payload.NoReplace = opts.NoReplace
+	payload.Pause = opts.Paused
 }
