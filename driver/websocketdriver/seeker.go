@@ -25,19 +25,17 @@
 package websocketdriver
 
 import (
+	"strconv"
+
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/seek"
 )
 
-type seekPayload struct {
-	OP       op     `json:"op,omitempty"`
-	GuildID  string `json:"guildId,omitempty"`
-	Position uint   `json:"position,omitempty"`
-}
-
 type seeker struct {
 	conn *websocket.Conn
 }
+
+var _ seek.Seeker = (*seeker)(nil)
 
 func NewSeeker(conn *websocket.Conn) seek.Seeker {
 	return &seeker{
@@ -45,10 +43,16 @@ func NewSeeker(conn *websocket.Conn) seek.Seeker {
 	}
 }
 
-func (s *seeker) Seek(guildID string, position uint) error {
+type seekPayload struct {
+	OP       op     `json:"op,omitempty"`
+	GuildID  string `json:"guildId,omitempty"`
+	Position uint   `json:"position,omitempty"`
+}
+
+func (s *seeker) Seek(guildID, position uint) error {
 	return s.conn.WriteJSON(seekPayload{
 		OP:       opSeek,
-		GuildID:  guildID,
+		GuildID:  strconv.Itoa(int(guildID)),
 		Position: position,
 	})
 }
