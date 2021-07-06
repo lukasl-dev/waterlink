@@ -31,6 +31,8 @@ type MockedDestroyer struct {
 	mock.Mock
 }
 
+var _ Destroyer = (*MockedDestroyer)(nil)
+
 // NewMockedDestroyer returns a new MockedDestroyer.
 func NewMockedDestroyer() *MockedDestroyer {
 	return new(MockedDestroyer)
@@ -38,6 +40,6 @@ func NewMockedDestroyer() *MockedDestroyer {
 
 // Destroy is used to destroy an audio player of a
 // guild.
-func (d *MockedDestroyer) Destroy(guildID string) error {
+func (d *MockedDestroyer) Destroy(guildID uint) error {
 	return d.Called(guildID).Error(0)
 }
