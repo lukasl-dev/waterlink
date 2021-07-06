@@ -22,16 +22,12 @@
  * SOFTWARE.
  */
 
-package httpdriver
-
-import "net/http"
+package waterlink
 
 const (
-	authorizationHeader = "Authorization"
+	headerAuthorization  = "Authorization"
+	headerNumShards      = "Num-Shards"
+	headerUserID         = "User-Id"
+	headerResumeKey      = "Resume-Key"
+	headerSessionResumed = "Session-Resumed"
 )
-
-func createHeader(passphrase string) http.Header {
-	h := make(http.Header)
-	h.Set(authorizationHeader, passphrase)
-	return h
-}
