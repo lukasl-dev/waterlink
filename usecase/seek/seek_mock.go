@@ -30,6 +30,8 @@ type MockedSeeker struct {
 	mock.Mock
 }
 
+var _ Seeker = (*MockedSeeker)(nil)
+
 func NewMockedSeeker() *MockedSeeker {
 	return new(MockedSeeker)
 }
