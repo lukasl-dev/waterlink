@@ -26,19 +26,27 @@ package waterlink
 
 import (
 	"context"
-
-	"github.com/stretchr/testify/mock"
+	"net/url"
+	"os"
+	"testing"
 )
 
-type MockedConnector struct {
-	mock.Mock
-}
-
-func NewMockedConnector() *MockedConnector {
-	return new(MockedConnector)
-}
-
-func (c *MockedConnector) Open(ctx context.Context) (conn Connection, resumed bool, err error) {
-	args := c.Called(ctx)
-	return args.Get(0).(Connection), args.Bool(1), args.Error(2)
+func TestConnect(t *testing.T) {
+	var (
+		websocket      = os.Getenv("LAVALINK_WEBSOCKET")
+		authentication = os.Getenv("LAVALINK_AUTHENTICATION")
+	)
+	host, err := url.Parse(websocket)
+	if err != nil {
+		t.Fatal(err)
+	}
+	conn, err := Connect(context.TODO(), *host, NewConnectOptions().WithPassphrase(authentication))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if conn.Resumed() {
+		t.Log("Connection resumed.")
+	} else {
+		t.Log("Connection established.")
+	}
 }
