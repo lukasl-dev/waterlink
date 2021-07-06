@@ -22,20 +22,35 @@
  * SOFTWARE.
  */
 
-package waterlink
+package websocketdriver
 
 import (
-	"github.com/lukasl-dev/waterlink/usecase/decodetrack"
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
-	"github.com/lukasl-dev/waterlink/usecase/routeplanner/getstatus"
-	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddress"
-	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddresses"
+	"github.com/gorilla/websocket"
+	"github.com/lukasl-dev/waterlink/usecase/configureresuming"
 )
 
-type Client interface {
-	decodetrack.TrackDecoder
-	loadtrack.TrackLoader
-	getstatus.StatusGetter
-	unmarkaddress.AddressUnmarker
-	unmarkaddresses.AddressesUnmarker
+type resumeConfigurer struct {
+	conn *websocket.Conn
+}
+
+var _ configureresuming.ResumingConfigurer = (*resumeConfigurer)(nil)
+
+func NewResumeConfigurer(conn *websocket.Conn) configureresuming.ResumingConfigurer {
+	return &resumeConfigurer{
+		conn: conn,
+	}
+}
+
+type configureResumingPayload struct {
+	OP      op     `json:"op,omitempty"`
+	Key     string `json:"key,omitempty"`
+	Timeout uint   `json:"timeout,omitempty"`
+}
+
+func (c *resumeConfigurer) ConfigureResuming(resumeKey string, timeout uint) error {
+	return c.conn.WriteJSON(configureResumingPayload{
+		OP:      opConfigureResuming,
+		Key:     resumeKey,
+		Timeout: timeout,
+	})
 }
