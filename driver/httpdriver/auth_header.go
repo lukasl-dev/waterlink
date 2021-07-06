@@ -24,46 +24,12 @@
 
 package httpdriver
 
-import (
-	"net/http"
-	"net/url"
+import "net/http"
 
-	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddresses"
-)
+const headerAuthorization = "Authorization"
 
-const pathUnmarkAddresses = "/routeplanner/free/all"
-
-type addressesUnmarker struct {
-	client     *http.Client
-	host       url.URL
-	passphrase string
-}
-
-var _ unmarkaddresses.AddressesUnmarker = (*addressesUnmarker)(nil)
-
-func NewAddressesUnmarker(client *http.Client, host url.URL, passphrase string) unmarkaddresses.AddressesUnmarker {
-	host.Path += pathUnmarkAddresses
-	return &addressesUnmarker{
-		client:     client,
-		host:       host,
-		passphrase: passphrase,
-	}
-}
-
-func (u *addressesUnmarker) UnmarkAddresses() error {
-	req, err := u.request()
-	if err != nil {
-		return err
-	}
-	_, err = u.client.Do(req)
-	return err
-}
-
-func (u *addressesUnmarker) request() (*http.Request, error) {
-	req, err := http.NewRequest(http.MethodPost, u.host.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header = authenticationHeader(u.passphrase)
-	return req, nil
+func authenticationHeader(passphrase string) http.Header {
+	h := make(http.Header)
+	h.Set(headerAuthorization, passphrase)
+	return h
 }

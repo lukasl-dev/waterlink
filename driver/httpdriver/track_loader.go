@@ -25,56 +25,65 @@
 package httpdriver
 
 import (
-	"bytes"
 	"encoding/json"
 	"io"
 	"net/http"
 	"net/url"
 
-	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
+	"github.com/lukasl-dev/waterlink/usecase/loadtracks"
 )
 
 const (
-	pathLoadTrack   = "/loadtracks"
+	pathLoadTracks  = "/loadtracks"
 	paramIdentifier = "identifier"
 )
 
-type trackLoader struct {
+type tracksLoader struct {
 	client     *http.Client
 	host       url.URL
 	passphrase string
 }
 
-var _ loadtrack.TrackLoader = (*trackLoader)(nil)
+var _ loadtracks.TrackLoaders = (*tracksLoader)(nil)
 
-func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtrack.TrackLoader {
-	return &trackLoader{
+func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtracks.TrackLoaders {
+	host.Path += pathLoadTracks
+	return &tracksLoader{
 		client: client,
 		host:   host, passphrase: passphrase,
 	}
 }
 
-func (l *trackLoader) LoadTrack(identifier string) (*loadtrack.Response, error) {
-	panic("implement me")
-}
-
-func (l *trackLoader) request(trackIDs []string) (*http.Request, error) {
-	body, err := l.body(trackIDs)
+func (l *tracksLoader) LoadTracks(identifier string) (*loadtracks.Response, error) {
+	req, err := l.request(identifier)
 	if err != nil {
 		return nil, err
 	}
-	return http.NewRequest(http.MethodGet, l.host.String(), body)
-}
-
-func (l *trackLoader) body(trackIDs []string) (io.Reader, error) {
-	b, err := json.Marshal(trackIDs)
+	resp, err := l.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
-	return bytes.NewReader(b), nil
+	return l.unmarshal(resp)
 }
 
-func (l *trackLoader) unmarshal(resp *http.Response) (dest *loadtrack.Response, err error) {
+func (l *tracksLoader) request(identifier string) (*http.Request, error) {
+	host := l.host
+	host.RawQuery = l.query(identifier).Encode()
+	req, err := http.NewRequest(http.MethodGet, host.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header = authenticationHeader(l.passphrase)
+	return req, nil
+}
+
+func (l *tracksLoader) query(identifier string) url.Values {
+	q := make(url.Values)
+	q.Set(paramIdentifier, identifier)
+	return q
+}
+
+func (l *tracksLoader) unmarshal(resp *http.Response) (dest *loadtracks.Response, err error) {
 	b, err := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
 	if err != nil {

@@ -71,7 +71,12 @@ func (d *trackDecoder) request(trackIDs []string) (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	return http.NewRequest(http.MethodPost, d.host.String(), body)
+	req, err := http.NewRequest(http.MethodPost, d.host.String(), body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header = authenticationHeader(d.passphrase)
+	return req, nil
 }
 
 func (d *trackDecoder) body(trackIDs []string) (io.Reader, error) {

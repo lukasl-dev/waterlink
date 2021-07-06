@@ -67,7 +67,12 @@ func (u *addressUnmarker) request(address string) (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	return http.NewRequest(http.MethodPost, u.host.String(), body)
+	req, err := http.NewRequest(http.MethodPost, u.host.String(), body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header = authenticationHeader(u.passphrase)
+	return req, nil
 }
 
 func (u *addressUnmarker) body(address string) (io.Reader, error) {

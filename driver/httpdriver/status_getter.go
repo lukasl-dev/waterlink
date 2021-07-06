@@ -66,7 +66,12 @@ func (g *statusGetter) Status() (*routeplanner.Status, error) {
 }
 
 func (g *statusGetter) request() (*http.Request, error) {
-	return http.NewRequest(http.MethodGet, g.host.String(), nil)
+	req, err := http.NewRequest(http.MethodGet, g.host.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header = authenticationHeader(g.passphrase)
+	return req, nil
 }
 
 func (g *statusGetter) unmarshal(resp *http.Response) (dest *routeplanner.Status, err error) {
