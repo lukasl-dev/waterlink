@@ -34,42 +34,44 @@ type MockedConnection struct {
 	mock.Mock
 }
 
-func NewMockedConnection() *MockedConnection {
-	return new(MockedConnection)
+var _ Connection = (*MockedConnection)(nil)
+
+func (conn *MockedConnection) Destroy(guildID uint) error {
+	return conn.Called(guildID).Error(0)
 }
 
-func (c *MockedConnection) Destroy(guildID string) error {
-	return c.Called(guildID).Error(0)
+func (conn *MockedConnection) UseEqualizer(guildID uint, bands ...equalize.Band) error {
+	return conn.Called(guildID, bands).Error(0)
 }
 
-func (c *MockedConnection) UseEqualizer(guildID string, bands ...equalize.Band) error {
-	return c.Called(guildID, bands).Error(0)
+func (conn *MockedConnection) SetPaused(guildID uint, paused bool) error {
+	return conn.Called(guildID, paused).Error(0)
 }
 
-func (c *MockedConnection) SetPaused(guildID string, paused bool) error {
-	return c.Called(guildID, paused).Error(0)
+func (conn *MockedConnection) Play(guildID uint, trackID string, opts ...*play.Options) error {
+	return conn.Called(guildID, trackID, opts).Error(0)
 }
 
-func (c *MockedConnection) Play(guildID, trackID string, opts *play.Options) error {
-	return c.Called(guildID, trackID, opts).Error(0)
+func (conn *MockedConnection) ConfigureResuming(resumeKey string, timeout uint) error {
+	return conn.Called(resumeKey, timeout).Error(0)
 }
 
-func (c *MockedConnection) ResumeSession(resumeKey string, timeout uint) error {
-	return c.Called(resumeKey, timeout).Error(0)
+func (conn *MockedConnection) Seek(guildID, position uint) error {
+	return conn.Called(guildID, position).Error(0)
 }
 
-func (c *MockedConnection) Seek(guildID string, position uint) error {
-	return c.Called(guildID, position).Error(0)
+func (conn *MockedConnection) Stop(guildID uint) error {
+	return conn.Called(guildID).Error(0)
 }
 
-func (c *MockedConnection) Stop(guildID string) error {
-	return c.Called(guildID).Error(0)
+func (conn *MockedConnection) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
+	return conn.Called(guildID, sessionID, token, endpoint).Error(0)
 }
 
-func (c *MockedConnection) UpdateVoice(guildID, sessionID, token, endpoint string) error {
-	return c.Called(guildID, sessionID, token, endpoint).Error(0)
+func (conn *MockedConnection) UpdateVolume(guildID, volume uint) error {
+	return conn.Called(guildID, volume).Error(0)
 }
 
-func (c *MockedConnection) UpdateVolume(guildID string, volume uint) error {
-	return c.Called(guildID, volume).Error(0)
+func (conn *MockedConnection) Resumed() bool {
+	return conn.Called().Bool(0)
 }
