@@ -34,6 +34,6 @@ func NewMockedStopper() *MockedStopper {
 	return new(MockedStopper)
 }
 
-func (s *MockedStopper) Stop(guildID string) error {
+func (s *MockedStopper) Stop(guildID uint) error {
 	return s.Called(guildID).Error(0)
 }

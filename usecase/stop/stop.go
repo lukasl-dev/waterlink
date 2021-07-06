@@ -25,5 +25,5 @@
 package stop
 
 type Stopper interface {
-	Stop(guildID string) error
+	Stop(guildID uint) error
 }
