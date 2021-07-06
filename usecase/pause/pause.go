@@ -25,5 +25,5 @@
 package pause
 
 type Pauser interface {
-	SetPaused(guildID string, paused bool) error
+	SetPaused(guildID uint, paused bool) error
 }

@@ -30,10 +30,12 @@ type MockedPauser struct {
 	mock.Mock
 }
 
+var _ Pauser = (*MockedPauser)(nil)
+
 func NewMockedPauser() *MockedPauser {
 	return new(MockedPauser)
 }
 
-func (p *MockedPauser) SetPaused(guildID string, paused bool) error {
+func (p *MockedPauser) SetPaused(guildID uint, paused bool) error {
 	return p.Called(guildID, paused).Error(0)
 }
