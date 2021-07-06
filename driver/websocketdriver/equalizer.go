@@ -25,15 +25,11 @@
 package websocketdriver
 
 import (
+	"strconv"
+
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/equalize"
 )
-
-type equalizerPayload struct {
-	OP      op              `json:"op,omitempty"`
-	GuildID string          `json:"guildId,omitempty"`
-	Bands   []equalize.Band `json:"bands,omitempty"`
-}
 
 type equalizer struct {
 	conn *websocket.Conn
@@ -45,10 +41,18 @@ func NewEqualizer(conn *websocket.Conn) equalize.Equalizer {
 	}
 }
 
-func (e *equalizer) UseEqualizer(guildID string, bands ...equalize.Band) error {
+var _ equalize.Equalizer = (*equalizer)(nil)
+
+type equalizerPayload struct {
+	OP      op              `json:"op,omitempty"`
+	GuildID string          `json:"guildId,omitempty"`
+	Bands   []equalize.Band `json:"bands,omitempty"`
+}
+
+func (e *equalizer) UseEqualizer(guildID uint, bands ...equalize.Band) error {
 	return e.conn.WriteJSON(equalizerPayload{
 		OP:      opEqualizer,
-		GuildID: guildID,
+		GuildID: strconv.Itoa(int(guildID)),
 		Bands:   bands,
 	})
 }
