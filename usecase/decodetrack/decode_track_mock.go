@@ -34,6 +34,8 @@ type MockedTrackDecoder struct {
 	mock.Mock
 }
 
+var _ TrackDecoder = (*MockedTrackDecoder)(nil)
+
 // NewMockedTrackDecoder returns a new MockedTrackDecoder.
 func NewMockedTrackDecoder() *MockedTrackDecoder {
 	return new(MockedTrackDecoder)
