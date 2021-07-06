@@ -25,6 +25,9 @@
 package waterlink
 
 import (
+	"net/url"
+
+	"github.com/lukasl-dev/waterlink/driver/httpdriver"
 	"github.com/lukasl-dev/waterlink/usecase/decodetrack"
 	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
 	"github.com/lukasl-dev/waterlink/usecase/routeplanner/getstatus"
@@ -38,4 +41,25 @@ type Requester interface {
 	getstatus.StatusGetter
 	unmarkaddress.AddressUnmarker
 	unmarkaddresses.AddressesUnmarker
+}
+
+type requester struct {
+	decodetrack.TrackDecoder
+	loadtrack.TrackLoader
+	getstatus.StatusGetter
+	unmarkaddress.AddressUnmarker
+	unmarkaddresses.AddressesUnmarker
+}
+
+var _ Requester = (*requester)(nil)
+
+func NewRequester(host url.URL, opts ...*RequesterOptions) Requester {
+	m := minimizeRequesterOptions(opts)
+	return &requester{
+		TrackDecoder:      httpdriver.NewTrackDecoder(m.client, host, m.passphrase),
+		TrackLoader:       httpdriver.NewTrackLoader(m.client, host, m.passphrase),
+		StatusGetter:      httpdriver.NewStatusGetter(m.client, host, m.passphrase),
+		AddressUnmarker:   httpdriver.NewAddressUnmarker(m.client, host, m.passphrase),
+		AddressesUnmarker: httpdriver.NewAddressesUnmarker(m.client, host, m.passphrase),
+	}
 }
