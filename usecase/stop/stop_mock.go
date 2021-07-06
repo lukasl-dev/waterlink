@@ -30,6 +30,8 @@ type MockedStopper struct {
 	mock.Mock
 }
 
+var _ Stopper = (*MockedStopper)(nil)
+
 func NewMockedStopper() *MockedStopper {
 	return new(MockedStopper)
 }
