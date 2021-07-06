@@ -25,19 +25,17 @@
 package websocketdriver
 
 import (
+	"strconv"
+
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/updatevolume"
 )
 
-type volumeUpdatePayload struct {
-	OP      op     `json:"op,omitempty"`
-	GuildID string `json:"guildId,omitempty"`
-	Volume  uint   `json:"volume,omitempty"`
-}
-
 type volumeUpdater struct {
 	conn *websocket.Conn
 }
+
+var _ updatevolume.VolumeUpdater = (*volumeUpdater)(nil)
 
 func NewVolumeUpdater(conn *websocket.Conn) updatevolume.VolumeUpdater {
 	return &volumeUpdater{
@@ -45,10 +43,16 @@ func NewVolumeUpdater(conn *websocket.Conn) updatevolume.VolumeUpdater {
 	}
 }
 
-func (u *volumeUpdater) UpdateVolume(guildID string, volume uint) error {
-	return u.conn.WriteJSON(volumeUpdatePayload{
+type volumePayload struct {
+	OP      op     `json:"op,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
+	Volume  uint   `json:"volume,omitempty"`
+}
+
+func (u *volumeUpdater) UpdateVolume(guildID, volume uint) error {
+	return u.conn.WriteJSON(volumePayload{
 		OP:      opVolume,
-		GuildID: guildID,
+		GuildID: strconv.Itoa(int(guildID)),
 		Volume:  volume,
 	})
 }
