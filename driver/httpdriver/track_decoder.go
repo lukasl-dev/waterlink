@@ -35,7 +35,7 @@ import (
 	"github.com/lukasl-dev/waterlink/usecase/decodetrack"
 )
 
-const decodeTracksPath = "/decodetracks"
+const pathDecodeTracks = "/decodetracks"
 
 type trackDecoder struct {
 	client     *http.Client
@@ -43,8 +43,10 @@ type trackDecoder struct {
 	passphrase string
 }
 
+var _ decodetrack.TrackDecoder = (*trackDecoder)(nil)
+
 func NewTrackDecoder(client *http.Client, host url.URL, passphrase string) decodetrack.TrackDecoder {
-	host.Path += decodeTracksPath
+	host.Path += pathDecodeTracks
 	return &trackDecoder{
 		client:     client,
 		host:       host,
@@ -53,42 +55,38 @@ func NewTrackDecoder(client *http.Client, host url.URL, passphrase string) decod
 }
 
 func (d *trackDecoder) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
-	resp, err := d.request(trackIDs)
+	req, err := d.request(trackIDs)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := d.client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	return d.unmarshal(resp)
 }
 
-func (d *trackDecoder) unmarshal(resp *http.Response) (tracks []*track.Info, err error) {
-	defer resp.Body.Close()
-	b, err := io.ReadAll(resp.Body)
+func (d *trackDecoder) request(trackIDs []string) (*http.Request, error) {
+	body, err := d.body(trackIDs)
 	if err != nil {
 		return nil, err
 	}
-	return tracks, json.Unmarshal(b, &tracks)
+	return http.NewRequest(http.MethodPost, d.host.String(), body)
 }
 
-func (d *trackDecoder) request(trackIDs []string) (*http.Response, error) {
-	req, err := d.createRequest(trackIDs)
-	if err != nil {
-		return nil, err
-	}
-	return d.client.Do(req)
-}
-
-func (d *trackDecoder) createRequest(trackIDs []string) (*http.Request, error) {
-	body, err := d.createBody(trackIDs)
-	if err != nil {
-		return nil, err
-	}
-	return http.NewRequest(http.MethodGet, d.host.String(), body)
-}
-
-func (d *trackDecoder) createBody(trackIDs []string) (io.Reader, error) {
+func (d *trackDecoder) body(trackIDs []string) (io.Reader, error) {
 	b, err := json.Marshal(trackIDs)
 	if err != nil {
 		return nil, err
 	}
 	return bytes.NewReader(b), nil
+}
+
+func (d *trackDecoder) unmarshal(resp *http.Response) (dest []*track.Info, err error) {
+	b, err := io.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return dest, json.Unmarshal(b, &dest)
 }
