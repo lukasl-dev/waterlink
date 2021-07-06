@@ -32,10 +32,12 @@ type MockedEqualizer struct {
 	mock.Mock
 }
 
+var _ Equalizer = (*MockedEqualizer)(nil)
+
 func NewMockedEqualizer() *MockedEqualizer {
 	return new(MockedEqualizer)
 }
 
-func (e *MockedEqualizer) UseEqualizer(guildID string, bands ...Band) error {
+func (e *MockedEqualizer) UseEqualizer(guildID uint, bands ...Band) error {
 	return e.Called(guildID, bands).Error(0)
 }

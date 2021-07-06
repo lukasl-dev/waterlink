@@ -25,5 +25,5 @@
 package equalize
 
 type Equalizer interface {
-	UseEqualizer(guildID string, bands ...Band) error
+	UseEqualizer(guildID uint, bands ...Band) error
 }
