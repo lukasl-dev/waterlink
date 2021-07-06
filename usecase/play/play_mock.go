@@ -30,6 +30,8 @@ type MockedPlayer struct {
 	mock.Mock
 }
 
+var _ Player = (*MockedPlayer)(nil)
+
 func NewMockedPlayer() *MockedPlayer {
 	return new(MockedPlayer)
 }
