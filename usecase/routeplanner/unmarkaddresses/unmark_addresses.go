@@ -24,6 +24,8 @@
 
 package unmarkaddresses
 
+// AddressesUnmarker wraps the UnmarkAddresses method.
 type AddressesUnmarker interface {
+	// UnmarkAddresses unmarks all failed addresses.
 	UnmarkAddresses() error
 }
