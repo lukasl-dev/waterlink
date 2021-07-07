@@ -24,7 +24,12 @@
 
 package track
 
+// PlaylistInfo holds information about a loaded playlist.
 type PlaylistInfo struct {
-	Name          string `json:"name,omitempty"`
-	SelectedTrack int    `json:"selectedTrack,omitempty"`
+	// Name is the name of the loaded playlist.
+	Name string `json:"name,omitempty"`
+
+	// SelectedTrack is the index of the track which
+	// is explicitly selected.
+	SelectedTrack int `json:"selectedTrack,omitempty"`
 }
