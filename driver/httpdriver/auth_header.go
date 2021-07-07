@@ -26,9 +26,13 @@ package httpdriver
 
 import "net/http"
 
+// headerAuthorization is the name of the authorization
+// header.
 const headerAuthorization = "Authorization"
 
-func authenticationHeader(passphrase string) http.Header {
+// authHeader returns a http header required to authorize
+// a request.
+func authHeader(passphrase string) http.Header {
 	h := make(http.Header)
 	h.Set(headerAuthorization, passphrase)
 	return h
