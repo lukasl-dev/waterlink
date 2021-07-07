@@ -27,11 +27,24 @@ package play
 // Options is used to configure further specifications
 // of the Player.Play method.
 type Options struct {
+	// StartTime defines the time from which the
+	// track is to be played.
 	StartTime uint `json:"startTime,omitempty"`
-	EndTime   uint `json:"endTime,omitempty"`
-	Volume    int  `json:"volume,omitempty"`
+
+	// EndTime defines the time until the track is
+	// to be played.
+	EndTime uint `json:"endTime,omitempty"`
+
+	// Volume defines the volume at which the track
+	// is played.
+	Volume int `json:"volume,omitempty"`
+
+	// NoReplace defines whether this action should be
+	// ignored if another track is currently playing.
 	NoReplace bool `json:"noReplace,omitempty"`
-	Paused    bool `json:"paused,omitempty"`
+
+	// Paused defines whether the playback should be paused.
+	Paused bool `json:"paused,omitempty"`
 }
 
 // NewOptions returns a new Options.
