@@ -38,8 +38,7 @@ func NewMockedDestroyer() *MockedDestroyer {
 	return new(MockedDestroyer)
 }
 
-// Destroy is used to destroy an audio player of a
-// guild.
+// Destroy is used to destroy a guild's audio player.
 func (d *MockedDestroyer) Destroy(guildID uint) error {
 	return d.Called(guildID).Error(0)
 }
