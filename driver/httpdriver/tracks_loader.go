@@ -46,6 +46,7 @@ type tracksLoader struct {
 
 var _ loadtracks.TracksLoader = (*tracksLoader)(nil)
 
+// NewTrackLoader returns a new TrackLoader.
 func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtracks.TracksLoader {
 	host.Path += pathLoadTracks
 	return &tracksLoader{
@@ -54,6 +55,8 @@ func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtr
 	}
 }
 
+// LoadTracks loads multiple tracks by the passed
+// identifier.
 func (l *tracksLoader) LoadTracks(identifier string) (*loadtracks.Response, error) {
 	req, err := l.request(identifier)
 	if err != nil {
@@ -73,7 +76,7 @@ func (l *tracksLoader) request(identifier string) (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header = authenticationHeader(l.passphrase)
+	req.Header = authHeader(l.passphrase)
 	return req, nil
 }
 
