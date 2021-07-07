@@ -44,6 +44,7 @@ type statusGetter struct {
 
 var _ getstatus.StatusGetter = (*statusGetter)(nil)
 
+// NewStatusGetter returns a new StatusGetter.
 func NewStatusGetter(client *http.Client, host url.URL, passphrase string) getstatus.StatusGetter {
 	host.Path += pathGetStatus
 	return &statusGetter{
@@ -53,6 +54,7 @@ func NewStatusGetter(client *http.Client, host url.URL, passphrase string) getst
 	}
 }
 
+// Status returns the routeplanner's status.
 func (g *statusGetter) Status() (*routeplanner.Status, error) {
 	req, err := g.request()
 	if err != nil {
@@ -70,7 +72,7 @@ func (g *statusGetter) request() (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header = authenticationHeader(g.passphrase)
+	req.Header = authHeader(g.passphrase)
 	return req, nil
 }
 
