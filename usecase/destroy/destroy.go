@@ -26,7 +26,6 @@ package destroy
 
 // Destroyer wraps the Destroy method.
 type Destroyer interface {
-	// Destroy is used to destroy an audio player of a
-	// guild.
+	// Destroy is used to destroy a guild's audio player.
 	Destroy(guildID uint) error
 }
