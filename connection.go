@@ -53,7 +53,7 @@ type Connection interface {
 	Resumed() bool
 }
 
-// connection is the default-implementation of Connection.
+// connection is the default implementation of Connection.
 type connection struct {
 	configureresuming.ResumingConfigurer
 	destroy.Destroyer
