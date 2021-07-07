@@ -26,16 +26,20 @@ package unmarkaddresses
 
 import "github.com/stretchr/testify/mock"
 
+// MockedAddressesUnmarker is the mock implementation of
+// AddressesUnmarker.
 type MockedAddressesUnmarker struct {
 	mock.Mock
 }
 
 var _ AddressesUnmarker = (*MockedAddressesUnmarker)(nil)
 
+// NewMockedAddressesUnmarker returns a new MockedAddressesUnmarker.
 func NewMockedAddressesUnmarker() *MockedAddressesUnmarker {
 	return new(MockedAddressesUnmarker)
 }
 
+// UnmarkAddresses unmarks all failed addresses.
 func (u *MockedAddressesUnmarker) UnmarkAddresses() error {
 	return u.Called().Error(0)
 }
