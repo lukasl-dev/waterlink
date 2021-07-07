@@ -26,16 +26,20 @@ package seek
 
 import "github.com/stretchr/testify/mock"
 
+// MockedSeeker is the mocking implementation of Seeker.
 type MockedSeeker struct {
 	mock.Mock
 }
 
 var _ Seeker = (*MockedSeeker)(nil)
 
+// NewMockedSeeker returns a new MockedSeeker..
 func NewMockedSeeker() *MockedSeeker {
 	return new(MockedSeeker)
 }
 
+// Seek skips the current track of the audio player of
+// a guild to the passed position.
 func (s *MockedSeeker) Seek(guildID, position uint) error {
 	return s.Called(guildID, position).Error(0)
 }
