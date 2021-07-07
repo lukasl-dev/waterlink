@@ -24,6 +24,9 @@
 
 package configureresuming
 
+// ResumingConfigurer wraps the ConfigureResuming method.
 type ResumingConfigurer interface {
+	// ConfigureResuming configures the resume key used
+	// to resume a connection.
 	ConfigureResuming(resumeKey string, timeout uint) error
 }
