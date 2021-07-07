@@ -28,16 +28,21 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// MockedResumingConfigurer is the mock implementation
+// of ResumingConfigurer.
 type MockedResumingConfigurer struct {
 	mock.Mock
 }
 
 var _ ResumingConfigurer = (*MockedResumingConfigurer)(nil)
 
+// NewMockedSessionResumer returns a new MockedResumingConfigurer.
 func NewMockedSessionResumer() *MockedResumingConfigurer {
 	return new(MockedResumingConfigurer)
 }
 
+// ConfigureResuming configures the resume key used
+// to resume a connection.
 func (c *MockedResumingConfigurer) ConfigureResuming(resumeKey string, timeout uint) error {
 	return c.Called(resumeKey, timeout).Error(0)
 }
