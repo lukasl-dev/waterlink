@@ -26,17 +26,22 @@ package waterlink
 
 import "net/http"
 
+// RequesterOptions is used to configure further specifications
+// of the Requester.
 type RequesterOptions struct {
 	client     *http.Client
 	passphrase string
 }
 
+// NewRequesterOptions returns a new RequesterOptions.
 func NewRequesterOptions() *RequesterOptions {
 	return &RequesterOptions{
 		client: http.DefaultClient,
 	}
 }
 
+// minimizeRequesterOptions minimizes the passed options
+// to a single one.
 func minimizeRequesterOptions(opts []*RequesterOptions) *RequesterOptions {
 	if len(opts) > 0 {
 		return opts[0]
@@ -44,11 +49,13 @@ func minimizeRequesterOptions(opts []*RequesterOptions) *RequesterOptions {
 	return NewRequesterOptions()
 }
 
+// WithClient sets the client to the parameter value.
 func (opts *RequesterOptions) WithClient(client *http.Client) *RequesterOptions {
 	opts.client = client
 	return opts
 }
 
+// WithPassphrase sets the passphrase to the parameter value.
 func (opts *RequesterOptions) WithPassphrase(passphrase string) *RequesterOptions {
 	opts.passphrase = passphrase
 	return opts
