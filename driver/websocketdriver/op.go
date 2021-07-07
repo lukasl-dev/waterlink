@@ -35,8 +35,5 @@ const (
 	opVolume            op = "volume"
 	opEqualizer         op = "equalizer"
 	opDestroy           op = "destroy"
-	opPlayerUpdate      op = "playerUpdate"
-	opStats             op = "stats"
-	opEvent             op = "event"
 	opConfigureResuming op = "configureResuming"
 )
