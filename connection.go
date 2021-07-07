@@ -36,6 +36,7 @@ import (
 	"github.com/lukasl-dev/waterlink/usecase/updatevolume"
 )
 
+// Connection wraps all connection-oriented use cases.
 type Connection interface {
 	configureresuming.ResumingConfigurer
 	destroy.Destroyer
@@ -46,9 +47,13 @@ type Connection interface {
 	stop.Stopper
 	updatevoice.VoiceUpdater
 	updatevolume.VolumeUpdater
+
+	// Resumed returns true whenever the Connection has
+	// been resumed.
 	Resumed() bool
 }
 
+// connection is the default-implementation of Connection.
 type connection struct {
 	configureresuming.ResumingConfigurer
 	destroy.Destroyer
@@ -59,11 +64,16 @@ type connection struct {
 	stop.Stopper
 	updatevoice.VoiceUpdater
 	updatevolume.VolumeUpdater
+
+	// resumed is true whenever the Connection has
+	// been resumed.
 	resumed bool
 }
 
 var _ Connection = (*connection)(nil)
 
+// Resumed returns true whenever the Connection has
+// been resumed.
 func (conn *connection) Resumed() bool {
 	return conn.resumed
 }
