@@ -38,8 +38,8 @@ func NewMockedSeeker() *MockedSeeker {
 	return new(MockedSeeker)
 }
 
-// Seek skips the current track of the audio player of
-// a guild to the passed position.
+// Seek skips the current track of a guild's audio
+// player to the passed position.
 func (s *MockedSeeker) Seek(guildID, position uint) error {
 	return s.Called(guildID, position).Error(0)
 }
