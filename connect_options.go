@@ -26,6 +26,8 @@ package waterlink
 
 import "github.com/gorilla/websocket"
 
+// ConnectOptions is used to configure further specifications
+// of the Connect method.
 type ConnectOptions struct {
 	dialer     *websocket.Dialer
 	passphrase string
@@ -34,12 +36,15 @@ type ConnectOptions struct {
 	resumeKey  string
 }
 
+// NewConnectOptions returns a new ConnectOptions.
 func NewConnectOptions() *ConnectOptions {
 	return &ConnectOptions{
 		dialer: websocket.DefaultDialer,
 	}
 }
 
+// minimizeConnectOptions minimizes the passed options
+// to a single one.
 func minimizeConnectOptions(opts []*ConnectOptions) *ConnectOptions {
 	if len(opts) > 0 {
 		return opts[0]
@@ -47,26 +52,31 @@ func minimizeConnectOptions(opts []*ConnectOptions) *ConnectOptions {
 	return NewConnectOptions()
 }
 
+// WithDialer sets the dialer to the parameter value.
 func (opts *ConnectOptions) WithDialer(dialer *websocket.Dialer) *ConnectOptions {
 	opts.dialer = dialer
 	return opts
 }
 
+// WithPassphrase sets the passphrase to the parameter value.
 func (opts *ConnectOptions) WithPassphrase(passphrase string) *ConnectOptions {
 	opts.passphrase = passphrase
 	return opts
 }
 
+// WithNumShards sets the number of shards to the parameter value.
 func (opts *ConnectOptions) WithNumShards(numShards uint) *ConnectOptions {
 	opts.numShards = numShards
 	return opts
 }
 
+// WithUserID sets the user id to the parameter value.
 func (opts *ConnectOptions) WithUserID(userID uint) *ConnectOptions {
 	opts.userID = userID
 	return opts
 }
 
+// WithResumeKey sets the resume key to the parameter value.
 func (opts *ConnectOptions) WithResumeKey(resumeKey string) *ConnectOptions {
 	opts.resumeKey = resumeKey
 	return opts
