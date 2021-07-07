@@ -24,6 +24,8 @@
 
 package play
 
+// Options is used to configure further specifications
+// of the Player.Play method.
 type Options struct {
 	StartTime uint `json:"startTime,omitempty"`
 	EndTime   uint `json:"endTime,omitempty"`
@@ -32,10 +34,13 @@ type Options struct {
 	Paused    bool `json:"paused,omitempty"`
 }
 
+// NewOptions returns a new Options.
 func NewOptions() *Options {
 	return new(Options)
 }
 
+// MinimizeOptions minimizes the passed options to a
+// single one.
 func MinimizeOptions(opts ...*Options) *Options {
 	if len(opts) > 0 {
 		return opts[0]
@@ -43,26 +48,32 @@ func MinimizeOptions(opts ...*Options) *Options {
 	return NewOptions()
 }
 
+// WithStartTime sets the start time to the parameter
+// value.
 func (opts *Options) WithStartTime(startTime uint) *Options {
 	opts.StartTime = startTime
 	return opts
 }
 
+// WithEndTime sets the end time to the parameter value.
 func (opts *Options) WithEndTime(endTime uint) *Options {
 	opts.EndTime = endTime
 	return opts
 }
 
+// WithVolume sets the volume to the parameter value.
 func (opts *Options) WithVolume(volume int) *Options {
 	opts.Volume = volume
 	return opts
 }
 
+// WithNoReplace sets no replace to the parameter value.
 func (opts *Options) WithNoReplace(noReplace bool) *Options {
 	opts.NoReplace = noReplace
 	return opts
 }
 
+// WithPaused sets paused to the parameter value.
 func (opts *Options) WithPaused(paused bool) *Options {
 	opts.Paused = paused
 	return opts
