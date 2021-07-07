@@ -26,16 +26,20 @@ package updatevolume
 
 import "github.com/stretchr/testify/mock"
 
+// MockedVolumeUpdater is the mock implementation of VolumeUpdater.
 type MockedVolumeUpdater struct {
 	mock.Mock
 }
 
 var _ VolumeUpdater = (*MockedVolumeUpdater)(nil)
 
+// NewMockedVolumeUpdater returns a new MockedVolumeUpdater.
 func NewMockedVolumeUpdater() *MockedVolumeUpdater {
 	return new(MockedVolumeUpdater)
 }
 
+// UpdateVolume changes the volume of a guild's
+// audio player.
 func (u *MockedVolumeUpdater) UpdateVolume(guildID, volume uint) error {
 	return u.Called(guildID, volume).Error(0)
 }
