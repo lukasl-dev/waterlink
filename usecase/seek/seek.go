@@ -26,7 +26,7 @@ package seek
 
 // Seeker wraps the Seek method.
 type Seeker interface {
-	// Seek skips the current track of the audio player
-	// of a guild to the passed position.
+	// Seek skips the current track of a guild's audio
+	// player to the passed position.
 	Seek(guildID, position uint) error
 }
