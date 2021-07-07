@@ -29,16 +29,20 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// MockedStatusGetter is the mocking implementation of
+// StatusGetter.
 type MockedStatusGetter struct {
 	mock.Mock
 }
 
 var _ StatusGetter = (*MockedStatusGetter)(nil)
 
+// NewMockedStatusGetter returns a new MockedStatusGetter.
 func NewMockedStatusGetter() *MockedStatusGetter {
 	return new(MockedStatusGetter)
 }
 
+// Status returns the routeplanner's status.
 func (g *MockedStatusGetter) Status() (*routeplanner.Status, error) {
 	args := g.Called()
 	return args.Get(0).(*routeplanner.Status), args.Error(1)
