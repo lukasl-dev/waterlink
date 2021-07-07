@@ -26,16 +26,19 @@ package stop
 
 import "github.com/stretchr/testify/mock"
 
+// MockedStopper is the mocking implementation of Stopper.
 type MockedStopper struct {
 	mock.Mock
 }
 
 var _ Stopper = (*MockedStopper)(nil)
 
+// NewMockedStopper returns a new MockedStopper.
 func NewMockedStopper() *MockedStopper {
 	return new(MockedStopper)
 }
 
+// Stop stops the current track of a guild's audio player.
 func (s *MockedStopper) Stop(guildID uint) error {
 	return s.Called(guildID).Error(0)
 }
