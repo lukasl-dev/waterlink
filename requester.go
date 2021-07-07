@@ -35,6 +35,7 @@ import (
 	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddresses"
 )
 
+// Requester wraps all connectionless use cases.
 type Requester interface {
 	decodetrack.TrackDecoder
 	loadtracks.TracksLoader
@@ -53,6 +54,8 @@ type requester struct {
 
 var _ Requester = (*requester)(nil)
 
+// NewRequester returns a new Requester which uses the
+// passed host as destination.
 func NewRequester(host url.URL, opts ...*RequesterOptions) Requester {
 	m := minimizeRequesterOptions(opts)
 	return &requester{
