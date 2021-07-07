@@ -24,7 +24,11 @@
 
 package track
 
+// Track represents a loaded audio track.
 type Track struct {
-	ID   string `json:"track,omitempty"`
-	Info Info   `json:"info,omitempty"`
+	// ID is the encoded Info of the Track.
+	ID string `json:"track,omitempty"`
+
+	// Info is the information about the Track.
+	Info Info `json:"info,omitempty"`
 }
