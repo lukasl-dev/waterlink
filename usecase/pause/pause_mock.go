@@ -38,8 +38,8 @@ func NewMockedPauser() *MockedPauser {
 	return new(MockedPauser)
 }
 
-// SetPaused sets the paused state of an audio player
-// of a guild to the passed parameter value.
+// SetPaused sets the paused state of a guild's audio
+// player to the passed parameter value.
 func (p *MockedPauser) SetPaused(guildID uint, paused bool) error {
 	return p.Called(guildID, paused).Error(0)
 }
