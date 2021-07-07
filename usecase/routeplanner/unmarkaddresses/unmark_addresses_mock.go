@@ -26,8 +26,8 @@ package unmarkaddresses
 
 import "github.com/stretchr/testify/mock"
 
-// MockedAddressesUnmarker is the mock implementation of
-// AddressesUnmarker.
+// MockedAddressesUnmarker is the mocking implementation
+// of AddressesUnmarker.
 type MockedAddressesUnmarker struct {
 	mock.Mock
 }
