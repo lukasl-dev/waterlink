@@ -28,16 +28,20 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// MockedEqualizer is the mock implementation of Equalizer.
 type MockedEqualizer struct {
 	mock.Mock
 }
 
 var _ Equalizer = (*MockedEqualizer)(nil)
 
+// NewMockedEqualizer returns a new MockedEqualizer.
 func NewMockedEqualizer() *MockedEqualizer {
 	return new(MockedEqualizer)
 }
 
+// UseEqualizer applies the passed bands on a guild's
+// audio player.
 func (e *MockedEqualizer) UseEqualizer(guildID uint, bands ...Band) error {
 	return e.Called(guildID, bands).Error(0)
 }
