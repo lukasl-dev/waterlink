@@ -26,6 +26,8 @@ package getstatus
 
 import "github.com/lukasl-dev/waterlink/entity/routeplanner"
 
+// StatusGetter wraps the Status method.
 type StatusGetter interface {
+	// Status returns the routeplanner's status.
 	Status() (*routeplanner.Status, error)
 }
