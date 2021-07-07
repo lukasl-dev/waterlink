@@ -44,6 +44,7 @@ type addressUnmarker struct {
 
 var _ unmarkaddress.AddressUnmarker = (*addressUnmarker)(nil)
 
+// NewAddressUnmarker returns a new AddressUnmarker.
 func NewAddressUnmarker(client *http.Client, host url.URL, passphrase string) unmarkaddress.AddressUnmarker {
 	host.Path += pathUnmarkAddress
 	return &addressUnmarker{
@@ -53,6 +54,7 @@ func NewAddressUnmarker(client *http.Client, host url.URL, passphrase string) un
 	}
 }
 
+// UnmarkAddress unmarks the passed (failed) address.
 func (u *addressUnmarker) UnmarkAddress(address string) error {
 	req, err := u.request(address)
 	if err != nil {
@@ -71,7 +73,7 @@ func (u *addressUnmarker) request(address string) (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header = authenticationHeader(u.passphrase)
+	req.Header = authHeader(u.passphrase)
 	return req, nil
 }
 
