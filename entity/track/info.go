@@ -24,13 +24,30 @@
 
 package track
 
+// Info holds the information about a Track.
 type Info struct {
+	// Identifier is the audio source specific identifier.
 	Identifier string `json:"identifier,omitempty"`
-	Seekable   bool   `json:"isSeekable,omitempty"`
-	Author     string `json:"author,omitempty"`
-	Length     uint   `json:"length,omitempty"`
-	Stream     bool   `json:"isStream,omitempty"`
-	Position   uint   `json:"position,omitempty"`
-	Title      string `json:"title,omitempty"`
-	URI        string `json:"uri,omitempty"`
+
+	// Seekable indicates whether seeking is available.
+	Seekable bool `json:"isSeekable,omitempty"`
+
+	// Author is the name of the author of the Info.
+	Author string `json:"author,omitempty"`
+
+	// Length corresponds to the duration of the Track
+	// in milliseconds.
+	Length uint `json:"length,omitempty"`
+
+	// Stream indicates if the Track is a stream.
+	Stream bool `json:"isStream,omitempty"`
+
+	// Position indicates the current position of the Track.
+	Position uint `json:"position,omitempty"`
+
+	// Title is the name of the Track.
+	Title string `json:"title,omitempty"`
+
+	// URI is the URL or the local path to the audio source.
+	URI string `json:"uri,omitempty"`
 }
