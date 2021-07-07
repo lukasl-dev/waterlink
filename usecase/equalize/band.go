@@ -24,7 +24,11 @@
 
 package equalize
 
+// Band represents an Equalizer Band.
 type Band struct {
-	Band uint    `json:"band,omitempty"`
+	// Band is the index of the Band.
+	Band uint `json:"band,omitempty"`
+
+	// Gain is the multiplier of the Band.
 	Gain float64 `json:"gain,omitempty"`
 }
