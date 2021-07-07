@@ -26,16 +26,20 @@ package play
 
 import "github.com/stretchr/testify/mock"
 
+// MockedPlayer is the mocking implementation of Player.
 type MockedPlayer struct {
 	mock.Mock
 }
 
 var _ Player = (*MockedPlayer)(nil)
 
+// NewMockedPlayer returns a new MockedPlayer.
 func NewMockedPlayer() *MockedPlayer {
 	return new(MockedPlayer)
 }
 
+// Play plays the track with the given id on the guild.
+// More options can be configured via Options.
 func (p *MockedPlayer) Play(guildID uint, trackID string, opts ...*Options) error {
 	return p.Called(guildID, trackID, opts).Error(0)
 }
