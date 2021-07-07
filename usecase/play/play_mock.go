@@ -38,7 +38,8 @@ func NewMockedPlayer() *MockedPlayer {
 	return new(MockedPlayer)
 }
 
-// Play plays the track with the given id on the guild.
+// Play plays the track with the given id on the
+// guild's audio player.
 // More options can be configured via Options.
 func (p *MockedPlayer) Play(guildID uint, trackID string, opts ...*Options) error {
 	return p.Called(guildID, trackID, opts).Error(0)
