@@ -27,7 +27,7 @@ package play
 // Player wraps the Play method.
 type Player interface {
 	// Play plays the track with the given id on the
-	// guild.
+	// guild's audio player.
 	// More options can be configured via Options.
 	Play(guildID uint, trackID string, opts ...*Options) error
 }
