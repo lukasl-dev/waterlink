@@ -13,6 +13,12 @@
       height="30"
     />
   </a>
+  <a href="https://goreportcard.com/report/github.com/lukasl-dev/waterlink">
+    <img
+      src="https://goreportcard.com/badge/github.com/lukasl-dev/waterlink?style=for-the-badge"
+      height="30"
+    />
+  </a>
 </div>
 
 ## :books: Introduction
