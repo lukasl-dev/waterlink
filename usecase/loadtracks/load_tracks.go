@@ -25,5 +25,7 @@
 package loadtracks
 
 type TracksLoader interface {
+	// LoadTracks loads multiple tracks by the passed
+	// identifier.
 	LoadTracks(identifier string) (*Response, error)
 }
