@@ -24,6 +24,9 @@
 
 package equalize
 
+// Equalizer wraps the UseEqualizer method.
 type Equalizer interface {
+	// UseEqualizer applies the passed bands on a guild's
+	// audio player.
 	UseEqualizer(guildID uint, bands ...Band) error
 }
