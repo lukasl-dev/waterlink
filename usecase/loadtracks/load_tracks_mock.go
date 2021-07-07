@@ -26,16 +26,21 @@ package loadtracks
 
 import "github.com/stretchr/testify/mock"
 
+// MockedTracksLoader is the mocking implementation of
+// TracksLoader.
 type MockedTracksLoader struct {
 	mock.Mock
 }
 
 var _ TracksLoader = (*MockedTracksLoader)(nil)
 
+// NewMockedTrackLoader returns a new MockedTracksLoader.
 func NewMockedTrackLoader() *MockedTracksLoader {
 	return new(MockedTracksLoader)
 }
 
+// LoadTracks loads multiple tracks by the passed
+// identifier.
 func (l *MockedTracksLoader) LoadTracks(identifier string) (*Response, error) {
 	args := l.Called(identifier)
 	return args.Get(0).(*Response), args.Error(1)
