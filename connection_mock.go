@@ -30,48 +30,72 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// MockedConnection is the mocking implementation of
+// Connection.
 type MockedConnection struct {
 	mock.Mock
 }
 
 var _ Connection = (*MockedConnection)(nil)
 
-func (conn *MockedConnection) Destroy(guildID uint) error {
-	return conn.Called(guildID).Error(0)
-}
-
-func (conn *MockedConnection) UseEqualizer(guildID uint, bands ...equalize.Band) error {
-	return conn.Called(guildID, bands).Error(0)
-}
-
-func (conn *MockedConnection) SetPaused(guildID uint, paused bool) error {
-	return conn.Called(guildID, paused).Error(0)
-}
-
-func (conn *MockedConnection) Play(guildID uint, trackID string, opts ...*play.Options) error {
-	return conn.Called(guildID, trackID, opts).Error(0)
-}
-
+// ConfigureResuming configures the resume key used
+// to resume a connection.
 func (conn *MockedConnection) ConfigureResuming(resumeKey string, timeout uint) error {
 	return conn.Called(resumeKey, timeout).Error(0)
 }
 
+// Destroy is used to destroy a guild's audio player.
+func (conn *MockedConnection) Destroy(guildID uint) error {
+	return conn.Called(guildID).Error(0)
+}
+
+// UseEqualizer applies the passed bands on a guild's
+// audio player.
+func (conn *MockedConnection) UseEqualizer(guildID uint, bands ...equalize.Band) error {
+	return conn.Called(guildID, bands).Error(0)
+}
+
+// SetPaused sets the paused state of a guild's
+// audio player to the passed parameter value.
+func (conn *MockedConnection) SetPaused(guildID uint, paused bool) error {
+	return conn.Called(guildID, paused).Error(0)
+}
+
+// Play plays the track with the given id on the
+// guild's audio player.
+// More options can be configured via Options.
+func (conn *MockedConnection) Play(guildID uint, trackID string, opts ...*play.Options) error {
+	return conn.Called(guildID, trackID, opts).Error(0)
+}
+
+// Seek skips the current track of a guild's audio
+// player to the passed position.
 func (conn *MockedConnection) Seek(guildID, position uint) error {
 	return conn.Called(guildID, position).Error(0)
 }
 
+// Stop stops the current track of a guild's audio
+// player.
 func (conn *MockedConnection) Stop(guildID uint) error {
 	return conn.Called(guildID).Error(0)
 }
 
+// UpdateVoice is sent when the voice server of a guild
+// has been updated.
+// This method must be performed to play a track.
+// See: https://discord.com/developers/docs/topics/gateway#voice-server-update
 func (conn *MockedConnection) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
 	return conn.Called(guildID, sessionID, token, endpoint).Error(0)
 }
 
+// UpdateVolume changes the volume of a guild's
+// audio player.
 func (conn *MockedConnection) UpdateVolume(guildID, volume uint) error {
 	return conn.Called(guildID, volume).Error(0)
 }
 
+// Resumed returns true whenever the Connection has
+// been resumed.
 func (conn *MockedConnection) Resumed() bool {
 	return conn.Called().Bool(0)
 }
