@@ -26,16 +26,23 @@ package updatevoice
 
 import "github.com/stretchr/testify/mock"
 
+// MockedVoiceUpdater is the mocking implementation of
+// VoiceUpdater.
 type MockedVoiceUpdater struct {
 	mock.Mock
 }
 
 var _ VoiceUpdater = (*MockedVoiceUpdater)(nil)
 
+// NewMockedVoiceUpdater returns a new MockedVoiceUpdater.
 func NewMockedVoiceUpdater() *MockedVoiceUpdater {
 	return new(MockedVoiceUpdater)
 }
 
+// UpdateVoice is sent when the voice server of a guild
+// has been updated.
+// This method must be performed to play a track.
+// See: https://discord.com/developers/docs/topics/gateway#voice-server-update
 func (u *MockedVoiceUpdater) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
 	return u.Called(guildID, sessionID, token, endpoint).Error(0)
 }
