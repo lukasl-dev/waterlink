@@ -45,6 +45,7 @@ type trackDecoder struct {
 
 var _ decodetrack.TrackDecoder = (*trackDecoder)(nil)
 
+// NewTrackDecoder returns a new TrackDecoder.
 func NewTrackDecoder(client *http.Client, host url.URL, passphrase string) decodetrack.TrackDecoder {
 	host.Path += pathDecodeTracks
 	return &trackDecoder{
@@ -54,6 +55,8 @@ func NewTrackDecoder(client *http.Client, host url.URL, passphrase string) decod
 	}
 }
 
+// DecodeTracks is used to decode the passed trackIDs
+// to track infos.
 func (d *trackDecoder) DecodeTracks(trackIDs ...string) ([]*track.Info, error) {
 	req, err := d.request(trackIDs)
 	if err != nil {
@@ -75,7 +78,7 @@ func (d *trackDecoder) request(trackIDs []string) (*http.Request, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header = authenticationHeader(d.passphrase)
+	req.Header = authHeader(d.passphrase)
 	return req, nil
 }
 
