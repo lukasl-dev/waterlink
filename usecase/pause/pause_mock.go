@@ -26,16 +26,20 @@ package pause
 
 import "github.com/stretchr/testify/mock"
 
+// MockedPauser is the mocking implementation of Pauser.
 type MockedPauser struct {
 	mock.Mock
 }
 
 var _ Pauser = (*MockedPauser)(nil)
 
+// NewMockedPauser returns a new MockedPauser.
 func NewMockedPauser() *MockedPauser {
 	return new(MockedPauser)
 }
 
+// SetPaused sets the paused state of an audio player
+// of a guild to the passed parameter value.
 func (p *MockedPauser) SetPaused(guildID uint, paused bool) error {
 	return p.Called(guildID, paused).Error(0)
 }
