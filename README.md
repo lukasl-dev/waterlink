@@ -64,7 +64,7 @@ mocking library used for this is [stretchr/testify](https://github.com/stretchr/
 
 Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **connectionless** use cases are **only based on simple HTTP requests**.
 
-### Opening a connection
+### :boat: Opening a connection
 
 <details>
   <summary>Usage</summary>
@@ -102,7 +102,7 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   </p>
 </details>
 
-### Create a requester
+### :phone: Create a requester
 
 <details>
   <summary>Usage</summary>
@@ -135,9 +135,9 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   </p>
 </details>
 
-### Interacting with tracks
+### :musical_keyboard: Interacting with tracks
 
-#### Loading multiple tracks
+#### :kite: Loading multiple tracks
 
 <details>
   <summary>Usage</summary>
@@ -168,7 +168,7 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   </p>
 </details>
 
-#### Decoding multiple tracks
+#### :ticket: Decoding multiple tracks
 
 <details>
   <summary>Usage</summary>
@@ -199,13 +199,13 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   </p>
 </details>
 
-### Interacting with an audio player
+### :notes: Interacting with an audio player
 
 The interaction with an audio player **requires an active web socket connection**.
 
-Additionally, a [voice update event **must be intercepted**](#intercepting-voice-update-event) to play a track.
+Additionally, a [voice update event **must be intercepted**](#briefcase-intercepting-a-voice-update-event) to play a track.
 
-#### Destroying an audio player
+#### :x: Destroying an audio player
 
 <details>
   <summary>Usage</summary>
@@ -231,7 +231,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Pausing/Resuming the current playing track
+#### :play_or_pause_button: Pausing/Resuming the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -258,7 +258,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Playing a track
+#### :headphones: Playing a track
 
 <details>
   <summary>Usage without options</summary>
@@ -317,7 +317,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Seeking the current playing track
+#### :next_track_button: Seeking the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -347,7 +347,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Stopping the current playing track
+#### :pause_button: Stopping the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -375,7 +375,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Intercepting voice update event
+#### :briefcase: Intercepting a voice update event
 
 <details>
   <summary>Usage</summary>
@@ -406,7 +406,7 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   </p>
 </details>
 
-#### Updating the volume of an audio player
+#### :loud_sound: Updating the volume of an audio player
 
 <details>
   <summary>Usage</summary>
