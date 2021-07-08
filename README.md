@@ -57,3 +57,244 @@ suggestions, please create an issue.
 
 To simplify testing for the handling of the library, waterlink offers the possibility of mock implementations. The
 mocking library used for this is [stretchr/testify](https://github.com/stretchr/testify).
+
+---
+
+## :bamboo: Getting started
+
+Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **connectionless** use cases are **only based on simple HTTP requests**.
+
+### Interacting with an audio player
+
+The interaction with an audio player **requires an active web socket connection**.
+
+Additionally, a [voice update event **must be intercepted**](#intercepting-voice-update-event) to play a track.
+
+#### Destroying an audio player
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import "github.com/lukasl-dev/waterlink"
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+  )
+  
+  func main() {
+    if err := conn.Destroy(guildID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Pausing/Resuming the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import "github.com/lukasl-dev/waterlink"
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+  )
+  
+  func main() {
+    if err := conn.SetPaused(guildID, true); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Playing a track
+
+<details>
+  <summary>Usage without options</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    trackID string               // TODO: load trackID
+  )
+  
+  func main() {
+    if err := conn.Play(guildID, trackID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+<details>
+  <summary>Usage with options</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+    "github.com/lukasl-dev/waterlink/usecase/play"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    trackID string               // TODO: load trackID
+    volume  uint                 // TODO: define volume
+  )
+  
+  func main() {
+    opts := play.NewOptions().WithVolume(volume) // more options available
+    if err := conn.Play(guildID, trackID, opts); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Seeking the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn     waterlink.Connection // TODO: open conn
+    guildID  uint                 // TODO: define guildID
+    position uint                 // TODO: define position
+  )
+  
+  func main() {
+    if err := conn.Seek(guildID, position); err != nil {
+      // TODO: handle error
+    }
+  }
+
+  ```
+
+  </p>
+</details>
+
+#### Stopping the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+  )
+  
+  func main() {
+    if err := conn.Stop(guildID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Intercepting voice update event
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn      waterlink.Connection // TODO: open conn
+    guildID   uint                 // TODO: define guildID
+    sessionID string               // TODO: define sessionID
+    token     string               // TODO: define token
+    endpoint  string               // TODO: define endpoint
+  )
+  
+  func main() {
+    if err := conn.UpdateVoice(guildID, sessionID, token, endpoint); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Updating the volume of an audio player
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    volume  uint                 // TODO: define volume
+  )
+  
+  func main() {
+    if err := conn.UpdateVolume(guildID, volume); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
