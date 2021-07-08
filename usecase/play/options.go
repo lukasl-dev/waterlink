@@ -37,7 +37,7 @@ type Options struct {
 
 	// Volume defines the volume at which the track
 	// is played.
-	Volume int `json:"volume,omitempty"`
+	Volume uint `json:"volume,omitempty"`
 
 	// NoReplace defines whether this action should be
 	// ignored if another track is currently playing.
@@ -75,7 +75,7 @@ func (opts *Options) WithEndTime(endTime uint) *Options {
 }
 
 // WithVolume sets the volume to the parameter value.
-func (opts *Options) WithVolume(volume int) *Options {
+func (opts *Options) WithVolume(volume uint) *Options {
 	opts.Volume = volume
 	return opts
 }
