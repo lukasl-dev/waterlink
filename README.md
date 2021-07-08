@@ -110,10 +110,11 @@ Additionally, a [voice update event **must be intercepted**](#intercepting-voice
   var (
     conn    waterlink.Connection // TODO: open conn
     guildID uint                 // TODO: define guildID
+    paused  bool                 // TODO: define paused
   )
   
   func main() {
-    if err := conn.SetPaused(guildID, true); err != nil {
+    if err := conn.SetPaused(guildID, paused); err != nil {
       // TODO: handle error
     }
   }
