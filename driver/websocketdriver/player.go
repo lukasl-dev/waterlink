@@ -71,7 +71,7 @@ func (p *player) payload(guildID uint, trackID string, opts []*play.Options) pla
 func (p *player) insert(payload *playPayload, opts *play.Options) {
 	payload.StartTime = strconv.Itoa(int(opts.StartTime))
 	payload.EndTime = strconv.Itoa(int(opts.EndTime))
-	payload.Volume = strconv.Itoa(opts.Volume)
+	payload.Volume = strconv.Itoa(int(opts.Volume))
 	payload.NoReplace = opts.NoReplace
 	payload.Pause = opts.Paused
 }
