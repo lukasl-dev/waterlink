@@ -64,6 +64,141 @@ mocking library used for this is [stretchr/testify](https://github.com/stretchr/
 
 Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **connectionless** use cases are **only based on simple HTTP requests**.
 
+### Opening a connection
+
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "context"
+    "net/url"
+  
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    host = url.URL{                // TODO: adjust
+      Scheme: "ws",
+      Host:   "localhost:2333",
+    }
+    passphrase = "youshallnotpass" // TODO: adjust
+  )
+  
+  func main() {
+    opts := waterlink.NewConnectOptions().WithPassphrase(passphrase)
+    conn, err := waterlink.Connect(context.TODO(), host, opts)
+    if err != nil {
+      // TODO: handle error
+      return
+    }
+    // TODO: use conn
+  }
+  ```
+
+  </p>
+</details>
+
+### Create a requester
+
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "net/url"
+  
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    host = url.URL{                // TODO: adjust
+      Scheme: "http",
+      Host:   "localhost:2333",
+    }
+    passphrase = "youshallnotpass" // TODO: adjust
+  )
+  
+  func main() {
+    opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase)
+    req := waterlink.NewRequester(host, opts)
+    // TODO: use req
+  }
+  ```
+
+  </p>
+</details>
+
+### Interacting with tracks
+
+#### Loading multiple tracks
+
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+
+  var (
+    req        waterlink.Requester                             // TODO: create req
+    identifier = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" // TODO: adjust
+  )
+
+  func main() {
+    resp, err := req.LoadTracks(identifier)
+    if err != nil {
+      // TODO: handle error
+      return
+    }
+    // TODO: use resp
+  }
+  ```
+
+  </p>
+</details>
+
+#### Decoding multiple tracks
+
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    req      waterlink.Requester // TODO: create req
+    trackIDs []string            // TODO: define trackIDs
+  )
+  
+  func main() {
+    tracks, err := req.DecodeTracks(trackIDs...)
+    if err != nil {
+      // handle error
+      return
+    }
+    // TODO: use tracks
+  }
+  ```
+
+  </p>
+</details>
+
 ### Interacting with an audio player
 
 The interaction with an audio player **requires an active web socket connection**.
