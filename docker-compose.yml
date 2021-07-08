@@ -1,0 +1,11 @@
+services:
+  tests:
+    env_file:
+      - .test.env
+    build: .
+  lavalink:
+    env_file:
+      - .test.env
+    image: fredboat/lavalink:master
+    volumes:
+      - ./lavalink.yml:/opt/Lavalink/application.yml

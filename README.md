@@ -3,7 +3,7 @@
 <div align="center">
   <a href="https://golang.org/">
     <img
-      src="https://img.shields.io/badge/MADE%20WITH-GO-%23EF4041?style=for-the-badge"
+      src="https://img.shields.io/badge/Written%20in-Go-%23EF4041?style=for-the-badge"
       height="30"
     />
   </a>
@@ -21,122 +21,416 @@
   </a>
 </div>
 
-<br>
+## :books: Introduction
 
-- [waterlink](#waterlink)
-  - [What is `waterlink`?](#what-is-waterlink)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Getting started](#getting-started)
-    - [Create a Client](#create-a-client)
-    - [Load one or more Tracks](#load-one-or-more-tracks)
-    - [Play a Track](#play-a-track)
-  - [Integration](#integration)
-    - [Integrate `discordgo`](#integrate-discordgo)
+Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. **The library is based on
+the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md).**
 
 ---
 
-## What is `waterlink`?
+## :mag_right: Compatibility
 
-`Waterlink` is a [Lavalink](https://github.com/freyacodes/Lavalink) client written in Go. The client is based on [Lavalink](https://github.com/freyacodes/Lavalink) version **3.0** or higher.
+- [x] [v3.3.2.5](https://github.com/freyacodes/Lavalink/releases/tag/3.3.2.5)
 
 ---
 
-## Prerequisites
-
-To use a Go package such as `waterlink`, you must of course have Go installed on your system.
+## :ballot_box: Installation
 
 It is assumed that you have already worked with the Go environment. If this is not the case,
 see [this page first](https://golang.org/doc/install).
 
----
-
-## Installation
-
-To use `waterlink` as a Go package, you must have it installed on your current system. If this is not the case, run the
-command below.
-
-```console
+```shell
 go get -u github.com/lukasl-dev/waterlink
 ```
 
 ---
 
-## Getting started
+## :art: Structural design
 
-### Create a [Client](https://pkg.go.dev/github.com/lukasl-dev/waterlink#Client)
+### :house: Architecture
 
-The [Client](https://pkg.go.dev/github.com/lukasl-dev/waterlink#Client) is used to connect to the HTTP and Websocket server.
+I have tried to implement my interpretation of [**Clean Architecture by Robert C. Martin (Uncle
+Bob)**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). If you have any corrections or
+suggestions, please create an issue.
 
-```go
-client, err := waterlink.New(
-  waterlink.HTTP(":8080"), // HTTP(S) server host address
-  waterlink.WS(":8080"), // WS(S) server host address
-  waterlink.Password("youshallnotpass"), // server authorisation password
-  waterlink.UserID("botID"), // bot's user id
-)
+### :mosquito: Mocking
 
-// handle error
-```
-
-### Load one or more [Tracks](https://pkg.go.dev/github.com/lukasl-dev/waterlink#Track)
-
-See the [Track Loading API](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api).
-
-```go
-typ, playlist, tracks, err := client.LoadTracks("source")
-
-// handle error
-```
-
-### Play a [Track](https://pkg.go.dev/github.com/lukasl-dev/waterlink#Track)
-
-**To be able to play music, `waterlink` must be [integrated](#integration).**
-
-```go
-err := client.PlayTrack("guildID", track)
-
-// handle error
-```
+To simplify testing for the handling of the library, waterlink offers the possibility of mock implementations. The
+mocking library used for this is [stretchr/testify](https://github.com/stretchr/testify).
 
 ---
 
-## Integration
+## :bamboo: Getting started
 
-### Integrate [`discordgo`](https://github.com/bwmarrin/discordgo)
+Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **connectionless** use cases are **only based on simple HTTP requests**.
 
-Here it is assumed that you already have experience with the [discordgo](https://github.com/bwmarrin/discordgo) package. If this is not the case, see [this page first](https://github.com/bwmarrin/discordgo#getting-started).
+### Opening a connection
 
-To be able to play audio, a `sessionID` is required.
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "context"
+    "net/url"
+  
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    host = url.URL{                // TODO: adjust
+      Scheme: "ws",
+      Host:   "localhost:2333",
+    }
+    passphrase = "youshallnotpass" // TODO: adjust
+  )
+  
+  func main() {
+    opts := waterlink.NewConnectOptions().WithPassphrase(passphrase)
+    conn, err := waterlink.Connect(context.TODO(), host, opts)
+    if err != nil {
+      // TODO: handle error
+      return
+    }
+    // TODO: use conn
+  }
+  ```
 
-```go
-var sessionID string
+  </p>
+</details>
 
-discord.AddHandler(func(session *discordgo.Session, event *discordgo.Ready) {
-  sessionID = event.SessionID
-})
-```
+### Create a requester
 
-To be able to stream audio, the [VoiceServerUpdate](#https://github.com/bwmarrin/discordgo#VoiceServerUpdate) must be provided. See [this](https://github.com/freyacodes/Lavalink/blob/master/IMPLEMENTATION.md#provide-a-voice-server-update).
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "net/url"
+  
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    host = url.URL{                // TODO: adjust
+      Scheme: "http",
+      Host:   "localhost:2333",
+    }
+    passphrase = "youshallnotpass" // TODO: adjust
+  )
+  
+  func main() {
+    opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase)
+    req := waterlink.NewRequester(host, opts)
+    // TODO: use req
+  }
+  ```
 
-```go
-discord.AddHandler(session *discordgo.Session, event *discordgo.VoiceServerUpdate) {
-  err := client.VoiceUpdate(event.GuildID, sessionID, waterlink.VoiceServerUpdate{
-    GuildID:  event.GuildID,
-    Token:    event.Token,
-    Endpoint: event.Endpoint,
-  })
+  </p>
+</details>
 
-  // handle error
-}
-```
+### Interacting with tracks
 
-**After [`discordgo`](https://github.com/bwmarrin/discordgo) has been integrated, music can be [played](#play-a-track).**
+#### Loading multiple tracks
 
-Use the code below to join a guild's voice channel. After that music can be [played](#play-a-track).
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
 
-```go
-err := dg.ChannelVoiceJoinManual("guildID", "voiceChannelID", false, false)
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
 
-// handle error
-```
+  var (
+    req        waterlink.Requester                             // TODO: create req
+    identifier = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" // TODO: adjust
+  )
+
+  func main() {
+    resp, err := req.LoadTracks(identifier)
+    if err != nil {
+      // TODO: handle error
+      return
+    }
+    // TODO: use resp
+  }
+  ```
+
+  </p>
+</details>
+
+#### Decoding multiple tracks
+
+<details>
+  <summary>Usage</summary>
+  <p>
+  
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    req      waterlink.Requester // TODO: create req
+    trackIDs []string            // TODO: define trackIDs
+  )
+  
+  func main() {
+    tracks, err := req.DecodeTracks(trackIDs...)
+    if err != nil {
+      // handle error
+      return
+    }
+    // TODO: use tracks
+  }
+  ```
+
+  </p>
+</details>
+
+### Interacting with an audio player
+
+The interaction with an audio player **requires an active web socket connection**.
+
+Additionally, a [voice update event **must be intercepted**](#intercepting-voice-update-event) to play a track.
+
+#### Destroying an audio player
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import "github.com/lukasl-dev/waterlink"
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+  )
+  
+  func main() {
+    if err := conn.Destroy(guildID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Pausing/Resuming the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import "github.com/lukasl-dev/waterlink"
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    paused  bool                 // TODO: define paused
+  )
+  
+  func main() {
+    if err := conn.SetPaused(guildID, paused); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Playing a track
+
+<details>
+  <summary>Usage without options</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    trackID string               // TODO: load trackID
+  )
+  
+  func main() {
+    if err := conn.Play(guildID, trackID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+<details>
+  <summary>Usage with options</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+    "github.com/lukasl-dev/waterlink/usecase/play"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    trackID string               // TODO: load trackID
+    volume  uint                 // TODO: define volume
+  )
+  
+  func main() {
+    opts := play.NewOptions().WithVolume(volume) // more options available
+    if err := conn.Play(guildID, trackID, opts); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Seeking the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn     waterlink.Connection // TODO: open conn
+    guildID  uint                 // TODO: define guildID
+    position uint                 // TODO: define position
+  )
+  
+  func main() {
+    if err := conn.Seek(guildID, position); err != nil {
+      // TODO: handle error
+    }
+  }
+
+  ```
+
+  </p>
+</details>
+
+#### Stopping the current playing track
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+  )
+  
+  func main() {
+    if err := conn.Stop(guildID); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Intercepting voice update event
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn      waterlink.Connection // TODO: open conn
+    guildID   uint                 // TODO: define guildID
+    sessionID string               // TODO: define sessionID
+    token     string               // TODO: define token
+    endpoint  string               // TODO: define endpoint
+  )
+  
+  func main() {
+    if err := conn.UpdateVoice(guildID, sessionID, token, endpoint); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>
+
+#### Updating the volume of an audio player
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+  )
+  
+  var (
+    conn    waterlink.Connection // TODO: open conn
+    guildID uint                 // TODO: define guildID
+    volume  uint                 // TODO: define volume
+  )
+  
+  func main() {
+    if err := conn.UpdateVolume(guildID, volume); err != nil {
+      // TODO: handle error
+    }
+  }
+  ```
+
+  </p>
+</details>

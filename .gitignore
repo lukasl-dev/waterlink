@@ -1,9 +1,10 @@
-### Binaries for programs and plugins
+### Binaries ###
 *.exe*
 *.dll
 
-### Jetbrains Platform
-.idea
+### JetBrains ####
+/.idea
+*.iml
 
-### Go features
-go.sum
+### VSCode ###
+/.vscode
