@@ -30,6 +30,8 @@ the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master
 
 ## :mag_right: Compatibility
 
+The following Lavalink versions have been tested for compatibility with waterlink
+
 - [x] [v3.3.2.5](https://github.com/freyacodes/Lavalink/releases/tag/3.3.2.5)
 
 ---
@@ -66,6 +68,8 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
 
 ### :boat: Opening a connection
 
+The Connection is the interface between waterlink and **Lavalink's web socket API**. It is required to interact access the **connection-oriented use cases** and can be opened by the `waterlink.Connect` function.
+
 <details>
   <summary>Usage</summary>
   <p>
@@ -89,7 +93,7 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   )
   
   func main() {
-    opts := waterlink.NewConnectOptions().WithPassphrase(passphrase)
+    opts := waterlink.NewConnectOptions().WithPassphrase(passphrase) // more options available
     conn, err := waterlink.Connect(context.TODO(), host, opts)
     if err != nil {
       // TODO: handle error
@@ -103,6 +107,8 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
 </details>
 
 ### :phone: Create a requester
+
+The Connection is the interface between waterlink and **Lavalink's HTTP API**. It is required to interact access the **connectionless use cases** and can be opened by the `waterlink.NewRequester` function.
 
 <details>
   <summary>Usage</summary>
@@ -126,7 +132,7 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
   )
   
   func main() {
-    opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase)
+    opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase) // more options available
     req := waterlink.NewRequester(host, opts)
     // TODO: use req
   }
@@ -261,34 +267,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 #### :headphones: Playing a track
 
 <details>
-  <summary>Usage without options</summary>
-  <p>
-
-  ```go
-  package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-    trackID string               // TODO: load trackID
-  )
-  
-  func main() {
-    if err := conn.Play(guildID, trackID); err != nil {
-      // TODO: handle error
-    }
-  }
-  ```
-
-  </p>
-</details>
-
-<details>
-  <summary>Usage with options</summary>
+  <summary>Usage</summary>
   <p>
 
   ```go
