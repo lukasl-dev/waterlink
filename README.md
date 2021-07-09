@@ -30,7 +30,7 @@ the [Lavalink 3.x.x protocol](https://github.com/freyacodes/Lavalink/blob/master
 
 ## :mag_right: Compatibility
 
-The following Lavalink versions have been tested for compatibility with waterlink
+The following Lavalink versions have been tested for compatibility with waterlink:
 
 - [x] [v3.3.2.5](https://github.com/freyacodes/Lavalink/releases/tag/3.3.2.5)
 
@@ -108,7 +108,7 @@ The Connection is the interface between waterlink and **Lavalink's web socket AP
 
 ### :phone: Create a requester
 
-The Connection is the interface between waterlink and **Lavalink's HTTP API**. It is required to interact access the **connectionless use cases** and can be opened by the `waterlink.NewRequester` function.
+The Requester is the interface between waterlink and **Lavalink's HTTP API**. It is required to interact access the **connectionless use cases** and can be opened by the `waterlink.NewRequester` function.
 
 <details>
   <summary>Usage</summary>
