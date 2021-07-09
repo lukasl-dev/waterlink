@@ -68,7 +68,7 @@ Firstly, we need to differentiate between **connectionless** and **connection-or
 
 ### :boat: Opening a connection
 
-The Connection is the interface between waterlink and **Lavalink's web socket API**. It is required to interact access the **connection-oriented use cases** and can be opened by the `waterlink.Connect` function.
+The Connection is the interface between waterlink and **Lavalink's web socket API**. It is required to access the **connection-oriented use cases** and can be opened by the `waterlink.Connect` function.
 
 <details>
   <summary>Usage</summary>
@@ -106,9 +106,9 @@ The Connection is the interface between waterlink and **Lavalink's web socket AP
   </p>
 </details>
 
-### :phone: Create a requester
+### :phone: Creating a requester
 
-The Requester is the interface between waterlink and **Lavalink's HTTP API**. It is required to interact access the **connectionless use cases** and can be opened by the `waterlink.NewRequester` function.
+The Requester is the interface between waterlink and **Lavalink's HTTP API**. It is required to access the **connectionless use cases** and can be created by the `waterlink.NewRequester` function.
 
 <details>
   <summary>Usage</summary>
