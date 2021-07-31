@@ -46,7 +46,7 @@ func TestNewRequester(t *testing.T) {
 	actual := NewRequester(*host, opts)
 	expected := &requester{
 		TrackDecoder:      httpdriver.NewTrackDecoder(opts.client, *host, opts.passphrase),
-		TracksLoader:      httpdriver.NewTrackLoader(opts.client, *host, opts.passphrase),
+		TrackLoader:       httpdriver.NewTrackLoader(opts.client, *host, opts.passphrase),
 		StatusGetter:      httpdriver.NewStatusGetter(opts.client, *host, opts.passphrase),
 		AddressUnmarker:   httpdriver.NewAddressUnmarker(opts.client, *host, opts.passphrase),
 		AddressesUnmarker: httpdriver.NewAddressesUnmarker(opts.client, *host, opts.passphrase),
