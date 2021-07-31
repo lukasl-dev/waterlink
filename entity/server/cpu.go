@@ -25,6 +25,7 @@
 package server
 
 // CPU holds information about the server's cpu.
+// It is used by the Stats event.
 type CPU struct {
 	// Cores are the number of cores that the server owns.
 	Cores uint `json:"cores,omitempty"`
