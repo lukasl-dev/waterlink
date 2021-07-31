@@ -45,7 +45,7 @@ type WebsocketClosed struct {
 
 var _ event.Event = (*WebsocketClosed)(nil)
 
-// Type returns the TrackStuck event's type that corresponds to the
+// Type returns the WebsocketClosed event's type that corresponds to the
 // constant event.WebsocketClosed.
 func (w WebsocketClosed) Type() event.Type {
 	return event.WebsocketClosed
