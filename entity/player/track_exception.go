@@ -41,7 +41,7 @@ type TrackException struct {
 
 var _ event.Event = (*TrackException)(nil)
 
-// Type returns the TrackStuck event's type that corresponds to the
+// Type returns the TrackException event's type that corresponds to the
 // constant event.TrackException.
 func (t TrackException) Type() event.Type {
 	return event.TrackException
