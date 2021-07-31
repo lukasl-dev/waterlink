@@ -43,7 +43,7 @@ const (
 	TrackStart Type = "track-start"
 
 	// TrackStuck is fired when a track was started, but no audio frames from
-	// it have arrived in a long time, specified by the predefined threshold.
+	// it have arrived in a long time, specified by the server-side defined threshold.
 	// See also: player.TrackStuck
 	TrackStuck Type = "track-stuck"
 
