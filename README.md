@@ -143,7 +143,7 @@ The Requester is the interface between waterlink and **Lavalink's HTTP API**. It
 
 ### :musical_keyboard: Interacting with tracks
 
-#### :kite: Loading multiple tracks
+#### Loading multiple tracks
 
 <details>
   <summary>Usage</summary>
@@ -174,7 +174,7 @@ The Requester is the interface between waterlink and **Lavalink's HTTP API**. It
   </p>
 </details>
 
-#### :ticket: Decoding multiple tracks
+#### Decoding multiple tracks
 
 <details>
   <summary>Usage</summary>
@@ -211,7 +211,7 @@ The interaction with an audio player **requires an active web socket connection*
 
 Additionally, a [voice update event **must be intercepted**](#briefcase-intercepting-a-voice-update-event) to play a track.
 
-#### :x: Destroying an audio player
+#### Destroying an audio player
 
 <details>
   <summary>Usage</summary>
@@ -237,7 +237,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :play_or_pause_button: Pausing/Resuming the current playing track
+#### Pausing/Resuming the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -264,7 +264,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :headphones: Playing a track
+#### Playing a track
 
 <details>
   <summary>Usage</summary>
@@ -296,7 +296,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :next_track_button: Seeking the current playing track
+#### Seeking the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -326,7 +326,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :pause_button: Stopping the current playing track
+#### Stopping the current playing track
 
 <details>
   <summary>Usage</summary>
@@ -354,7 +354,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :briefcase: Intercepting a voice update event
+#### Intercepting a voice update event
 
 <details>
   <summary>Usage</summary>
@@ -385,7 +385,7 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
   </p>
 </details>
 
-#### :loud_sound: Updating the volume of an audio player
+#### Updating the volume of an audio player
 
 <details>
   <summary>Usage</summary>
