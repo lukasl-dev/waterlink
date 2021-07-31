@@ -37,7 +37,7 @@ type TrackStart struct {
 
 var _ event.Event = (*TrackStart)(nil)
 
-// Type returns the TrackStuck event's type that corresponds to the
+// Type returns the TrackStart event's type that corresponds to the
 // constant event.TrackStart.
 func (t TrackStart) Type() event.Type {
 	return event.TrackStart
