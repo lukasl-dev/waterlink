@@ -30,26 +30,26 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/lukasl-dev/waterlink/usecase/loadtracks"
+	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
 )
 
 const (
-	pathLoadTracks  = "/loadtracks"
+	pathLoadTracks  = "/loadtrack"
 	paramIdentifier = "identifier"
 )
 
-type tracksLoader struct {
+type trackLoader struct {
 	client     *http.Client
 	host       url.URL
 	passphrase string
 }
 
-var _ loadtracks.TracksLoader = (*tracksLoader)(nil)
+var _ loadtrack.TrackLoader = (*trackLoader)(nil)
 
 // NewTrackLoader returns a new TrackLoader.
-func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtracks.TracksLoader {
+func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtrack.TrackLoader {
 	host.Path += pathLoadTracks
-	return &tracksLoader{
+	return &trackLoader{
 		client: client,
 		host:   host, passphrase: passphrase,
 	}
@@ -57,7 +57,7 @@ func NewTrackLoader(client *http.Client, host url.URL, passphrase string) loadtr
 
 // LoadTracks loads multiple tracks by the passed
 // identifier.
-func (l *tracksLoader) LoadTracks(identifier string) (*loadtracks.Response, error) {
+func (l *trackLoader) LoadTracks(identifier string) (*loadtrack.Response, error) {
 	req, err := l.request(identifier)
 	if err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func (l *tracksLoader) LoadTracks(identifier string) (*loadtracks.Response, erro
 	return l.unmarshal(resp)
 }
 
-func (l *tracksLoader) request(identifier string) (*http.Request, error) {
+func (l *trackLoader) request(identifier string) (*http.Request, error) {
 	host := l.host
 	host.RawQuery = l.query(identifier).Encode()
 	req, err := http.NewRequest(http.MethodGet, host.String(), nil)
@@ -80,13 +80,13 @@ func (l *tracksLoader) request(identifier string) (*http.Request, error) {
 	return req, nil
 }
 
-func (l *tracksLoader) query(identifier string) url.Values {
+func (l *trackLoader) query(identifier string) url.Values {
 	q := make(url.Values)
 	q.Set(paramIdentifier, identifier)
 	return q
 }
 
-func (l *tracksLoader) unmarshal(resp *http.Response) (dest *loadtracks.Response, err error) {
+func (l *trackLoader) unmarshal(resp *http.Response) (dest *loadtrack.Response, err error) {
 	b, err := io.ReadAll(resp.Body)
 	defer resp.Body.Close()
 	if err != nil {

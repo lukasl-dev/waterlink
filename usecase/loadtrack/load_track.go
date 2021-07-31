@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-package loadtracks
+package loadtrack
 
-type TracksLoader interface {
+type TrackLoader interface {
 	// LoadTracks loads multiple tracks by the passed
 	// identifier.
 	LoadTracks(identifier string) (*Response, error)

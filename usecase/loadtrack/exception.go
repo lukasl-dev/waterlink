@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package loadtracks
+package loadtrack
 
 type Exception struct {
 	Message  string `json:"message,omitempty"`

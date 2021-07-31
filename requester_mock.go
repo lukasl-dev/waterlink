@@ -27,7 +27,7 @@ package waterlink
 import (
 	"github.com/lukasl-dev/waterlink/entity/routeplanner"
 	"github.com/lukasl-dev/waterlink/entity/track"
-	"github.com/lukasl-dev/waterlink/usecase/loadtracks"
+	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -52,9 +52,9 @@ func (r *MockedRequester) DecodeTracks(trackIDs ...string) ([]*track.Info, error
 
 // LoadTracks loads multiple tracks by the passed
 // identifier.
-func (r *MockedRequester) LoadTracks(identifier string) (*loadtracks.Response, error) {
+func (r *MockedRequester) LoadTracks(identifier string) (*loadtrack.Response, error) {
 	args := r.Called(identifier)
-	return args.Get(0).(*loadtracks.Response), args.Error(1)
+	return args.Get(0).(*loadtrack.Response), args.Error(1)
 }
 
 // Status returns the routeplanner's status.

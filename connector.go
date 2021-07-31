@@ -38,7 +38,7 @@ type connector struct {
 	opts *ConnectOptions
 }
 
-// Connect opens a Connections to the passed host.
+// Connect opens a Connection to the passed host.
 func Connect(ctx context.Context, host url.URL, opts ...*ConnectOptions) (Connection, error) {
 	return newConnector(opts).open(ctx, host)
 }

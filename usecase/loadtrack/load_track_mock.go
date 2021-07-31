@@ -22,14 +22,26 @@
  * SOFTWARE.
  */
 
-package loadtracks
+package loadtrack
 
-type LoadType string
+import "github.com/stretchr/testify/mock"
 
-const (
-	LoadTypeTrackLoaded    LoadType = "TRACK_LOADED"
-	LoadTypePlaylistLoaded LoadType = "PLAYLIST_LOADED"
-	LoadTypeSearchResult   LoadType = "SEARCH_RESULT"
-	LoadTypeNoMatches      LoadType = "NO_MATCHES "
-	LoadTypeFailed         LoadType = "LOAD_FAILED "
-)
+// MockedTrackLoader is the mocking implementation of
+// TrackLoader.
+type MockedTrackLoader struct {
+	mock.Mock
+}
+
+var _ TrackLoader = (*MockedTrackLoader)(nil)
+
+// NewMockedTrackLoader returns a new MockedTrackLoader.
+func NewMockedTrackLoader() *MockedTrackLoader {
+	return new(MockedTrackLoader)
+}
+
+// LoadTracks loads multiple tracks by the passed
+// identifier.
+func (l *MockedTrackLoader) LoadTracks(identifier string) (*Response, error) {
+	args := l.Called(identifier)
+	return args.Get(0).(*Response), args.Error(1)
+}

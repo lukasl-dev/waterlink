@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package loadtracks
+package loadtrack
 
 import "github.com/lukasl-dev/waterlink/entity/track"
 

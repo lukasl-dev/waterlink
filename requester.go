@@ -29,7 +29,7 @@ import (
 
 	"github.com/lukasl-dev/waterlink/driver/httpdriver"
 	"github.com/lukasl-dev/waterlink/usecase/decodetrack"
-	"github.com/lukasl-dev/waterlink/usecase/loadtracks"
+	"github.com/lukasl-dev/waterlink/usecase/loadtrack"
 	"github.com/lukasl-dev/waterlink/usecase/routeplanner/getstatus"
 	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddress"
 	"github.com/lukasl-dev/waterlink/usecase/routeplanner/unmarkaddresses"
@@ -38,7 +38,7 @@ import (
 // Requester wraps all connectionless use cases.
 type Requester interface {
 	decodetrack.TrackDecoder
-	loadtracks.TracksLoader
+	loadtrack.TrackLoader
 	getstatus.StatusGetter
 	unmarkaddress.AddressUnmarker
 	unmarkaddresses.AddressesUnmarker
@@ -46,7 +46,7 @@ type Requester interface {
 
 type requester struct {
 	decodetrack.TrackDecoder
-	loadtracks.TracksLoader
+	loadtrack.TrackLoader
 	getstatus.StatusGetter
 	unmarkaddress.AddressUnmarker
 	unmarkaddresses.AddressesUnmarker
@@ -60,7 +60,7 @@ func NewRequester(host url.URL, opts ...*RequesterOptions) Requester {
 	m := minimizeRequesterOptions(opts)
 	return &requester{
 		TrackDecoder:      httpdriver.NewTrackDecoder(m.client, host, m.passphrase),
-		TracksLoader:      httpdriver.NewTrackLoader(m.client, host, m.passphrase),
+		TrackLoader:       httpdriver.NewTrackLoader(m.client, host, m.passphrase),
 		StatusGetter:      httpdriver.NewStatusGetter(m.client, host, m.passphrase),
 		AddressUnmarker:   httpdriver.NewAddressUnmarker(m.client, host, m.passphrase),
 		AddressesUnmarker: httpdriver.NewAddressesUnmarker(m.client, host, m.passphrase),
