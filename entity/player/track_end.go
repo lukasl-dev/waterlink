@@ -35,7 +35,7 @@ type TrackEnd struct {
 
 var _ event.Event = (*TrackEnd)(nil)
 
-// Type returns the TrackStuck event's type that corresponds to the
+// Type returns the TrackEnd event's type that corresponds to the
 // constant event.TrackEnd.
 func (t TrackEnd) Type() event.Type {
 	return event.TrackEnd
