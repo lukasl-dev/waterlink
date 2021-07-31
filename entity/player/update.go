@@ -37,7 +37,7 @@ type Update struct {
 
 var _ event.Event = (*Update)(nil)
 
-// Type returns the TrackStuck event's type that corresponds to the
+// Type returns the Update event's type that corresponds to the
 // constant event.PlayerUpdate.
 func (u Update) Type() event.Type {
 	return event.PlayerUpdate
