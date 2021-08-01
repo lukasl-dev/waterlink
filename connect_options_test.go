@@ -76,7 +76,7 @@ func TestConnectOptions_WithNumShards(t *testing.T) {
 
 func TestConnectOptions_WithUserID(t *testing.T) {
 	const (
-		userID = 432617716961116180
+		userID = "432617716961116180"
 	)
 	actual := NewConnectOptions().WithUserID(userID)
 	expected := &ConnectOptions{
