@@ -49,7 +49,9 @@ type Options struct {
 
 // NewOptions returns a new Options.
 func NewOptions() *Options {
-	return new(Options)
+	return &Options{
+		Volume: 100,
+	}
 }
 
 // MinimizeOptions minimizes the passed options to a
