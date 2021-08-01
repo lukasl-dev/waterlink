@@ -57,10 +57,9 @@ func (e *eventReceiver) Events() <-chan event.Event {
 func (e *eventReceiver) start() {
 	for {
 		evt, err := e.unmarshal()
-		if err != nil {
-			return
+		if err == nil {
+			e.events <- evt
 		}
-		e.events <- evt
 	}
 }
 
