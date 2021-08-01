@@ -456,3 +456,11 @@ func main() {
 
   </p>
 </details>
+
+---
+
+## :notebook: Examples
+
+### Integrating [bwmarrin/discordgo](https://github.com/bwmarrin/discordgo)
+
+[\<External Repository\>](https://github.com/lukasl-dev/waterlink-discordgo)
