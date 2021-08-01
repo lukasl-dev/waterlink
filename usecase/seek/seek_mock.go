@@ -40,6 +40,6 @@ func NewMockedSeeker() *MockedSeeker {
 
 // Seek skips the current track of a guild's audio
 // player to the passed position.
-func (s *MockedSeeker) Seek(guildID, position uint) error {
+func (s *MockedSeeker) Seek(guildID string, position uint) error {
 	return s.Called(guildID, position).Error(0)
 }

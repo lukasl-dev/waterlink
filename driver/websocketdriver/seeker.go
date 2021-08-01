@@ -25,8 +25,6 @@
 package websocketdriver
 
 import (
-	"strconv"
-
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/seek"
 )
@@ -49,10 +47,10 @@ type seekPayload struct {
 	Position uint   `json:"position,omitempty"`
 }
 
-func (s *seeker) Seek(guildID, position uint) error {
+func (s *seeker) Seek(guildID string, position uint) error {
 	return s.conn.WriteJSON(seekPayload{
 		OP:       opSeek,
-		GuildID:  strconv.Itoa(int(guildID)),
+		GuildID:  guildID,
 		Position: position,
 	})
 }

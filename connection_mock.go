@@ -76,7 +76,7 @@ func (conn *MockedConnection) Play(guildID string, trackID string, opts ...*play
 
 // Seek skips the current track of a guild's audio
 // player to the passed position.
-func (conn *MockedConnection) Seek(guildID, position uint) error {
+func (conn *MockedConnection) Seek(guildID string, position uint) error {
 	return conn.Called(guildID, position).Error(0)
 }
 
