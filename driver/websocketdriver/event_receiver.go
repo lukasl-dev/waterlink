@@ -64,9 +64,6 @@ func (e *eventReceiver) start() {
 }
 
 type genericEvent struct {
-	Op      string `json:"op,omitempty"`
-	Type    string `json:"type,omitempty"`
-	GuildID string `json:"guildId,omitempty"`
 	playerentity.TrackEnd
 	playerentity.TrackException
 	playerentity.TrackStart
@@ -74,6 +71,11 @@ type genericEvent struct {
 	playerentity.Update
 	server.WebsocketClosed
 	server.Stats
+
+	Op      string `json:"op,omitempty"`
+	Type    string `json:"type,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
+	TrackID string `json:"track,omitempty"`
 }
 
 func (e *eventReceiver) unmarshal() (event.Event, error) {
@@ -88,17 +90,25 @@ func (e *eventReceiver) lookupEvent(evt genericEvent) (event.Event, error) {
 	if evt.Op == "stats" {
 		return evt.Stats, nil
 	}
+	return e.switchEvent(evt)
+}
+
+func (e *eventReceiver) switchEvent(evt genericEvent) (event.Event, error) {
 	switch evt.Type {
 	case "TrackEndEvent":
+		evt.TrackEnd.TrackID = evt.TrackID
 		evt.TrackEnd.GuildID = evt.GuildID
 		return evt.TrackEnd, nil
 	case "TrackExceptionEvent":
+		evt.TrackException.TrackID = evt.TrackID
 		evt.TrackException.GuildID = evt.GuildID
 		return evt.TrackException, nil
 	case "TrackStartEvent":
+		evt.TrackStart.TrackID = evt.TrackID
 		evt.TrackStart.GuildID = evt.GuildID
 		return evt.TrackStart, nil
 	case "TrackStuckEvent":
+		evt.TrackStuck.TrackID = evt.TrackID
 		evt.TrackStuck.GuildID = evt.GuildID
 		return evt.TrackStuck, nil
 	case "WebSocketClosedEvent":
