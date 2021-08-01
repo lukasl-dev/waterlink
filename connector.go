@@ -90,6 +90,7 @@ func (c *connector) appendResumeKeyHeader(h http.Header) {
 
 func (c *connector) connection(conn *websocket.Conn, resp *http.Response) Connection {
 	return &connection{
+		EventReceiver:      websocketdriver.NewEventReceiver(conn),
 		ResumingConfigurer: websocketdriver.NewResumeConfigurer(conn),
 		Destroyer:          websocketdriver.NewDestroyer(conn),
 		Equalizer:          websocketdriver.NewEqualizer(conn),
