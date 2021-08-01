@@ -43,6 +43,6 @@ func NewMockedVoiceUpdater() *MockedVoiceUpdater {
 // has been updated.
 // This method must be performed to play a track.
 // See: https://discord.com/developers/docs/topics/gateway#voice-server-update
-func (u *MockedVoiceUpdater) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
+func (u *MockedVoiceUpdater) UpdateVoice(guildID string, sessionID, token, endpoint string) error {
 	return u.Called(guildID, sessionID, token, endpoint).Error(0)
 }

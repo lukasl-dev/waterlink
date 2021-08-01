@@ -25,8 +25,6 @@
 package websocketdriver
 
 import (
-	"strconv"
-
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/destroy"
 )
@@ -48,9 +46,9 @@ type destroyPayload struct {
 	GuildID string `json:"guildId,omitempty"`
 }
 
-func (d *destroyer) Destroy(guildID uint) error {
+func (d *destroyer) Destroy(guildID string) error {
 	return d.conn.WriteJSON(destroyPayload{
 		OP:      opDestroy,
-		GuildID: strconv.Itoa(int(guildID)),
+		GuildID: guildID,
 	})
 }

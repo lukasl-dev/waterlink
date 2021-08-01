@@ -28,5 +28,5 @@ package pause
 type Pauser interface {
 	// SetPaused sets the paused state of a guild's
 	// audio player to the passed parameter value.
-	SetPaused(guildID uint, paused bool) error
+	SetPaused(guildID string, paused bool) error
 }

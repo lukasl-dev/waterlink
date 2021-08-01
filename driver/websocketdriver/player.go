@@ -54,14 +54,14 @@ type playPayload struct {
 	Pause     bool   `json:"pause,omitempty"`
 }
 
-func (p *player) Play(guildID uint, trackID string, opts ...*play.Options) error {
+func (p *player) Play(guildID string, trackID string, opts ...*play.Options) error {
 	return p.conn.WriteJSON(p.payload(guildID, trackID, opts))
 }
 
-func (p *player) payload(guildID uint, trackID string, opts []*play.Options) playPayload {
+func (p *player) payload(guildID string, trackID string, opts []*play.Options) playPayload {
 	payload := playPayload{
 		OP:      opPlay,
-		GuildID: strconv.Itoa(int(guildID)),
+		GuildID: guildID,
 		Track:   trackID,
 	}
 	p.insert(&payload, play.MinimizeOptions(opts...))

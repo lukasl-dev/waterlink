@@ -64,43 +64,46 @@ mocking library used for this is [stretchr/testify](https://github.com/stretchr/
 
 ## :bamboo: Getting started
 
-Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **connectionless** use cases are **only based on simple HTTP requests**.
+Firstly, we need to differentiate between **connectionless** and **connection-oriented** use cases. **
+Connection-oriented** use cases require an **active web socket connection** to the Lavalink server and **
+connectionless** use cases are **only based on simple HTTP requests**.
 
 ### :boat: Opening a connection
 
-The Connection is the interface between waterlink and **Lavalink's web socket API**. It is required to access the **connection-oriented use cases** and can be opened by the `waterlink.Connect` function.
+The Connection is the interface between waterlink and **Lavalink's web socket API**. It is required to access the **
+connection-oriented use cases** and can be opened by the `waterlink.Connect` function.
 
 <details>
   <summary>Usage</summary>
   <p>
-  
+
   ```go
   package main
-  
-  import (
-    "context"
-    "net/url"
-  
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    host = url.URL{                // TODO: adjust
-      Scheme: "ws",
-      Host:   "localhost:2333",
-    }
-    passphrase = "youshallnotpass" // TODO: adjust
-  )
-  
-  func main() {
-    opts := waterlink.NewConnectOptions().WithPassphrase(passphrase) // more options available
-    conn, err := waterlink.Connect(context.TODO(), host, opts)
-    if err != nil {
-      // TODO: handle error
-      return
-    }
-    // TODO: use conn
-  }
+
+import (
+	"context"
+	"net/url"
+
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	host = url.URL{ // TODO: adjust
+		Scheme: "ws",
+		Host:   "localhost:2333",
+	}
+	passphrase = "youshallnotpass" // TODO: adjust
+)
+
+func main() {
+	opts := waterlink.NewConnectOptions().WithPassphrase(passphrase) // more options available
+	conn, err := waterlink.Connect(context.TODO(), host, opts)
+	if err != nil {
+		// TODO: handle error
+		return
+	}
+	// TODO: use conn
+}
   ```
 
   </p>
@@ -108,34 +111,35 @@ The Connection is the interface between waterlink and **Lavalink's web socket AP
 
 ### :phone: Creating a requester
 
-The Requester is the interface between waterlink and **Lavalink's HTTP API**. It is required to access the **connectionless use cases** and can be created by the `waterlink.NewRequester` function.
+The Requester is the interface between waterlink and **Lavalink's HTTP API**. It is required to access the **
+connectionless use cases** and can be created by the `waterlink.NewRequester` function.
 
 <details>
   <summary>Usage</summary>
   <p>
-  
+
   ```go
   package main
-  
-  import (
-    "net/url"
-  
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    host = url.URL{                // TODO: adjust
-      Scheme: "http",
-      Host:   "localhost:2333",
-    }
-    passphrase = "youshallnotpass" // TODO: adjust
-  )
-  
-  func main() {
-    opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase) // more options available
-    req := waterlink.NewRequester(host, opts)
-    // TODO: use req
-  }
+
+import (
+	"net/url"
+
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	host = url.URL{ // TODO: adjust
+		Scheme: "http",
+		Host:   "localhost:2333",
+	}
+	passphrase = "youshallnotpass" // TODO: adjust
+)
+
+func main() {
+	opts := waterlink.NewRequesterOptions().WithPassphrase(passphrase) // more options available
+	req := waterlink.NewRequester(host, opts)
+	// TODO: use req
+}
   ```
 
   </p>
@@ -148,27 +152,27 @@ The Requester is the interface between waterlink and **Lavalink's HTTP API**. It
 <details>
   <summary>Usage</summary>
   <p>
-  
+
   ```go
   package main
 
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
+import (
+	"github.com/lukasl-dev/waterlink"
+)
 
-  var (
-    req        waterlink.Requester                             // TODO: create req
-    identifier = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" // TODO: adjust
-  )
+var (
+	req        waterlink.Requester                             // TODO: create req
+	identifier = "https://www.youtube.com/watch?v=dQw4w9WgXcQ" // TODO: adjust
+)
 
-  func main() {
-    resp, err := req.LoadTracks(identifier)
-    if err != nil {
-      // TODO: handle error
-      return
-    }
-    // TODO: use resp
-  }
+func main() {
+	resp, err := req.LoadTracks(identifier)
+	if err != nil {
+		// TODO: handle error
+		return
+	}
+	// TODO: use resp
+}
   ```
 
   </p>
@@ -179,27 +183,27 @@ The Requester is the interface between waterlink and **Lavalink's HTTP API**. It
 <details>
   <summary>Usage</summary>
   <p>
-  
+
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    req      waterlink.Requester // TODO: create req
-    trackIDs []string            // TODO: define trackIDs
-  )
-  
-  func main() {
-    tracks, err := req.DecodeTracks(trackIDs...)
-    if err != nil {
-      // handle error
-      return
-    }
-    // TODO: use tracks
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	req      waterlink.Requester // TODO: create req
+	trackIDs []string            // TODO: define trackIDs
+)
+
+func main() {
+	tracks, err := req.DecodeTracks(trackIDs...)
+	if err != nil {
+		// handle error
+		return
+	}
+	// TODO: use tracks
+}
   ```
 
   </p>
@@ -209,7 +213,8 @@ The Requester is the interface between waterlink and **Lavalink's HTTP API**. It
 
 The interaction with an audio player **requires an active web socket connection**.
 
-Additionally, a [voice update event **must be intercepted**](#briefcase-intercepting-a-voice-update-event) to play a track.
+Additionally, a [voice update event **must be intercepted**](#briefcase-intercepting-a-voice-update-event) to play a
+track.
 
 #### Destroying an audio player
 
@@ -219,19 +224,19 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import "github.com/lukasl-dev/waterlink"
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-  )
-  
-  func main() {
-    if err := conn.Destroy(guildID); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import "github.com/lukasl-dev/waterlink"
+
+var (
+	conn    waterlink.Connection // TODO: open conn
+	guildID string               // TODO: define guildID
+)
+
+func main() {
+	if err := conn.Destroy(guildID); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>
@@ -245,20 +250,20 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import "github.com/lukasl-dev/waterlink"
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-    paused  bool                 // TODO: define paused
-  )
-  
-  func main() {
-    if err := conn.SetPaused(guildID, paused); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import "github.com/lukasl-dev/waterlink"
+
+var (
+	conn    waterlink.Connection // TODO: open conn
+	guildID string               // TODO: define guildID
+	paused  bool                 // TODO: define paused
+)
+
+func main() {
+	if err := conn.SetPaused(guildID, paused); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>
@@ -272,25 +277,25 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-    "github.com/lukasl-dev/waterlink/usecase/play"
-  )
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-    trackID string               // TODO: load trackID
-    volume  uint                 // TODO: define volume
-  )
-  
-  func main() {
-    opts := play.NewOptions().WithVolume(volume) // more options available
-    if err := conn.Play(guildID, trackID, opts); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+	"github.com/lukasl-dev/waterlink/usecase/play"
+)
+
+var (
+	conn    waterlink.Connection // TODO: open conn
+	guildID string               // TODO: define guildID
+	trackID string               // TODO: load trackID
+	volume  uint                 // TODO: define volume
+)
+
+func main() {
+	opts := play.NewOptions().WithVolume(volume) // more options available
+	if err := conn.Play(guildID, trackID, opts); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>
@@ -304,22 +309,22 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    conn     waterlink.Connection // TODO: open conn
-    guildID  uint                 // TODO: define guildID
-    position uint                 // TODO: define position
-  )
-  
-  func main() {
-    if err := conn.Seek(guildID, position); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	conn     waterlink.Connection // TODO: open conn
+	guildID  uint                 // TODO: define guildID
+	position uint                 // TODO: define position
+)
+
+func main() {
+	if err := conn.Seek(guildID, position); err != nil {
+		// TODO: handle error
+	}
+}
 
   ```
 
@@ -334,21 +339,21 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-  )
-  
-  func main() {
-    if err := conn.Stop(guildID); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	conn    waterlink.Connection // TODO: open conn
+	guildID string               // TODO: define guildID
+)
+
+func main() {
+	if err := conn.Stop(guildID); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>
@@ -362,24 +367,24 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    conn      waterlink.Connection // TODO: open conn
-    guildID   uint                 // TODO: define guildID
-    sessionID string               // TODO: define sessionID
-    token     string               // TODO: define token
-    endpoint  string               // TODO: define endpoint
-  )
-  
-  func main() {
-    if err := conn.UpdateVoice(guildID, sessionID, token, endpoint); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	conn      waterlink.Connection // TODO: open conn
+	guildID   uint                 // TODO: define guildID
+	sessionID string               // TODO: define sessionID
+	token     string               // TODO: define token
+	endpoint  string               // TODO: define endpoint
+)
+
+func main() {
+	if err := conn.UpdateVoice(guildID, sessionID, token, endpoint); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>
@@ -393,22 +398,22 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   ```go
   package main
-  
-  import (
-    "github.com/lukasl-dev/waterlink"
-  )
-  
-  var (
-    conn    waterlink.Connection // TODO: open conn
-    guildID uint                 // TODO: define guildID
-    volume  uint                 // TODO: define volume
-  )
-  
-  func main() {
-    if err := conn.UpdateVolume(guildID, volume); err != nil {
-      // TODO: handle error
-    }
-  }
+
+import (
+	"github.com/lukasl-dev/waterlink"
+)
+
+var (
+	conn    waterlink.Connection // TODO: open conn
+	guildID string               // TODO: define guildID
+	volume  uint                 // TODO: define volume
+)
+
+func main() {
+	if err := conn.UpdateVolume(guildID, volume); err != nil {
+		// TODO: handle error
+	}
+}
   ```
 
   </p>

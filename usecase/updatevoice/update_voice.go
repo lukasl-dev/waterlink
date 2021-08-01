@@ -30,5 +30,5 @@ type VoiceUpdater interface {
 	// has been updated.
 	// This method must be performed to play a track.
 	// See: https://discord.com/developers/docs/topics/gateway#voice-server-update
-	UpdateVoice(guildID uint, sessionID, token, endpoint string) error
+	UpdateVoice(guildID string, sessionID, token, endpoint string) error
 }

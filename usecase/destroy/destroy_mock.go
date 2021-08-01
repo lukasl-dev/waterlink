@@ -39,6 +39,6 @@ func NewMockedDestroyer() *MockedDestroyer {
 }
 
 // Destroy is used to destroy a guild's audio player.
-func (d *MockedDestroyer) Destroy(guildID uint) error {
+func (d *MockedDestroyer) Destroy(guildID string) error {
 	return d.Called(guildID).Error(0)
 }

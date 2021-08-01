@@ -42,6 +42,6 @@ func NewMockedEqualizer() *MockedEqualizer {
 
 // UseEqualizer applies the passed bands on a guild's
 // audio player.
-func (e *MockedEqualizer) UseEqualizer(guildID uint, bands ...Band) error {
+func (e *MockedEqualizer) UseEqualizer(guildID string, bands ...Band) error {
 	return e.Called(guildID, bands).Error(0)
 }

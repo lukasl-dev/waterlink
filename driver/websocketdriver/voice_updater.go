@@ -25,8 +25,6 @@
 package websocketdriver
 
 import (
-	"strconv"
-
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/updatevoice"
 )
@@ -57,14 +55,13 @@ type (
 	}
 )
 
-func (u *voiceUpdater) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
-	s := strconv.Itoa(int(guildID))
+func (u *voiceUpdater) UpdateVoice(guildID string, sessionID, token, endpoint string) error {
 	return u.conn.WriteJSON(voiceUpdatePayload{
 		OP:        opVoiceUpdate,
-		GuildID:   s,
+		GuildID:   guildID,
 		SessionID: sessionID,
 		Event: voiceUpdateEvent{
-			GuildID:  s,
+			GuildID:  guildID,
 			Token:    token,
 			Endpoint: endpoint,
 		},

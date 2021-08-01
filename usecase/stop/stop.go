@@ -28,5 +28,5 @@ package stop
 type Stopper interface {
 	// Stop stops the current track of a guild's audio
 	// player.
-	Stop(guildID uint) error
+	Stop(guildID string) error
 }

@@ -45,26 +45,26 @@ func (conn *MockedConnection) ConfigureResuming(resumeKey string, timeout uint) 
 }
 
 // Destroy is used to destroy a guild's audio player.
-func (conn *MockedConnection) Destroy(guildID uint) error {
+func (conn *MockedConnection) Destroy(guildID string) error {
 	return conn.Called(guildID).Error(0)
 }
 
 // UseEqualizer applies the passed bands on a guild's
 // audio player.
-func (conn *MockedConnection) UseEqualizer(guildID uint, bands ...equalize.Band) error {
+func (conn *MockedConnection) UseEqualizer(guildID string, bands ...equalize.Band) error {
 	return conn.Called(guildID, bands).Error(0)
 }
 
 // SetPaused sets the paused state of a guild's
 // audio player to the passed parameter value.
-func (conn *MockedConnection) SetPaused(guildID uint, paused bool) error {
+func (conn *MockedConnection) SetPaused(guildID string, paused bool) error {
 	return conn.Called(guildID, paused).Error(0)
 }
 
 // Play plays the track with the given id on the
 // guild's audio player.
 // More options can be configured via Options.
-func (conn *MockedConnection) Play(guildID uint, trackID string, opts ...*play.Options) error {
+func (conn *MockedConnection) Play(guildID string, trackID string, opts ...*play.Options) error {
 	return conn.Called(guildID, trackID, opts).Error(0)
 }
 
@@ -76,7 +76,7 @@ func (conn *MockedConnection) Seek(guildID, position uint) error {
 
 // Stop stops the current track of a guild's audio
 // player.
-func (conn *MockedConnection) Stop(guildID uint) error {
+func (conn *MockedConnection) Stop(guildID string) error {
 	return conn.Called(guildID).Error(0)
 }
 
@@ -84,7 +84,7 @@ func (conn *MockedConnection) Stop(guildID uint) error {
 // has been updated.
 // This method must be performed to play a track.
 // See: https://discord.com/developers/docs/topics/gateway#voice-server-update
-func (conn *MockedConnection) UpdateVoice(guildID uint, sessionID, token, endpoint string) error {
+func (conn *MockedConnection) UpdateVoice(guildID string, sessionID, token, endpoint string) error {
 	return conn.Called(guildID, sessionID, token, endpoint).Error(0)
 }
 

@@ -25,8 +25,6 @@
 package websocketdriver
 
 import (
-	"strconv"
-
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/pause"
 )
@@ -49,10 +47,10 @@ type pausePayload struct {
 	Pause   bool
 }
 
-func (p *pauser) SetPaused(guildID uint, paused bool) error {
+func (p *pauser) SetPaused(guildID string, paused bool) error {
 	return p.conn.WriteJSON(pausePayload{
 		OP:      opPause,
-		GuildID: strconv.Itoa(int(guildID)),
+		GuildID: guildID,
 		Pause:   paused,
 	})
 }

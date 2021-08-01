@@ -25,8 +25,6 @@
 package websocketdriver
 
 import (
-	"strconv"
-
 	"github.com/gorilla/websocket"
 	"github.com/lukasl-dev/waterlink/usecase/stop"
 )
@@ -48,9 +46,9 @@ type stopPayload struct {
 	GuildID string `json:"guildId,omitempty"`
 }
 
-func (s *stopper) Stop(guildID uint) error {
+func (s *stopper) Stop(guildID string) error {
 	return s.conn.WriteJSON(stopPayload{
 		OP:      opStop,
-		GuildID: strconv.Itoa(int(guildID)),
+		GuildID: guildID,
 	})
 }

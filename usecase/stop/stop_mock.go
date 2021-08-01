@@ -39,6 +39,6 @@ func NewMockedStopper() *MockedStopper {
 }
 
 // Stop stops the current track of a guild's audio player.
-func (s *MockedStopper) Stop(guildID uint) error {
+func (s *MockedStopper) Stop(guildID string) error {
 	return s.Called(guildID).Error(0)
 }
