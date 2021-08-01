@@ -65,8 +65,9 @@ func (e *eventReceiver) start() {
 }
 
 type genericEvent struct {
-	Op   string `json:"op,omitempty"`
-	Type string `json:"type,omitempty"`
+	Op      string `json:"op,omitempty"`
+	Type    string `json:"type,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 	playerentity.TrackEnd
 	playerentity.TrackException
 	playerentity.TrackStart
@@ -90,14 +91,19 @@ func (e *eventReceiver) lookupEvent(evt genericEvent) (event.Event, error) {
 	}
 	switch evt.Type {
 	case "TrackEndEvent":
+		evt.TrackEnd.GuildID = evt.GuildID
 		return evt.TrackEnd, nil
 	case "TrackExceptionEvent":
+		evt.TrackException.GuildID = evt.GuildID
 		return evt.TrackException, nil
 	case "TrackStartEvent":
+		evt.TrackStart.GuildID = evt.GuildID
 		return evt.TrackStart, nil
 	case "TrackStuckEvent":
+		evt.TrackStuck.GuildID = evt.GuildID
 		return evt.TrackStuck, nil
 	case "WebSocketClosedEvent":
+		evt.WebsocketClosed.GuildID = evt.GuildID
 		return evt.WebsocketClosed, nil
 	default:
 		return nil, errors.New("unknown event received")
