@@ -40,6 +40,6 @@ func NewMockedVolumeUpdater() *MockedVolumeUpdater {
 
 // UpdateVolume changes the volume of a guild's
 // audio player.
-func (u *MockedVolumeUpdater) UpdateVolume(guildID, volume uint) error {
+func (u *MockedVolumeUpdater) UpdateVolume(guildID string, volume uint) error {
 	return u.Called(guildID, volume).Error(0)
 }

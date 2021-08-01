@@ -28,5 +28,5 @@ package updatevolume
 type VolumeUpdater interface {
 	// UpdateVolume changes the volume of a guild's
 	// audio player.
-	UpdateVolume(guildID, volume uint) error
+	UpdateVolume(guildID string, volume uint) error
 }
