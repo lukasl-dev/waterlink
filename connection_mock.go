@@ -96,7 +96,7 @@ func (conn *MockedConnection) UpdateVoice(guildID string, sessionID, token, endp
 
 // UpdateVolume changes the volume of a guild's
 // audio player.
-func (conn *MockedConnection) UpdateVolume(guildID, volume uint) error {
+func (conn *MockedConnection) UpdateVolume(guildID string, volume uint) error {
 	return conn.Called(guildID, volume).Error(0)
 }
 
