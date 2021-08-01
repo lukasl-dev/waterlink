@@ -25,6 +25,7 @@
 package waterlink
 
 import (
+	"github.com/lukasl-dev/waterlink/adapter/receiveevent"
 	"github.com/lukasl-dev/waterlink/usecase/configureresuming"
 	"github.com/lukasl-dev/waterlink/usecase/destroy"
 	"github.com/lukasl-dev/waterlink/usecase/equalize"
@@ -38,6 +39,7 @@ import (
 
 // Connection wraps all connection-oriented use cases.
 type Connection interface {
+	receiveevent.EventReceiver
 	configureresuming.ResumingConfigurer
 	destroy.Destroyer
 	equalize.Equalizer
@@ -55,6 +57,7 @@ type Connection interface {
 
 // connection is the default implementation of Connection.
 type connection struct {
+	receiveevent.EventReceiver
 	configureresuming.ResumingConfigurer
 	destroy.Destroyer
 	equalize.Equalizer

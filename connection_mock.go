@@ -25,6 +25,7 @@
 package waterlink
 
 import (
+	"github.com/lukasl-dev/waterlink/entity/event"
 	"github.com/lukasl-dev/waterlink/usecase/equalize"
 	"github.com/lukasl-dev/waterlink/usecase/play"
 	"github.com/stretchr/testify/mock"
@@ -37,6 +38,11 @@ type MockedConnection struct {
 }
 
 var _ Connection = (*MockedConnection)(nil)
+
+// Events returns a channel in which all events are streamed.
+func (conn *MockedConnection) Events() <-chan event.Event {
+	return conn.Called().Get(0).(<-chan event.Event)
+}
 
 // ConfigureResuming configures the resume key used
 // to resume a connection.
