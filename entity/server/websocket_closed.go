@@ -31,7 +31,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // expired voice server update.
 type WebsocketClosed struct {
 	// GuildID is the id of the guild on which this event occurred.
-	GuildID uint `json:"guildId,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 
 	// Code is the code returned by the discord api.
 	Code uint `json:"code,omitempty"`
