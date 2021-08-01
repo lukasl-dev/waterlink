@@ -34,7 +34,7 @@ import (
 )
 
 const (
-	pathLoadTracks  = "/loadtrack"
+	pathLoadTracks  = "/loadtracks"
 	paramIdentifier = "identifier"
 )
 
