@@ -413,3 +413,41 @@ Additionally, a [voice update event **must be intercepted**](#briefcase-intercep
 
   </p>
 </details>
+
+### :mailbox: Monitoring events
+
+<details>
+  <summary>Usage</summary>
+  <p>
+
+  ```go
+  package main
+  
+  import (
+    "github.com/lukasl-dev/waterlink"
+    "github.com/lukasl-dev/waterlink/entity/event"
+    "github.com/lukasl-dev/waterlink/entity/player"
+    "github.com/lukasl-dev/waterlink/entity/server"
+  )
+  
+  var (
+    conn waterlink.Connection // TODO: open conn
+  )
+  
+  func main() {
+    for evt := range conn.Events() {
+      switch evt.Type() {
+      case event.Stats: // more events available
+        evt := evt.(server.Stats)
+        println("Server uses", evt.Memory.Used, "memory")
+      case event.TrackStart: // more events available
+        evt := evt.(player.TrackStart)
+        println("Track", evt.TrackID, "started on guild", evt.GuildID)
+      }
+    }
+  }
+
+  ```
+
+  </p>
+</details>
