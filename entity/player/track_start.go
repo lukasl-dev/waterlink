@@ -29,7 +29,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // TrackStart is fired when a track starts playing.
 type TrackStart struct {
 	// GuildID on which the audio player is operating on.
-	GuildID uint `json:"guildId,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 
 	// TrackID is the id of the track that started playing recently.
 	TrackID string `json:"track,omitempty"`

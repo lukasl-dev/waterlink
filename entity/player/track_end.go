@@ -29,7 +29,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // TrackEnd is fired when an audio track ends in an audio player, either by
 // interruption, exception or reaching the end.
 type TrackEnd struct {
-	GuildID uint   `json:"guildId,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 	TrackID string `json:"track,omitempty"`
 }
 

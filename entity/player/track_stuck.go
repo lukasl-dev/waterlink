@@ -29,7 +29,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // TrackStuck is fired when a track was started, but no audio frames from it
 // have arrived in a long time, specified by the server-side defined threshold.
 type TrackStuck struct {
-	GuildID     uint   `json:"guildId,omitempty"`
+	GuildID     string `json:"guildId,omitempty"`
 	TrackID     string `json:"track,omitempty"`
 	ThresholdMS uint   `json:"thresholdMs,omitempty"`
 }

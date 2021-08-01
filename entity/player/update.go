@@ -29,7 +29,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // Update TODO
 type Update struct {
 	// GuildID is the id of the guild on which the audio player is operating on.
-	GuildID uint `json:"guildId,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 
 	// State holds information about the audio player.
 	State State `json:"state,omitempty"`

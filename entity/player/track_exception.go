@@ -30,7 +30,7 @@ import "github.com/lukasl-dev/waterlink/entity/event"
 // causes it to halt or not start.
 type TrackException struct {
 	// GuildID of the guild on which the audio player is operating on.
-	GuildID uint `json:"guildId,omitempty"`
+	GuildID string `json:"guildId,omitempty"`
 
 	// TrackID of the track that halt or not start.
 	TrackID string `json:"track,omitempty"`
