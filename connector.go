@@ -79,7 +79,7 @@ func (c *connector) appendNumShardsHeader(h *http.Header) {
 }
 
 func (c *connector) appendUserIDHeader(h *http.Header) {
-	h.Set(headerUserID, strconv.Itoa(int(c.opts.userID)))
+	h.Set(headerUserID, c.opts.userID)
 }
 
 func (c *connector) appendResumeKeyHeader(h http.Header) {
