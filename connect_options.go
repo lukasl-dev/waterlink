@@ -32,7 +32,7 @@ type ConnectOptions struct {
 	dialer     *websocket.Dialer
 	passphrase string
 	numShards  uint
-	userID     uint
+	userID     string
 	resumeKey  string
 }
 
@@ -40,6 +40,7 @@ type ConnectOptions struct {
 func NewConnectOptions() *ConnectOptions {
 	return &ConnectOptions{
 		dialer: websocket.DefaultDialer,
+		userID: "0",
 	}
 }
 
@@ -71,7 +72,7 @@ func (opts *ConnectOptions) WithNumShards(numShards uint) *ConnectOptions {
 }
 
 // WithUserID sets the user id to the parameter value.
-func (opts *ConnectOptions) WithUserID(userID uint) *ConnectOptions {
+func (opts *ConnectOptions) WithUserID(userID string) *ConnectOptions {
 	opts.userID = userID
 	return opts
 }
