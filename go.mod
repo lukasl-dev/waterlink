@@ -1,6 +1,6 @@
 module github.com/lukasl-dev/waterlink
 
-go 1.18
+go 1.15
 
 require (
 	github.com/gompus/snowflake v0.0.4
