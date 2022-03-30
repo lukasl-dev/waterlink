@@ -6,5 +6,5 @@ type Seek struct {
 	Guild
 
 	// Position is the timestamp to seek to in milliseconds.
-	Position uint `json:"position,omitempty"`
+	Position uint `json:"position"`
 }
