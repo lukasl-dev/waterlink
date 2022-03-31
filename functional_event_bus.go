@@ -5,13 +5,13 @@ import "github.com/lukasl-dev/waterlink/event"
 // FunctionalEventBus is a EventBus implementation that calls pre-registered
 // functions for each event emitted.
 type FunctionalEventBus struct {
-	playerUpdates   []func(update event.PlayerUpdate)
-	stats           []func(stats event.Stats)
-	trackEnds       []func(trackEnd event.TrackEnd)
-	trackExceptions []func(trackException event.TrackException)
-	trackStarts     []func(trackStart event.TrackStart)
-	trackStucks     []func(trackStuck event.TrackStuck)
-	websocketCloses []func(websocketClose event.WebSocketClosed)
+	playerUpdates   []func(event.PlayerUpdate)
+	stats           []func(event.Stats)
+	trackEnds       []func(event.TrackEnd)
+	trackExceptions []func(event.TrackException)
+	trackStarts     []func(event.TrackStart)
+	trackStucks     []func(event.TrackStuck)
+	websocketCloses []func(event.WebSocketClosed)
 }
 
 var _ EventBus = (*FunctionalEventBus)(nil)
