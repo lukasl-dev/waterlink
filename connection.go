@@ -9,6 +9,7 @@ import (
 	"github.com/lukasl-dev/waterlink/internal/message"
 	"github.com/lukasl-dev/waterlink/internal/message/opcode"
 	"github.com/lukasl-dev/waterlink/internal/pkgerror"
+	"net/http"
 	"time"
 )
 
@@ -19,6 +20,9 @@ type Connection struct {
 
 	// conn is the underlying websocket connection.
 	conn *websocket.Conn
+
+	// sessionResumed reports whether a previous session has been resumed.
+	sessionResumed bool
 }
 
 // Open opens a new websocket connection to addr. The given creds are used to
@@ -31,21 +35,27 @@ func Open(addr string, creds Credentials, opts ...ConnectionOptions) (*Connectio
 		panic(pkgerror.New("connection: open: too many options"))
 	}
 
-	conn, _, err := websocket.DefaultDialer.Dial(addr, creds.header())
+	conn, resp, err := websocket.DefaultDialer.Dial(addr, creds.header())
 	if err != nil {
 		return nil, pkgerror.Wrap("open", err)
 	}
 
-	return newConnection(opts[0], conn), nil
+	return wrapConn(opts[0], conn, resp), nil
 }
 
-// newConnection wraps the given websocket connection.
-func newConnection(opts ConnectionOptions, conn *websocket.Conn) *Connection {
+// wrapConn wraps the given websocket connection.
+func wrapConn(opts ConnectionOptions, conn *websocket.Conn, resp *http.Response) *Connection {
 	c := &Connection{opts: opts, conn: conn}
 	if opts.EventBus != nil {
 		go c.listen()
 	}
+	c.sessionResumed = resp.Header.Get("Session-Resumed") == "true"
 	return c
+}
+
+// SessionResumed returns true whether a previous session has been resumed.
+func (conn Connection) SessionResumed() bool {
+	return conn.sessionResumed
 }
 
 // Guild returns a Guild used to interact with a specific guild. The
