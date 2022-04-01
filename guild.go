@@ -6,6 +6,7 @@ import (
 	"github.com/lukasl-dev/waterlink/internal/message"
 	"github.com/lukasl-dev/waterlink/internal/message/opcode"
 	"github.com/lukasl-dev/waterlink/internal/pkgerror"
+	"github.com/lukasl-dev/waterlink/track"
 )
 
 // Guild is a struct that is used to send guild-scoped messages via the
@@ -43,7 +44,7 @@ func (g Guild) UpdateVoice(session string, token, endpoint string) error {
 }
 
 // Play plays the preloaded audio track whose id is given via the guild's audio
-// player. If params should be nil, the default values are used.
+// player. If no params should be given, the defaultPlayParams are used.
 func (g Guild) Play(trackID string, params ...PlayParams) error {
 	switch {
 	case trackID == "":
@@ -65,6 +66,12 @@ func (g Guild) Play(trackID string, params ...PlayParams) error {
 		NoReplace: p.Pause,
 		Pause:     p.Pause,
 	}))
+}
+
+// PlayTrack plays the given audio track. If no params should be given, the
+// defaultPlayParams are used.
+func (g Guild) PlayTrack(tr track.Track, params ...PlayParams) error {
+	return g.Play(tr.ID, params...)
 }
 
 // Stop stops the audio playback of the guild's audio player.
