@@ -106,12 +106,12 @@ func (g Guild) Volume(volume uint16) error {
 
 // newErr creates a new error with action as prefix.
 func (g Guild) newErr(action, msg string) error {
-	return pkgerror.New(fmt.Sprintf("guild: %s: %s: %s", action, g.id, msg))
+	return pkgerror.New(fmt.Sprintf("connection: guild: %s: %s: %s", action, g.id, msg))
 }
 
 // wrapErr wraps err and adds action as prefix to the error message.
 func (g Guild) wrapErr(action string, err error) error {
-	return pkgerror.Wrap(fmt.Sprintf("guild: %s: %s:", action, g.id), err)
+	return pkgerror.Wrap(fmt.Sprintf("connection: guild: %s: %s:", action, g.id), err)
 }
 
 // guild creates a message.Guild from g.
