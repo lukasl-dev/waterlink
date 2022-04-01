@@ -23,6 +23,9 @@ type Connection struct {
 
 	// sessionResumed reports whether a previous session has been resumed.
 	sessionResumed bool
+
+	// apiVersion is server's API version that was acquired during the handshake.
+	apiVersion string
 }
 
 // Open opens a new websocket connection to addr. The given creds are used to
@@ -50,12 +53,19 @@ func wrapConn(opts ConnectionOptions, conn *websocket.Conn, resp *http.Response)
 		go c.listen()
 	}
 	c.sessionResumed = resp.Header.Get("Session-Resumed") == "true"
+	c.apiVersion = resp.Header.Get("Lavalink-Api-Version")
 	return c
 }
 
 // SessionResumed returns true whether a previous session has been resumed.
 func (conn Connection) SessionResumed() bool {
 	return conn.sessionResumed
+}
+
+// APIVersion returns the server's API version that was acquired during the
+// handshake.
+func (conn Connection) APIVersion() string {
+	return conn.apiVersion
 }
 
 // Guild returns a Guild used to interact with a specific guild. The
