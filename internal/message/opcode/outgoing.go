@@ -34,4 +34,10 @@ const (
 
 	// Destroy destroys a specific audio player instance server-side.
 	Destroy Outgoing = "destroy"
+
+	// ConfigureResuming configures the session resumption behavior of the
+	// server. It can enable or disable the resumption of sessions, and it can
+	// define the number of seconds after which a session will be considered
+	// expired server-side.
+	ConfigureResuming Outgoing = "configureResuming"
 )
