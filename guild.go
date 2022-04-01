@@ -44,23 +44,26 @@ func (g Guild) UpdateVoice(session string, token, endpoint string) error {
 
 // Play plays the preloaded audio track whose id is given via the guild's audio
 // player. If params should be nil, the default values are used.
-func (g Guild) Play(track string, params *PlayParams) error {
-	if track == "" {
-		return g.newErr("play", "track must be present (not empty)")
-	}
-	if params == nil {
-		params = new(PlayParams)
+func (g Guild) Play(trackID string, params ...PlayParams) error {
+	switch {
+	case trackID == "":
+		return g.newErr("play", "trackID must not be empty")
+	case len(params) == 0:
+		params = []PlayParams{defaultPlayParams}
+	case len(params) > 1:
+		return g.newErr("play", "too many params")
 	}
 
+	p := params[0]
 	return g.wrapErr("play", g.w.WriteJSON(message.Play{
 		Outgoing:  message.Outgoing{Op: opcode.Play},
 		Guild:     g.guild(),
-		Track:     track,
-		StartTime: params.startTime(),
-		EndTime:   params.endTime(),
-		Volume:    params.volume(),
-		NoReplace: params.Pause,
-		Pause:     params.Pause,
+		Track:     trackID,
+		StartTime: p.startTime(),
+		EndTime:   p.endTime(),
+		Volume:    p.volume(),
+		NoReplace: p.Pause,
+		Pause:     p.Pause,
 	}))
 }
 

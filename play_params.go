@@ -21,6 +21,9 @@ type PlayParams struct {
 	Pause bool `json:"pause,omitempty"`
 }
 
+// defaultPlayParams are the default PlayParams for the Guild.Play() method.
+var defaultPlayParams = PlayParams{}
+
 func (p PlayParams) startTime() string {
 	if p.StartTime == 0 {
 		return ""

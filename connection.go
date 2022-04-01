@@ -40,7 +40,7 @@ func Open(addr string, creds Credentials, opts ...ConnectionOptions) (*Connectio
 
 	conn, resp, err := websocket.DefaultDialer.Dial(addr, creds.header())
 	if err != nil {
-		return nil, pkgerror.Wrap("open", err)
+		return nil, pkgerror.Wrap("connection: open", err)
 	}
 
 	return wrapConn(opts[0], conn, resp), nil
