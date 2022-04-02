@@ -5,7 +5,7 @@ type VoiceUpdate struct {
 	Outgoing
 	Guild
 
-	Session string `json:"session"`
+	Session string `json:"sessionId"`
 
 	// Event is the intercepted voice server update event.
 	Event VoiceUpdateEvent `json:"event"`
