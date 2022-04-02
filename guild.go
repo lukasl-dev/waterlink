@@ -83,11 +83,12 @@ func (g Guild) Stop() error {
 	}))
 }
 
-// Pause pauses the audio playback of the guild's audio player.
-func (g Guild) Pause() error {
-	return g.wrapErr("pause", g.w.WriteJSON(message.Pause{
+// SetPaused pauses or resumes the audio playback of the guild's audio player.
+func (g Guild) SetPaused(paused bool) error {
+	return g.wrapErr("set paused", g.w.WriteJSON(message.Pause{
 		Outgoing: message.Outgoing{Op: opcode.Pause},
 		Guild:    g.guild(),
+		Pause:    paused,
 	}))
 }
 
@@ -104,10 +105,10 @@ func (g Guild) Seek(position time.Duration) error {
 // between 0 and 1000. Defaults to 100.
 func (g Guild) UpdateVolume(volume uint16) error {
 	if volume > 1000 {
-		return g.newErr("volume", "volume must be between 0 and 1000")
+		return g.newErr("update volume", "volume must be between 0 and 1000")
 	}
 
-	return g.wrapErr("volume", g.w.WriteJSON(message.Volume{
+	return g.wrapErr("update volume", g.w.WriteJSON(message.Volume{
 		Outgoing: message.Outgoing{Op: opcode.Volume},
 		Guild:    g.guild(),
 		Volume:   volume,
