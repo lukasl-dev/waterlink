@@ -20,6 +20,14 @@ type Guild struct {
 	id snowflake.Snowflake
 }
 
+// Destroy destroys the server-side audio player instance.
+func (g Guild) Destroy() error {
+	return g.wrapErr("destroy", g.w.WriteJSON(message.Destroy{
+		Outgoing: message.Outgoing{Op: opcode.Destroy},
+		Guild:    message.Guild{GuildID: g.id.String()},
+	}))
+}
+
 // UpdateVoice provides an intercepted voice server update event to the server.
 // This causes the server to connect to a voice channel.
 func (g Guild) UpdateVoice(session string, token, endpoint string) error {
