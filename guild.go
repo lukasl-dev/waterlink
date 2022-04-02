@@ -7,6 +7,7 @@ import (
 	"github.com/lukasl-dev/waterlink/internal/message/opcode"
 	"github.com/lukasl-dev/waterlink/internal/pkgerror"
 	"github.com/lukasl-dev/waterlink/track"
+	"time"
 )
 
 // Guild is a struct that is used to send guild-scoped messages via the
@@ -90,13 +91,12 @@ func (g Guild) Pause() error {
 	}))
 }
 
-// Seek seeks the current playing audio track to a specific position in
-// milliseconds.
-func (g Guild) Seek(position uint) error {
+// Seek seeks the current playing audio track to a specific position.
+func (g Guild) Seek(position time.Duration) error {
 	return g.wrapErr("seek", g.w.WriteJSON(message.Seek{
 		Outgoing: message.Outgoing{Op: opcode.Seek},
 		Guild:    g.guild(),
-		Position: position,
+		Position: uint(position.Milliseconds()),
 	}))
 }
 
