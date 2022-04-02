@@ -1,14 +1,17 @@
 package waterlink
 
-import "strconv"
+import (
+	"strconv"
+	"time"
+)
 
 // PlayParams contains optional parameters of the Guild.Play() method.
 type PlayParams struct {
 	// StartTime is the time in milliseconds to start playing the track at.
-	StartTime uint8 `json:"startTime,omitempty"`
+	StartTime time.Duration `json:"startTime,omitempty"`
 
 	// EndTime is the time in milliseconds to end playing the track at.
-	EndTime uint8 `json:"endTime,omitempty"`
+	EndTime time.Duration `json:"endTime,omitempty"`
 
 	// Volume is the new volume of the player. The value must be between 0 and
 	// 1000. Defaults to 100.
