@@ -15,7 +15,7 @@ func ExampleNewClient() {
 		log.Fatalln(err)
 	}
 
-	fmt.Printf("Client dispatches actions to %q.\n", cl.url.String())
+	fmt.Printf("Client dispatches actions to %q.", cl.url.String())
 
 	// Output:
 	// Client dispatches actions to "http://localhost:2333".
