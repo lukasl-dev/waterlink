@@ -100,9 +100,9 @@ func (g Guild) Seek(position uint) error {
 	}))
 }
 
-// Volume updates the volume of the guild's audio player. The value must be
+// UpdateVolume updates the volume of the guild's audio player. The value must be
 // between 0 and 1000. Defaults to 100.
-func (g Guild) Volume(volume uint16) error {
+func (g Guild) UpdateVolume(volume uint16) error {
 	if volume > 1000 {
 		return g.newErr("volume", "volume must be between 0 and 1000")
 	}
