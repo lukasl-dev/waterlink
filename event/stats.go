@@ -5,7 +5,7 @@ type Stats struct {
 	PlayingPlayers uint        `json:"playingPlayers,omitempty"`
 	Memory         MemoryStats `json:"memory,omitempty"`
 	CPU            CPUStats    `json:"cpu,omitempty"`
-	Frame          FrameStats  `json:"frame,omitempty"`
+	Frame          FrameStats  `json:"frameStats,omitempty"`
 }
 
 type MemoryStats struct {
@@ -22,7 +22,7 @@ type CPUStats struct {
 }
 
 type FrameStats struct {
-	Send    uint `json:"send,omitempty"`
+	Sent    uint `json:"sent,omitempty"`
 	Nulled  uint `json:"nulled,omitempty"`
-	Deficit uint `json:"deficit,omitempty"`
+	Deficit int  `json:"deficit,omitempty"`
 }
