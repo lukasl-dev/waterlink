@@ -103,7 +103,9 @@ func (conn Connection) listen() {
 		if err != nil {
 			continue
 		}
-		_ = conn.emit(op, data)
+		if err = conn.emit(op, data); err != nil {
+			fmt.Printf("Failed to emit event %q: %s\n", op, err)
+		}
 	}
 }
 
@@ -153,7 +155,7 @@ func (conn Connection) emitPlayerUpdate(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitPlayerUpdate(e)
+	go conn.opts.EventBus.EmitPlayerUpdate(e)
 	return nil
 }
 
@@ -162,7 +164,7 @@ func (conn Connection) emitStats(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitStats(e)
+	go conn.opts.EventBus.EmitStats(e)
 	return nil
 }
 
@@ -193,7 +195,7 @@ func (conn Connection) emitTrackStart(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitTrackStart(e)
+	go conn.opts.EventBus.EmitTrackStart(e)
 	return nil
 }
 
@@ -202,7 +204,7 @@ func (conn Connection) emitTrackEnd(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitTrackEnd(e)
+	go conn.opts.EventBus.EmitTrackEnd(e)
 	return nil
 }
 
@@ -211,7 +213,7 @@ func (conn Connection) emitTrackException(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitTrackException(e)
+	go conn.opts.EventBus.EmitTrackException(e)
 	return nil
 }
 
@@ -220,7 +222,7 @@ func (conn Connection) emitTrackStuck(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitTrackStuck(e)
+	go conn.opts.EventBus.EmitTrackStuck(e)
 	return nil
 }
 
@@ -229,6 +231,6 @@ func (conn Connection) emitWebSocketClosed(data []byte) error {
 	if err := json.Unmarshal(data, &e); err != nil {
 		return err
 	}
-	conn.opts.EventBus.EmitWebSocketClosed(e)
+	go conn.opts.EventBus.EmitWebSocketClosed(e)
 	return nil
 }
