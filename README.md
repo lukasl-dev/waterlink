@@ -27,6 +27,7 @@
 
 - [📖 Table of Contents](#-table-of-contents)
 - [📦 Installation](#-installation)
+- [🍀 Getting started](#-getting-started)
 
 ---
 
@@ -34,6 +35,21 @@
 
 ```shell
 go get -u github.com/lukasl-dev/waterlink
+```
+
+---
+
+## 🍀 Getting started
+
+For the further guides, a Lavalink instance is used, which uses the following `application.yml` configuration:
+
+```yml
+server:
+  port: 2333
+  address: 0.0.0.0
+lavalink:
+  server:
+    password: "youshallnotpass"
 ```
 
 ---
