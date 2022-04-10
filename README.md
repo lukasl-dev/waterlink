@@ -28,6 +28,11 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📦 Installation](#-installation)
 - [🍀 Getting started](#-getting-started)
+- [✨ Client related](#-client-related)
+  - [Creating a client](#creating-a-client)
+  - [Loading tracks](#loading-tracks)
+  - [Decoding a single track](#decoding-a-single-track)
+  - [Decoding multiple tracks](#decoding-multiple-tracks)
 
 ---
 
@@ -50,6 +55,49 @@ server:
 lavalink:
   server:
     password: "youshallnotpass"
+```
+
+---
+
+## ✨ Client related
+
+### Creating a client
+
+```go
+creds := waterlink.Credentials{
+  Authorization: "youshallnotpass",
+}
+client, err := waterlink.NewClient("http://localhost:2333", creds)
+```
+
+### Loading tracks
+
+```go
+res, err := client.LoadTracks(query.Of("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
+```
+
+```go
+res, err := client.LoadTracks(query.YouTube("Never Gonna Give You Up"))
+```
+
+```go
+res, err := client.LoadTracks(query.SoundCloud("Never Gonna Give You Up"))
+```
+
+### Decoding a single track
+
+```go
+info, err := client.DecodeTrack(
+  "QAAAoQIAPFJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAgKE9mZmljaWFsIE11c2ljIFZpZGVvKQALUmljayBBc3RsZXkAAAAAAANACAALZFF3NHc5V2dYY1EAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQAHeW91dHViZQAAAAAAAAAA",
+)
+```
+
+### Decoding multiple tracks
+
+```go
+tracks, err := client.DecodeTracks([]string{
+  "QAAAoQIAPFJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAgKE9mZmljaWFsIE11c2ljIFZpZGVvKQALUmljayBBc3RsZXkAAAAAAANACAALZFF3NHc5V2dYY1EAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQAHeW91dHViZQAAAAAAAAAA",
+})
 ```
 
 ---
