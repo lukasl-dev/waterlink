@@ -88,7 +88,7 @@ func (conn *Connection) APIVersion() string {
 // Guild returns a Guild used to interact with a specific guild. The
 // availability is not checked client-side.
 func (conn *Connection) Guild(id snowflake.Snowflake) Guild {
-	return Guild{w: conn.conn, id: id}
+	return Guild{conn: conn, id: id}
 }
 
 // ConfigureResuming enable the resumption of the session and defines the number

@@ -13,8 +13,8 @@ import (
 // Guild is a struct that is used to send guild-scoped messages via the
 // Connection.
 type Guild struct {
-	// w is the json writer to write the message payloads to.
-	w jsonWriter
+	// conn is the connection to write the message payloads to.
+	conn *Connection
 
 	// id is the id of the guild to which this scope belongs to.
 	id snowflake.Snowflake
@@ -22,7 +22,7 @@ type Guild struct {
 
 // Destroy destroys the server-side audio player instance.
 func (g Guild) Destroy() error {
-	return g.wrapErr("destroy", g.w.WriteJSON(message.Destroy{
+	return g.wrapErr("destroy", g.writeJSON(message.Destroy{
 		Outgoing: message.Outgoing{Op: opcode.Destroy},
 		Guild:    message.Guild{GuildID: g.id.String()},
 	}))
@@ -40,7 +40,7 @@ func (g Guild) UpdateVoice(session string, token, endpoint string) error {
 		return g.newErr("update voice", "endpoint must be present (not empty)")
 	}
 
-	return g.wrapErr("voice update", g.w.WriteJSON(message.VoiceUpdate{
+	return g.wrapErr("voice update", g.writeJSON(message.VoiceUpdate{
 		Outgoing: message.Outgoing{Op: opcode.VoiceUpdate},
 		Guild:    g.guild(),
 		Session:  session,
@@ -65,7 +65,7 @@ func (g Guild) Play(trackID string, params ...PlayParams) error {
 	}
 
 	p := params[0]
-	return g.wrapErr("play", g.w.WriteJSON(message.Play{
+	return g.wrapErr("play", g.writeJSON(message.Play{
 		Outgoing:  message.Outgoing{Op: opcode.Play},
 		Guild:     g.guild(),
 		Track:     trackID,
@@ -85,7 +85,7 @@ func (g Guild) PlayTrack(tr track.Track, params ...PlayParams) error {
 
 // Stop stops the audio playback of the guild's audio player.
 func (g Guild) Stop() error {
-	return g.wrapErr("stop", g.w.WriteJSON(message.Stop{
+	return g.wrapErr("stop", g.writeJSON(message.Stop{
 		Outgoing: message.Outgoing{Op: opcode.Stop},
 		Guild:    g.guild(),
 	}))
@@ -93,7 +93,7 @@ func (g Guild) Stop() error {
 
 // SetPaused pauses or resumes the audio playback of the guild's audio player.
 func (g Guild) SetPaused(paused bool) error {
-	return g.wrapErr("set paused", g.w.WriteJSON(message.Pause{
+	return g.wrapErr("set paused", g.writeJSON(message.Pause{
 		Outgoing: message.Outgoing{Op: opcode.Pause},
 		Guild:    g.guild(),
 		Pause:    paused,
@@ -102,7 +102,7 @@ func (g Guild) SetPaused(paused bool) error {
 
 // Seek seeks the current playing audio track to a specific position.
 func (g Guild) Seek(position time.Duration) error {
-	return g.wrapErr("seek", g.w.WriteJSON(message.Seek{
+	return g.wrapErr("seek", g.writeJSON(message.Seek{
 		Outgoing: message.Outgoing{Op: opcode.Seek},
 		Guild:    g.guild(),
 		Position: uint(position.Milliseconds()),
@@ -116,11 +116,16 @@ func (g Guild) UpdateVolume(volume uint16) error {
 		return g.newErr("update volume", "volume must be between 0 and 1000")
 	}
 
-	return g.wrapErr("update volume", g.w.WriteJSON(message.Volume{
+	return g.wrapErr("update volume", g.writeJSON(message.Volume{
 		Outgoing: message.Outgoing{Op: opcode.Volume},
 		Guild:    g.guild(),
 		Volume:   volume,
 	}))
+}
+
+// writeJSOn writes v as JSON into g's underlying connection.
+func (g Guild) writeJSON(v interface{}) error {
+	return g.conn.conn.WriteJSON(v)
 }
 
 // newErr creates a new error with action as prefix.
