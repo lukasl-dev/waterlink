@@ -33,6 +33,11 @@
   - [Loading tracks](#loading-tracks)
   - [Decoding a single track](#decoding-a-single-track)
   - [Decoding multiple tracks](#decoding-multiple-tracks)
+- [⛵ Connection related](#-connection-related)
+  - [Opening a connection](#opening-a-connection)
+  - [🦷 Configuring session resuming](#-configuring-session-resuming)
+  - [❌ Disabling session resuming](#-disabling-session-resuming)
+  - [📜 Getting a guild](#-getting-a-guild)
 
 ---
 
@@ -67,6 +72,7 @@ lavalink:
 creds := waterlink.Credentials{
   Authorization: "youshallnotpass",
 }
+
 client, err := waterlink.NewClient("http://localhost:2333", creds)
 ```
 
@@ -98,6 +104,63 @@ info, err := client.DecodeTrack(
 tracks, err := client.DecodeTracks([]string{
   "QAAAoQIAPFJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAgKE9mZmljaWFsIE11c2ljIFZpZGVvKQALUmljayBBc3RsZXkAAAAAAANACAALZFF3NHc5V2dYY1EAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQAHeW91dHViZQAAAAAAAAAA",
 })
+```
+
+---
+
+## ⛵ Connection related
+
+### Opening a connection
+
+The `opts` parameter is optional. In this example, it is used to register an EventHandler. **If this is not needed, omit it.**
+
+```go
+creds := waterlink.Credentials{
+  Authorization: "youshallnotpass", // password of the Lavalink instance
+  UserID:        0,                 // id of the bot user
+}
+
+opts := waterlink.ConnectionOptions{
+  EventHandler: waterlink.EventHandlerFunc(func(evt interface{}) {
+    fmt.Printf("%s received\n", reflect.TypeOf(evt))
+  }),
+}
+
+conn, err := waterlink.Open("ws://localhost:2333", creds, opts)
+```
+
+To restore a past session, its resume key can be defined in the credentials.
+
+> See  [Configuring session resuming](#-configuring-session-resuming)
+
+```go
+creds := waterlink.Credentials{
+  Authorization: "youshallnotpass", // password of the Lavalink instance
+  UserID:        0,                 // id of the bot user
+  ResumeKey:     "myResumeKey",     // the resume key of the previous session
+}
+```
+
+### 🦷 Configuring session resuming
+
+Configures a resume key with a timeout of 5 minutes.
+
+```go
+err := conn.ConfigureResuming("myResumeKey", 5*time.Minute)
+```
+
+### ❌ Disabling session resuming
+
+```go
+err := conn.DisableResuming()
+```
+
+### 📜 Getting a guild
+
+A guild is necessary to access its audio player. **The function does not check whether the bot user is on this guild.**
+
+```go
+g := conn.Guild(0) // id of the guild to access
 ```
 
 ---
