@@ -176,6 +176,10 @@ g := conn.Guild(0) // id of the guild to access
 
 ## 🏠 Guild related
 
+A guild can be obtained via one's own ID with the use of a connection.
+
+> See [Getting a guild](#-getting-a-guild)
+
 ### Destroying its player
 
 ```go
