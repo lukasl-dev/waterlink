@@ -38,6 +38,15 @@
   - [🦷 Configuring session resuming](#-configuring-session-resuming)
   - [❌ Disabling session resuming](#-disabling-session-resuming)
   - [📜 Getting a guild](#-getting-a-guild)
+- [🏠 Guild related](#-guild-related)
+  - [Destroying its player](#destroying-its-player)
+  - [Updating its voice server](#updating-its-voice-server)
+  - [Playing a track](#playing-a-track)
+  - [Stopping the playback](#stopping-the-playback)
+  - [Pausing/Resuming the playback](#pausingresuming-the-playback)
+  - [Seeking the playback](#seeking-the-playback)
+  - [Updating the volume](#updating-the-volume)
+- [📂 Examples](#-examples)
 
 ---
 
@@ -164,3 +173,64 @@ g := conn.Guild(0) // id of the guild to access
 ```
 
 ---
+
+## 🏠 Guild related
+
+### Destroying its player
+
+```go
+err := g.Destroy()
+```
+
+### Updating its voice server
+
+This function is primarily performed by 3rd party libraries event listeners.
+
+> See [Examples](#-examples)
+
+```go
+err := g.UpdateVoice("session", "token", "endpoint")
+```
+
+### Playing a track
+
+The `params` parameter is optional. It can be used to specify more information. **If this is not needed, omit it.**
+
+```go
+params := waterlink.PlayParams{
+  StartTime: 0,
+  EndTime:   0,
+  Volume:    0,
+  NoReplace: false,
+  Pause:     false,
+}
+err := g.PlayTrack(t, params)
+```
+
+### Stopping the playback
+
+```go
+err := g.Stop()
+```
+
+### Pausing/Resuming the playback
+
+```go
+err := g.SetPaused(true)
+```
+
+### Seeking the playback
+
+```go
+err := g.Seek(25 * time.Second) // seek to 25 seconds
+```
+
+### Updating the volume
+
+```go
+err := g.UpdateVolume(25) // 25%
+```
+
+---
+
+## 📂 Examples
