@@ -2,7 +2,9 @@ package waterlink
 
 import (
 	"fmt"
+	"github.com/lukasl-dev/waterlink/event"
 	"log"
+	"time"
 )
 
 func ExampleOpen() {
@@ -28,24 +30,20 @@ func ExampleOpen_listenToEvents() {
 		UserID:        820112919224124416, // the user ID of the bot user
 	}
 
-	events := NewChannelEventBus()
-	opts := ConnectionOptions{EventBus: events}
+	events := EventHandlerFunc(func(evt interface{}) {
+		switch evt := evt.(type) {
+		case event.Stats:
+			fmt.Println("Stats received:", evt)
+		case event.TrackEnd:
+			fmt.Println("Track ended:", evt)
+		}
+	})
+	opts := ConnectionOptions{EventHandler: events}
 
 	conn, err := Open("ws://localhost:2333", creds, opts)
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	go func() {
-		for {
-			select {
-			case e := <-events.Stats():
-				fmt.Println("Stats:", e)
-			case e := <-events.TrackEnds():
-				fmt.Println("TrackEnd:", e)
-			}
-		}
-	}()
 
 	fmt.Printf("The server is running on version %q.", conn.APIVersion())
 
@@ -69,4 +67,13 @@ func ExampleOpen_resumeSession() {
 
 	// Output:
 	// The server is running on version "3".
+}
+
+func ExampleConnection_ConfigureResuming() {
+	var conn Connection // TODO: open connection
+
+	err := conn.ConfigureResuming("myResumeKey", 1*time.Minute)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
