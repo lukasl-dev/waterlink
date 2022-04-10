@@ -26,6 +26,7 @@
 ## 📖 Table of Contents
 
 - [📖 Table of Contents](#-table-of-contents)
+- [📚 Introduction](#-introduction)
 - [📦 Installation](#-installation)
 - [🍀 Getting started](#-getting-started)
 - [✨ Client related](#-client-related)
@@ -47,6 +48,12 @@
   - [Seeking the playback](#seeking-the-playback)
   - [Updating the volume](#updating-the-volume)
 - [📂 Examples](#-examples)
+
+---
+
+## 📚 Introduction
+
+Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) API wrapper written in Go.
 
 ---
 
