@@ -176,7 +176,7 @@ g := conn.Guild(0) // id of the guild to access
 
 ## 🏠 Guild related
 
-A guild can be obtained via one's own ID with the use of a connection.
+A guild can be obtained via its own ID with the use of a connection.
 
 > See [Getting a guild](#-getting-a-guild)
 
@@ -188,7 +188,7 @@ err := g.Destroy()
 
 ### Updating its voice server
 
-This function is primarily performed by 3rd party libraries event listeners.
+This function is primarily performed inside a 3rd party libraries' event listener.
 
 > See [Examples](#-examples)
 
@@ -208,7 +208,7 @@ params := waterlink.PlayParams{
   NoReplace: false,
   Pause:     false,
 }
-err := g.PlayTrack(t, params)
+err := g.PlayTrack(t, params) // `t` is the preloaded track to play
 ```
 
 ### Stopping the playback
