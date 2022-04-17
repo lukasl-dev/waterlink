@@ -50,4 +50,7 @@ type Info struct {
 
 	// URI is the URL or the local path to the audio source.
 	URI string `json:"uri,omitempty"`
+
+	// SourceName is the name of the audio source.
+	SourceName string `json:"sourceName,omitempty"`
 }

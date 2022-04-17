@@ -44,7 +44,7 @@ func NewPauser(conn *websocket.Conn) pause.Pauser {
 type pausePayload struct {
 	OP      op     `json:"op,omitempty"`
 	GuildID string `json:"guildId,omitempty"`
-	Pause   bool
+	Pause   bool   `json:"pause"`
 }
 
 func (p *pauser) SetPaused(guildID string, paused bool) error {
