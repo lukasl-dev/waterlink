@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/gompus/snowflake"
 	"github.com/gorilla/websocket"
-	"github.com/lukasl-dev/waterlink/internal/message"
-	"github.com/lukasl-dev/waterlink/internal/message/opcode"
-	"github.com/lukasl-dev/waterlink/internal/pkgerror"
+	"github.com/lukasl-dev/waterlink/v2/internal/message"
+	"github.com/lukasl-dev/waterlink/v2/internal/message/opcode"
+	"github.com/lukasl-dev/waterlink/v2/internal/pkgerror"
 	"net/http"
 	"time"
 )

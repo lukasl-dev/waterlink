@@ -3,7 +3,7 @@ package waterlink
 import (
 	"fmt"
 	"github.com/gompus/snowflake"
-	"github.com/lukasl-dev/waterlink/internal"
+	"github.com/lukasl-dev/waterlink/v2/internal"
 	"net/http"
 )
 

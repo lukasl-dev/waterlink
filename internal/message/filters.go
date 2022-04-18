@@ -1,6 +1,6 @@
 package message
 
-import "github.com/lukasl-dev/waterlink/filter"
+import "github.com/lukasl-dev/waterlink/v2/filter"
 
 type Filters struct {
 	Incoming

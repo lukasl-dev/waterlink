@@ -1,7 +1,7 @@
 package message
 
 import (
-	"github.com/lukasl-dev/waterlink/internal/message/opcode"
+	"github.com/lukasl-dev/waterlink/v2/internal/message/opcode"
 )
 
 // Incoming represents the basic attributes of an incoming message.

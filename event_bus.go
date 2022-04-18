@@ -3,9 +3,9 @@ package waterlink
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/lukasl-dev/waterlink/event"
-	"github.com/lukasl-dev/waterlink/internal/message"
-	"github.com/lukasl-dev/waterlink/internal/message/opcode"
+	"github.com/lukasl-dev/waterlink/v2/event"
+	"github.com/lukasl-dev/waterlink/v2/internal/message"
+	"github.com/lukasl-dev/waterlink/v2/internal/message/opcode"
 	"reflect"
 )
 

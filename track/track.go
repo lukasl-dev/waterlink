@@ -1,7 +1,7 @@
 package track
 
 import (
-	"github.com/lukasl-dev/waterlink/track/query"
+	"github.com/lukasl-dev/waterlink/v2/track/query"
 )
 
 // Track represents a preloaded track.

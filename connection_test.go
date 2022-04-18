@@ -2,7 +2,7 @@ package waterlink
 
 import (
 	"fmt"
-	"github.com/lukasl-dev/waterlink/event"
+	"github.com/lukasl-dev/waterlink/v2/event"
 	"log"
 	"time"
 )
