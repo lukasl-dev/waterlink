@@ -7,15 +7,15 @@
       height="30"
     />
   </a>
-  <a href="https://pkg.go.dev/github.com/lukasl-dev/waterlink">
+  <a href="https://pkg.go.dev/github.com/lukasl-dev/waterlink/v2">
     <img
       src="https://img.shields.io/badge/godoc-reference-5272B4.svg?style=for-the-badge"
       height="30"
     />
   </a>
-  <a href="https://goreportcard.com/report/github.com/lukasl-dev/waterlink">
+  <a href="https://goreportcard.com/report/github.com/lukasl-dev/waterlink/v2">
     <img
-      src="https://goreportcard.com/badge/github.com/lukasl-dev/waterlink?style=for-the-badge"
+      src="https://goreportcard.com/badge/github.com/lukasl-dev/waterlink/v2?style=for-the-badge"
       height="30"
     />
   </a>
