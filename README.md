@@ -48,6 +48,7 @@
   - [Seeking the playback](#seeking-the-playback)
   - [Updating the volume](#updating-the-volume)
 - [📂 Examples](#-examples)
+  - [octave](#octave)
 
 ---
 
@@ -245,3 +246,7 @@ err := g.UpdateVolume(25) // 25%
 ---
 
 ## 📂 Examples
+
+### octave
+
+[Octave](https://github.com/lukasl-dev/octave) is a simple music bot written by myself. It uses [discordgo](https://github.com/bwmarrin/discordgo) as its Discord library.
