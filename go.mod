@@ -1,4 +1,4 @@
-module github.com/lukasl-dev/waterlink
+module github.com/lukasl-dev/waterlink/v2
 
 go 1.15
 
