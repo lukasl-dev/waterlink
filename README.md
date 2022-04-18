@@ -61,7 +61,7 @@ Waterlink is a [Lavalink](https://github.com/freyacodes/Lavalink) API wrapper wr
 ## 📦 Installation
 
 ```shell
-go get -u github.com/lukasl-dev/waterlink
+go get -u github.com/lukasl-dev/waterlink@latest
 ```
 
 ---
