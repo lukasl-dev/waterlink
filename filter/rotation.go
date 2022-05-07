@@ -1,5 +1,5 @@
 package filter
 
 type Rotation struct {
-	RotationHz int `json:"rotationHz,omitempty"`
+	RotationHz float32 `json:"rotationHz,omitempty"`
 }

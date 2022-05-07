@@ -1,8 +1,8 @@
 package filter
 
 type Karaoke struct {
-	Level       float32
-	MonoLevel   float32
-	FilterBand  float32
-	FilterWidth float32
+	Level       float32 `json:"level,omitempty"`
+	MonoLevel   float32 `json:"monoLevel,omitempty"`
+	FilterBand  float32 `json:"filterBand,omitempty"`
+	FilterWidth float32 `json:"filterWidth,omitempty"`
 }
