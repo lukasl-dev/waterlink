@@ -3,6 +3,7 @@ package waterlink
 import (
 	"fmt"
 	"github.com/gompus/snowflake"
+	"github.com/lukasl-dev/waterlink/v2/filter"
 	"github.com/lukasl-dev/waterlink/v2/internal/message"
 	"github.com/lukasl-dev/waterlink/v2/internal/message/opcode"
 	"github.com/lukasl-dev/waterlink/v2/internal/pkgerror"
@@ -120,6 +121,15 @@ func (g Guild) UpdateVolume(volume uint16) error {
 		Outgoing: message.Outgoing{Op: opcode.Volume},
 		Guild:    g.guild(),
 		Volume:   volume,
+	}))
+}
+
+// Filters sets the filter of the current playback.
+func (g Guild) Filters(filters filter.Filters) error {
+	return g.wrapErr("filters", g.writeJSON(message.Filters{
+		Outgoing: message.Outgoing{Op: opcode.Filters},
+		Guild:    g.guild(),
+		Filters:  filters,
 	}))
 }
 
