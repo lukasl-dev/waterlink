@@ -31,14 +31,14 @@ func (p PlayParams) startTime() string {
 	if p.StartTime == 0 {
 		return ""
 	}
-	return strconv.Itoa(int(p.StartTime))
+	return strconv.Itoa(int(p.StartTime.Milliseconds()))
 }
 
 func (p PlayParams) endTime() string {
 	if p.EndTime == 0 {
 		return ""
 	}
-	return strconv.Itoa(int(p.EndTime))
+	return strconv.Itoa(int(p.EndTime.Milliseconds()))
 }
 
 func (p PlayParams) volume() string {
