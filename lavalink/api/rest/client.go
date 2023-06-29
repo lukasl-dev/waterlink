@@ -10,6 +10,7 @@ import (
 	"gopkg.in/h2non/gentleman.v2"
 	"gopkg.in/h2non/gentleman.v2/plugins/body"
 	"net/http"
+	"strconv"
 )
 
 type Client struct {
@@ -169,6 +170,30 @@ func (cl *Client) Player(sessionID string, guildID discord.Snowflake) (*player.P
 //	// TODO: implement
 //	panic("not implemented")
 //}
+
+func (cl *Client) UpdatePlayer(sessionID string, guildID discord.Snowflake, update player.Update, noReplace bool) (*player.Player, error) {
+	req := cl.client.Request().
+		Method(http.MethodPatch).
+		Path(fmt.Sprintf("/v3/sessions/%s/players/%s", sessionID, guildID)).
+		AddQuery("noReplace", strconv.FormatBool(noReplace)).
+		Use(body.JSON(update))
+
+	resp, err := req.Send()
+	if err != nil {
+		return nil, fmt.Errorf("waterlink: rest: player api: failed to update player: %w", err)
+	}
+
+	if !resp.Ok {
+		return nil, fmt.Errorf("waterlink: rest: player api: failed to update player: unexpected status code %d received", resp.StatusCode)
+	}
+
+	var play player.Player
+	if err := resp.JSON(&play); err != nil {
+		return nil, fmt.Errorf("waterlink: rest: player api: failed to update player: %w", err)
+	}
+
+	return &play, nil
+}
 
 // DestroyPlayer destroys the player for the specified guild. It dispatches a DELETE
 // request to /sessions/{sessionID}/players/{guildID}, whereby {sessionID} is
