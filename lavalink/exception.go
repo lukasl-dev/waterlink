@@ -8,9 +8,11 @@ type Exception struct {
 	Cause    string            `json:"cause,omitempty"`
 }
 
+var _ error = (*Exception)(nil)
+
 // Error returns the error Message of tee.
-func (tee Exception) Error() string {
-	return tee.Message
+func (ex *Exception) Error() string {
+	return ex.Message
 }
 
 // ExceptionSeverity represents the severity of a Exception.
